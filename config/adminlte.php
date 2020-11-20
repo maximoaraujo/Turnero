@@ -264,7 +264,7 @@ return [
                 ],
                 [
                     'text' => 'Citogenética',
-                    'url' => '',
+                    'url' => '#',
                     'icon_color' => 'white',
                 ],
             ],
