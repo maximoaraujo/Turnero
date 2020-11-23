@@ -6,9 +6,6 @@
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        <li class = "nav-item">
-          <input type = "date" class = "form-control" id = "fecha_turno">
-        </li>
         </ul> 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
@@ -82,7 +79,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                <a href="/general" class="nav-link">
+                <a href="/general?f=" class="nav-link">
                   <i class="far fa-circle nav-icon" style = "color:cyan;"></i>
                   <p>General</p>
                 </a>
@@ -163,8 +160,13 @@ $(document).ready(function(){
     document.getElementById('fecha_turno').style.display = "none";
   }
 
-  $("#fecha_turno").datetimepicker({
-    format: 'dd-mm-yyyy'
+  $("#fecha_turno").on('change', function(){
+    var fecha = $("#fecha_turno").val();
+    location.href="http://127.0.0.1:8000/general?f="+fecha;     
   });
+
+  $("#guardar").on('click', function(){
+    alert("!");
+});
 });
 </script>

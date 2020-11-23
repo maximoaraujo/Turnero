@@ -25,3 +25,4 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //Turnos
 Route::get('/general', [ControladorTurnos::class, 'general']);
+Route::post('/general_por_fecha', [ControladorTurnos::class, 'general_por_fecha']);

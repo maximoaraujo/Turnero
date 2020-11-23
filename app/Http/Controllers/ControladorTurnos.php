@@ -16,20 +16,14 @@ class ControladorTurnos extends Controller
     }
 
     public function general()
-    {
-        $fecha_turno = date('Y-m-d');
-
+    {        
         $horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
         ->where('horarios_estudios.estudio', 'generales')
-        ->get()
-        ->sortBy('horarios.horario');
-
-        $cuento_turnos = pacientes_turno::where('fecha', $fecha_turno)
-        ->get()
-        ->count();         
+        ->orderBy('horarios.horario')
+        ->get();
 
         $cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
 
-        return view('turnos.general', compact('horarios', 'cuento_turnos', 'cantidad_turnos'));
+        return view('turnos.general', compact('horarios', 'cantidad_turnos'));
     }
 }
