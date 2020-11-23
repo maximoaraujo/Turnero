@@ -6,6 +6,9 @@
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
+        <li class = "nav-item">
+          <input type = "date" class = "form-control" id = "fecha_turno">
+        </li>
         </ul> 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
@@ -31,7 +34,7 @@
 
     <!--Sidebar contenedor principal-->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <a href="#" class="brand-link">
+        <a href="/home" class="brand-link">
         <span class="brand-text font-weight-light">Gestión de turnos</span>
         </a>
 
@@ -152,3 +155,16 @@
     </div>    
 </div>
 <!-- ./wrapper -->
+
+<script type = "text/javascript">
+$(document).ready(function(){
+  var URLactual = window.location;
+  if (URLactual == 'http://127.0.0.1:8000/home') {
+    document.getElementById('fecha_turno').style.display = "none";
+  }
+
+  $("#fecha_turno").datetimepicker({
+    format: 'dd-mm-yyyy'
+  });
+});
+</script>
