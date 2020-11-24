@@ -153,20 +153,4 @@
 </div>
 <!-- ./wrapper -->
 
-<script type = "text/javascript">
-$(document).ready(function(){
-  var URLactual = window.location;
-  if (URLactual == 'http://127.0.0.1:8000/home') {
-    document.getElementById('fecha_turno').style.display = "none";
-  }
-
-  $("#fecha_turno").on('change', function(){
-    var fecha = $("#fecha_turno").val();
-    location.href="http://127.0.0.1:8000/general?f="+fecha;     
-  });
-
-  $("#guardar").on('click', function(){
-    alert("!");
-});
-});
-</script>
+<script type = "text/javascript" src = "js/generales.js"></script>

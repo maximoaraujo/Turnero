@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class pacientes_turno extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'id', 
+        'letra',
+        'fecha',
+        'id_horario',
+        'documento',
+        'id_usuario',
+        'fecha_hora',
+        'para',
+        'asistio',
+        'comentarios'
+    ];
 }

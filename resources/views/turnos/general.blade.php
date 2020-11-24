@@ -31,57 +31,60 @@
         </div>
         <div class="collapsed-box card-body" style = "display:none;">
         <!---->
+        <form method = "POST" action = "{{ route('guardo_general') }}">
+        @csrf
             <div class = "row">
+                <input type = "number" name = "id_usuario" value = "{{Auth::user()->id}}" hidden>
+                <input type = "number" name = "id_horario" value = "{{$horario->id_horario}}" hidden>
+                <input type = "date" class = "form-control" name = "fecha_turno" value = "<?php echo $fecha=$_GET['f']; ?>" hidden>
                 <div class = "col-sm-5">
-                    <input type = "number" class = "form-control" placeholder="Documento">
+                    <input type = "number" class = "form-control" id = "documento{{$horario->id_horario}}" name = "documento" placeholder="Documento" required>
                 </div>
                 <div class = "col-sm-7">
                     @if($horario->horario == '06:30')
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="p75">
+                        <input type="checkbox" class="custom-control-input" name = "p75" id="p75">
                         <label class="custom-control-label" for="p75">P75</label>
                     </div>
                     @endif
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="ley">
-                        <label class="custom-control-label" for="ley">Ley 26743</label>
+                        <input type="checkbox" class="custom-control-input" name = "ley{{$horario->id_horario}}" id="ley{{$horario->id_horario}}">
+                        <label class="custom-control-label" for="ley{{$horario->id_horario}}">Ley 26743</label>
                     </div>
                 </div>
-                <div class = "col-sm-3">
-                    
+            </div>
+            <div class = "row" style = "margin-top:5px;">
+                <div class = "col-sm-12">
+                    <input type = "text" class = "form-control" id = "paciente{{$horario->id_horario}}" name = "paciente" placeholder="Paciente" required>
                 </div>
             </div>
             <div class = "row" style = "margin-top:5px;">
                 <div class = "col-sm-12">
-                    <input type = "text" class = "form-control" placeholder="Paciente">
-                </div>
-            </div>
-            <div class = "row" style = "margin-top:5px;">
-                <div class = "col-sm-12">
-                    <input type = "text" class = "form-control" placeholder="Domicilio">
+                    <input type = "text" class = "form-control" id = "domicilio{{$horario->id_horario}}" name = "domicilio" placeholder="Domicilio" required>
                 </div>
             </div>
             <div class = "row" style = "margin-top:5px;">
                 <div class = "col-sm-5">
-                    <input type = "text" class = "form-control" placeholder="Teléfono">
+                    <input type = "text" class = "form-control" id = "telefono{{$horario->id_horario}}" name = "telefono" placeholder="Teléfono" required>
                 </div>
                 <div class = "col-sm-7">
-                    <input type = "date" class = "form-control" placeholder="Fecha">
+                    <input type = "date" class = "form-control" id = "fecha_nacimiento{{$horario->id_horario}}" name = "fecha_nacimiento" placeholder="Fecha">
                 </div>
             </div>
             <div class = "row" style = "margin-top:5px;">
                 <div class = "col-sm-12">
-                    <input type = "text" class = "form-control" placeholder="Obra social">
+                    <input type = "text" class = "form-control" id = "obra_social{{$horario->id_horario}}" name = "obra_social" placeholder="Obra social" required>
                 </div>
             </div>
             <div class = "row" style = "margin-top:5px;">
                 <div class = "col-sm-12">
-                    <input type = "text" class = "form-control" placeholder="Comentarios">
+                    <input type = "text" class = "form-control" name = "comentarios" placeholder="Comentarios">
                 </div>
             </div>
             <center>
-            <button class = "btn btn-success" style = "margin-top:5px;" id = "guardar">Guardar</button>
+            <button type = "submit" class = "btn btn-success" style = "margin-top:5px;" id = "guardar">Guardar</button>
             </center>
+        </form>    
         <!--/-->
         </div>
     </div>
@@ -89,3 +92,4 @@
 @endforeach  
 </div>   
 @endsection
+

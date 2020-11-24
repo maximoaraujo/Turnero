@@ -25,4 +25,6 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //Turnos
 Route::get('/general', [ControladorTurnos::class, 'general']);
-Route::post('/general_por_fecha', [ControladorTurnos::class, 'general_por_fecha']);
+Route::post('/busco_paciente', [ControladorTurnos::class, 'busco_paciente']);
+Route::post('/general', [ControladorTurnos::class, 'guardo_general'])->name('guardo_general');
+Route::get('/comprobante_turno/{fecha}/{id}/{documento}/{paciente}', [ControladorTurnos::class, 'comprobante_turno']);
