@@ -28,44 +28,41 @@ $fecha = $_GET['f'];
     font-size:15px;
     margin-top:-45px; 
 }
-#cabecera_horarios{
-    border:1px solid black;
-    list-style:none;
-    border-bottom: 1px solid #C6C7C7;
-    border-top: 1px solid #C6C7C7;
-    border-left: 1px solid #C6C7C7;
-}
 #cabecera_horarios_1{
+    margin-top:10px;
     font-size:18px;
+    list-style:none;
     text-decoration:none;
-    border-bottom: 1px solid #C6C7C7;
-    border-top: 1px solid #C6C7C7;
-    border-right: 1px solid #C6C7C7;
+    background-color: #C6C7C7;
+    border-left:1px solid black;
+    border-right:1px solid black;
+    border-top:1px solid black;
+    border-bottom:1px solid black;
 }
 .table {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size:14px;
-text-align: right;
-width: 100%;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size:14px;
+    text-align: right;
+    width: 100%;
 }
 .table th {
-padding: 5px;
-font-size: 16px;
-background-color: #83aec0;
-color: #FFFFFF;
-border-right-width: 1px;
-border-bottom-width: 1px;
-border-right-style: solid;
-border-bottom-style: solid;
-border-right-color: #558FA6;
-border-bottom-color: #558FA6;
-font-family: “Trebuchet MS”, Arial;
-text-transform: uppercase;
+    padding: 5px;
+    font-size: 16px;
+    background-color: #83aec0;
+    color: #FFFFFF;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-right-color: #558FA6;
+    border-bottom-color: #558FA6;
+    font-family: “Trebuchet MS”, Arial;
+    text-transform: uppercase;
 }
 .table td {
-text-align: left;
-border-bottom-style: solid;
-border-bottom-color: #CDC7C7;
+    text-align: left;
+    border-bottom-style: solid;
+    border-bottom-color: #CDC7C7;
 }
 </style>
 <div class = "row">
@@ -88,9 +85,7 @@ while ($registros = mysqli_fetch_assoc($sql_cons_ids)) {
     FROM pacientes_turnos, pacientes WHERE pacientes_turnos.documento = pacientes.documento AND pacientes_turnos.id_horario = '".$registros['id_horario']."'
     AND pacientes_turnos.fecha = '".$fecha."'");
     echo "<center>
-            <ul id = 'cabecera_horarios'>
-                <li id = 'cabecera_horarios_1'><small>".$horario[0]."</small></li>
-            </ul>
+            <li id = 'cabecera_horarios_1'><small>".$horario[0]."</small></li>
          </center>";
     echo '<table cellspacing="0" width="100%">';
     while ($regis = mysqli_fetch_assoc($sql_cons_paciente)) {

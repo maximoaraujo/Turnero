@@ -30,3 +30,6 @@ Route::post('/guardo_general', [ControladorTurnos::class, 'guardo_general'])->na
 Route::get('/comprobante_turno/{fecha}/{id}/{documento}/{paciente}', [ControladorTurnos::class, 'comprobante_turno']);
 //Planilla
 Route::get('/planilla', [HomeController::class, 'planilla']);
+
+//Ver turnos
+Route::get('/ver-turnos', [HomeController::class, 'ver_turnos']);

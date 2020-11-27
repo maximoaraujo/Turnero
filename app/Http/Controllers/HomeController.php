@@ -30,4 +30,9 @@ class HomeController extends Controller
     {
         return view('impresiones.planilla');
     }
+
+    public function ver_turnos()
+    {
+        return view('ver-turnos.ver_turnos');
+    }
 }
