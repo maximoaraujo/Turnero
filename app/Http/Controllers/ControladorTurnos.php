@@ -24,8 +24,9 @@ class ControladorTurnos extends Controller
         ->get();
 
         $cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
+        $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
 
-        return view('turnos.general', compact('horarios', 'cantidad_turnos'));
+        return view('turnos.general', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor'));
     }
 
     public function busco_paciente(Request $request)
@@ -116,7 +117,7 @@ class ControladorTurnos extends Controller
             ]);
 
             if (($actualizo_paciente)&&($guardo_turno)) {
-                return redirect('/general?f='.$request->fecha_turno);
+                echo "Correcto";
             }
 
         } else {
@@ -144,10 +145,9 @@ class ControladorTurnos extends Controller
             ]);
 
             if (($actualizo_paciente)&&($guardo_turno)) {
-                //return redirect('/general?f='.$request->fecha_turno);
-                return redirect('/comprobante_turno/'.$request->fecha_turno.'/'.$request->id_horario.'/'.$request->documento.'/'.$request->paciente);
-            }
-        }       
+                echo "Correcto";
+            }   
+        }
     }
 
     public function comprobante_turno($fecha, $id, $documento, $paciente)
