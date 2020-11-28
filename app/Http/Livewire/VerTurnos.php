@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\horario;
 use App\Models\pacientes_turno;
+use App\Models\paciente;
 
 class VerTurnos extends Component
 {
@@ -16,9 +17,12 @@ class VerTurnos extends Component
     public $tab_dengue, $tab_exudado, $tab_espermograma, $tab_general, $tab_citogenetica, $tab_p75;
     public $tab_dengue_, $tab_exudado_, $tab_espermograma_, $tab_general_, $tab_citogenetica_, $tab_p75_;
     public $chk_general;
+    public $accion;
+    public $documento, $paciente, $fecha_nacimiento, $domicilio, $telefono, $obra_social;
 
     public function mount()
-    {
+    {   
+        $this->accion = "ver";
         $this->fecha = date('Y-m-d');
         $this->cargo_horarios();
         $this->cargo_generales();
@@ -97,7 +101,7 @@ class VerTurnos extends Component
     public function asistencia_generales($id_horario, $letra, $id, $documento)
     {
         $asistencia = pacientes_turno::where('fecha', $this->fecha)->where('id_horario', $id_horario)
-        ->where('letra', $letra)->where('id', $id)->where('documento', $documento)->update([
+        ->where('documento', $documento)->update([
             'asistio' => 'si'
         ]);
 
@@ -107,6 +111,41 @@ class VerTurnos extends Component
             $this->cargo_p75();
             $this->generales_x_horario();
         }
+    }
+
+    public function editar_datos($documento)
+    {
+        $this->accion = "editar datos";
+        $this->documento = $documento;
+        $this->paciente = paciente::where('documento', $this->documento)->get()->pluck('paciente')->first();
+        $this->fecha_nacimiento = paciente::where('documento', $this->documento)->get()->pluck('fecha_nac')->first();
+        $this->domicilio = paciente::where('documento', $this->documento)->get()->pluck('domicilio')->first();
+        $this->telefono = paciente::where('documento', $this->documento)->get()->pluck('telefono')->first();
+        $this->obra_social = paciente::where('documento', $this->documento)->get()->pluck('obra_social')->first();
+    }
+
+    public function actualizo_datos()
+    {
+        $actualizo_datos = paciente::where('documento', $this->documento)->update([
+            'paciente' => $this->paciente,
+            'fecha_nac' => $this->fecha_nacimiento,
+            'domicilio' => $this->domicilio,
+            'telefono' => $this->telefono,
+            'obra_social' => $this->obra_social
+        ]);
+
+        if ($actualizo_datos) {
+            $this->cancelar_edicion();
+        }
+    }
+
+    public function cancelar_edicion()
+    {
+        $this->accion = "ver";
+        $this->cargo_horarios();
+        $this->cargo_generales();
+        $this->cargo_p75();
+        $this->generales_x_horario();
     }
 
 }

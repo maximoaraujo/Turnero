@@ -1,4 +1,8 @@
 <div>
+    @if($accion == "editar datos")
+        @include('ver-turnos.editar_datos_paciente')
+    @endif
+    @if($accion == "ver")
     <div class = "row">
         <div class = "col-sm-2">  
             <input type = "date" class = "form-control" wire:model='fecha' style = "margin-top:10px;">
@@ -63,9 +67,13 @@
                     <th scope="col" nowrap>Asistió</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
+                    @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
                     <th scope="col"></th>
+                    @endif
                     <th scope="col"></th>
+                    @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
                     <th scope="col"></th>
+                    @endif
                 </tr>
                 </thead>
                 <tbody>
@@ -82,6 +90,15 @@
                     <td style = 'text-align: center;'><label><input type='checkbox' checked></label></td>
                     @else
                     <td style = 'text-align: center;'><label><input type='checkbox' wire:click='asistencia_generales("{{$turno_general->id_horario}}", "{{$turno_general->letra}}", "{{$turno_general->id}}", "{{$turno_general->documento}}")'></label></td>
+                    @endif
+                    <td><button wire:click='editar_datos("{{$turno_general->documento}}")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
+                    <td><button style = "border:none;background-color:transparent;"><i class="far fa-calendar-alt"></i></button></td>
+                    @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
+                    <td><button style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>
+                    @endif    
+                    <td><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></td>
+                    @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
+                    <td><button style = "border:none;background-color:transparent;"><i class="fas fa-info"></i></button></td>
                     @endif
                 </tr>
                 @endforeach
@@ -131,4 +148,6 @@
         </div>
     </div>
     </div>
+    @endif
 </div>
+
