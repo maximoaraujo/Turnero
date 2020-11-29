@@ -6,10 +6,13 @@ use Livewire\Component;
 use App\Models\horario;
 use App\Models\pacientes_turno;
 use App\Models\paciente;
+use App\Models\config;
 
 class VerTurnos extends Component
 {
     public $fecha;
+    public $fecha_nuevo_turno;
+    public $cantidad_turnos;
     public $turnos_generales = [];
     public $turnos_p75 = [];
     public $horarios = [];
@@ -154,5 +157,6 @@ class VerTurnos extends Component
         $this->accion = "editar turno";
         $this->paciente = $paciente;
         $this->horario_turno = $horario;
+        $this->cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
     }
 }
