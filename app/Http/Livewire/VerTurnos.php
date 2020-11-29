@@ -14,6 +14,7 @@ class VerTurnos extends Component
     public $turnos_p75 = [];
     public $horarios = [];
     public $horario_sel;
+    public $horario_turno;
     public $tab_dengue, $tab_exudado, $tab_espermograma, $tab_general, $tab_citogenetica, $tab_p75;
     public $tab_dengue_, $tab_exudado_, $tab_espermograma_, $tab_general_, $tab_citogenetica_, $tab_p75_;
     public $chk_general;
@@ -148,4 +149,10 @@ class VerTurnos extends Component
         $this->generales_x_horario();
     }
 
+    public function editar_turno($documento, $horario, $paciente)
+    {
+        $this->accion = "editar turno";
+        $this->paciente = $paciente;
+        $this->horario_turno = $horario;
+    }
 }
