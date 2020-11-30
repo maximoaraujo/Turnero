@@ -16,6 +16,19 @@ class ControladorTurnos extends Controller
         $this->middleware('auth');
     }
 
+    public function dengue()
+    {        
+        $horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
+        ->where('horarios_estudios.estudio', 'dengue')
+        ->orderBy('horarios.horario')
+        ->get();
+
+        $cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
+        $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
+
+        return view('turnos.dengue', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor'));
+    }
+
     public function general()
     {        
         $horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
