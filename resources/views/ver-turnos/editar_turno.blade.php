@@ -5,9 +5,10 @@
     <p>Fecha del turno: {{date('d-m-Y', strtotime($fecha))}}</p>
 </div>
 <div class = "row" style = "margin-left:10px;">
-    <p>Horario del turno: {{$id_horario_viejo}}-{{$horario_turno}}</p>
+    <p>Horario del turno: {{$horario_turno}}</p>
 </div>
 <hr>
+<h1>{{Session::get('mensaje')}}</h1>
 <center>
 <div class = "col-sm-3">
     <input type = "date" class = "form-control" wire:model='fecha_nuevo_turno'>

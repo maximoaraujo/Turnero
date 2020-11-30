@@ -52,7 +52,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/dengue?f=<?php echo $fecha = date('Y-m-d'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon" style = "color:red;"></i>
                   <p>Dengue</p>
                 </a>
@@ -95,7 +95,7 @@
                 </li>
             </ul>  
             <li class="nav-item">
-            <a href="/planilla?f=<?php echo $fecha = date('Y-m-d'); ?>" class="nav-link">
+              <a href="/planilla?f=<?php echo $fecha = date('Y-m-d'); ?>" class="nav-link" target="_blank">
               <i class="nav-icon far fa-file-alt"></i>
               <p>
                 Planilla

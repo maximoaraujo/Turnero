@@ -35,6 +35,8 @@ class VerTurnos extends Component
     public $accion;
     //Parametros para editar los datos del paciente, también se usa para editar un turno
     public $documento, $paciente, $fecha_nacimiento, $domicilio, $telefono, $obra_social;
+    //Parametros para ver quien asigno el turno
+    public $usuario, $fecha_hora;
 
     public function mount()
     {   
@@ -84,9 +86,10 @@ class VerTurnos extends Component
         $condicion_gen = ['pacientes_turnos.fecha' => $this->fecha, 'pacientes_turnos.para' => 'general', 'horarios.id_horario' => $this->horario_sel];
         $this->turnos_generales = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
         ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
+        ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
         ->where($condicion_gen)
         ->select('pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
-        'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
+        'users.name', 'pacientes_turnos.fecha_hora', 'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
         ->orderBy('horarios.horario')
         ->get(); 
 
@@ -230,9 +233,19 @@ class VerTurnos extends Component
             $elimino_anterior = pacientes_turno::where('documento', $this->documento)->where('id_horario', $this->id_horario_viejo)
             ->where('fecha', $this->fecha)->delete();
             if ($elimino_anterior) {
-                $this->accion = "ver";
-                return redirect('/comprobante_turno/'.$this->fecha_nuevo_turno.'/'.$this->id_nuevo_horario.'/'.$this->documento.'/'.$this->paciente);  
+                return redirect('/comprobante_turno'.'/'.$this->fecha_nuevo_turno.'/'.$this->id_nuevo_horario.'/'.$this->documento.'/'.$this->paciente);               
             }
+        }       
+    }
+
+    public function eliminar_turno($documento, $id_horario, $fecha)
+    {
+        $elimino_turno = pacientes_turno::where('documento', $documento)->where('id_horario', $id_horario)
+        ->where('fecha', $fecha)->delete();
+
+        if($elimino_turno){
+            return redirect('/ver-turnos')->back()->with('mensaje', '');
         }
     }
+
 }

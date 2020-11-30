@@ -112,5 +112,5 @@ $dompdf->loadhtml(ob_get_clean());
 
 $dompdf->render();
  
-$dompdf->stream('planilla_'.$fecha.'.pdf');
+$dompdf->stream('planilla_'.$fecha.'.pdf', array("Attachment" => false));
 ?>
