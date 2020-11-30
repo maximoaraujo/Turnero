@@ -10,18 +10,30 @@ use App\Models\config;
 
 class VerTurnos extends Component
 {
+    //Fecha para ver los turnos
     public $fecha;
+    //Edición de turnos
+    //Fecha del nuevo turno
     public $fecha_nuevo_turno;
+    //Horario del turno que se esta por editar
+    public $horario_turno, $id_horario_viejo;
+    //ID del nuevo horario al editar un turno
+    public $id_nuevo_horario;
+    //Cantidad de turnos por tipo de estudio
     public $cantidad_turnos;
+    //Turnos por tipo de estudio
     public $turnos_generales = [];
     public $turnos_p75 = [];
+    //Horarios por tipo de estudio
     public $horarios = [];
+    //Horario para buscar en la tabla de turnos
     public $horario_sel;
-    public $horario_turno;
+    //Visibilidad de tabs según lo que se seleccione
     public $tab_dengue, $tab_exudado, $tab_espermograma, $tab_general, $tab_citogenetica, $tab_p75;
     public $tab_dengue_, $tab_exudado_, $tab_espermograma_, $tab_general_, $tab_citogenetica_, $tab_p75_;
-    public $chk_general;
+    //Tipo de acción (ver, editar datos, editar turno)
     public $accion;
+    //Parametros para editar los datos del paciente, también se usa para editar un turno
     public $documento, $paciente, $fecha_nacimiento, $domicilio, $telefono, $obra_social;
 
     public function mount()
@@ -152,11 +164,75 @@ class VerTurnos extends Component
         $this->generales_x_horario();
     }
 
-    public function editar_turno($documento, $horario, $paciente)
-    {
+    public function editar_turno($documento, $horario, $paciente, $id_horario_viejo, $tipo)
+    {   
         $this->accion = "editar turno";
         $this->paciente = $paciente;
         $this->horario_turno = $horario;
-        $this->cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
+        $this->id_horario_viejo = $id_horario_viejo;
+        $this->documento = $documento;
+        if ($tipo == "general") {
+            $this->cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
+        }    
+    }
+
+    public function nuevo_turno($id_horario, $id_usuario)
+    {
+        $this->id_nuevo_horario = $id_horario;
+        //Array con la cantidad de turnos disponibles
+        $cons_turnos = config::get()->pluck('cant_turnos_gen')->first();
+
+        for ($i=1; $i < $cons_turnos + 1; $i++) { 
+            $array_turnos[] = $i;
+        }    
+                
+        //Letra según el horario seleccionado
+        $letra = horario::where('id_horario', $this->id_nuevo_horario)->get()->pluck('letra')->first();
+                
+        //Array con los turnos ya ocupados
+        $cons_ocupados = pacientes_turno::join('horarios', 'horarios.id_horario', 'pacientes_turnos.id_horario')
+        ->select('pacientes_turnos.id')
+        ->where('horarios.id_horario', $this->id_nuevo_horario)
+        ->where('pacientes_turnos.fecha', $this->fecha_nuevo_turno)
+        ->get();
+                
+        foreach ($cons_ocupados as $ocupados) {
+            $array_ocupados[] = $ocupados['id'];
+        }
+        
+        //Si el array de ocupados esta vacío lo ponemos en 0
+        if (empty($array_ocupados)) {
+            $array_ocupados = array("0");
+        }
+                
+        //Sacamos la diferencia entre los dos arrays
+        $array_libres = array_diff($array_turnos, $array_ocupados);
+                
+        //Le pasamos el primer valor del array con los turnos libres
+        $id_num = reset($array_libres);
+
+        $fecha_hora = date('Y-m-d H:m:s');
+
+        $guardo_turno = pacientes_turno::create([
+            'id' => $id_num,
+            'letra' => $letra,
+            'fecha' => $this->fecha_nuevo_turno,
+            'id_horario' => $this->id_nuevo_horario,
+            'documento' => $this->documento,
+            'id_usuario' => $id_usuario,
+            'fecha_hora' => $fecha_hora,
+            'para' => 'general',
+            'asistio' => 'no',
+            'comentarios' => ''
+        ]);
+
+        if ($guardo_turno) {
+            $elimino_anterior = pacientes_turno::where('documento', $this->documento)->where('id_horario', $this->id_horario_viejo)
+            ->where('fecha', $this->fecha)->delete();
+            if ($elimino_anterior) {
+                $this->accion = "ver";
+                return redirect('/comprobante_turno/'.$this->fecha_nuevo_turno.'/'.$this->id_nuevo_horario.'/'.$this->documento.'/'.$this->paciente);  
+            }
+        }
     }
 }

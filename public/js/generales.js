@@ -69,8 +69,8 @@ $(document).ready(function(){
             obra_social: obra_social,
             comentarios: comentarios
           },
-          beforeSend: function () {
-            "cargando bebé"
+          beforeSend: function(){
+            document.getElementById('guardar'+index).style.display = "none";
           },
           success:function(datos){
             if (datos == "Correcto") {

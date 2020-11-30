@@ -5,7 +5,7 @@
     <p>Fecha del turno: {{date('d-m-Y', strtotime($fecha))}}</p>
 </div>
 <div class = "row" style = "margin-left:10px;">
-    <p>Horario del turno: {{$horario_turno}}</p>
+    <p>Horario del turno: {{$id_horario_viejo}}-{{$horario_turno}}</p>
 </div>
 <hr>
 <center>
@@ -31,7 +31,7 @@
         </div>
         @if($cantidad < $cantidad_turnos)
         <span class="progress-description">
-            <button type="button" class="btn btn-block btn-default btn-sm">Asignar</button>
+            <button type="button" class="btn btn-block btn-default btn-sm" wire:click='nuevo_turno("{{$horario->id_horario}}", "{{Auth::user()->id}}")'>Asignar</button>
         </span>
         @endif
         </div>
@@ -39,3 +39,8 @@
 </div>
 @endforeach
 </div>
+<center>
+<div class = "col-sm-2">
+    <button class = "btn btn-danger" wire:click='cancelar_edicion'>Volver</button>
+</div>
+</center>
