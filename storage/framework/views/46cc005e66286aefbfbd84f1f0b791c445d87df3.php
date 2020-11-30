@@ -10,18 +10,20 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                {{ Auth::user()->name }}
+                <?php echo e(Auth::user()->name); ?>
+
             </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ route('logout') }}"
+            <a class="dropdown-item" href="<?php echo e(route('logout')); ?>"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
-                {{ __('Salir') }}
+                <?php echo e(__('Salir')); ?>
+
             </a>
 
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
+            <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" class="d-none">
+                <?php echo csrf_field(); ?>
             </form>
             </div>
             </li>
@@ -118,7 +120,7 @@
               </p>
             </a>
             </li>
-            @if((Auth::user()->rol == 'administrador')||(Auth::user()->rol == 'desarrollador'))
+            <?php if((Auth::user()->rol == 'administrador')||(Auth::user()->rol == 'desarrollador')): ?>
             <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
@@ -127,8 +129,8 @@
               </p>
             </a>
             </li>
-            @endif
-            @if(Auth::user()->rol == 'desarrollador')
+            <?php endif; ?>
+            <?php if(Auth::user()->rol == 'desarrollador'): ?>
             <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
@@ -137,7 +139,7 @@
               </p>
             </a>
             </li>
-            @endif
+            <?php endif; ?>
         </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -147,10 +149,10 @@
 
     <div class="content-wrapper" style = "background-color:white;">
     <section class="content">
-        @yield('contenido')
+        <?php echo $__env->yieldContent('contenido'); ?>
     </section>
     </div>    
 </div>
 <!-- ./wrapper -->
 
-<script type = "text/javascript" src = "js/generales.js"></script>
+<script type = "text/javascript" src = "js/generales.js"></script><?php /**PATH C:\laragon\www\Turnero\resources\views/layouts/menu.blade.php ENDPATH**/ ?>

@@ -35,4 +35,9 @@ class HomeController extends Controller
     {
         return view('ver-turnos.ver_turnos');
     }
+
+    public function pacientes()
+    {
+        return view('pacientes.pacientes');
+    }
 }
