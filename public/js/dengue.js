@@ -1,12 +1,12 @@
 $(document).ready(function(){
     
     //Pasamos la fecha como parametro por URL
-    $("#fecha_turno").on('change', function(){
-      var fecha = $("#fecha_turno").val();
-      location.href="/general?f="+fecha; 
+    $("#fecha_turno_dengue").on('change', function(){
+      var fecha = $("#fecha_turno_dengue").val();
+      location.href="/dengue?f="+fecha; 
     });
 
-    for (let index = 1; index < 9; index++) {
+    for (let index = 10; index < 19; index++) {
       //Buscamos al paciente en la base de datos
       $("#documento"+index).on('blur', function(){
         var documento = $("#documento"+index).val();
@@ -39,7 +39,7 @@ $(document).ready(function(){
       });
 
       $("#guardar"+index).on('click', function(){
-        var fecha_turno = $("#fecha_turno").val();
+        var fecha_turno = $("#fecha_turno_dengue").val();
         var id_horario = index;
         var id_usuario = $("#id_usuario").val();
         var p75 = $("#p75"+index).val();
@@ -50,7 +50,7 @@ $(document).ready(function(){
         var telefono = $("#telefono"+index).val();
         var obra_social = $("#obra_social"+index).val();
         var comentarios = $("#comentarios"+index).val();
-        var para = "general";
+        var para = "dengue";
         $.ajax({
           type: 'POST',
           url: '/guardo_turno',
@@ -76,7 +76,7 @@ $(document).ready(function(){
           },
           success:function(datos){
             if (datos == "Correcto") {
-              location.href = "/general?f="+fecha_turno;
+              location.href = "/dengue?f="+fecha_turno;
               window.open('/comprobante_turno/'+fecha_turno+'/'+id_horario+'/'+documento+'/'+paciente, '_blank');
             }
           }

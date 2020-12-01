@@ -29,6 +29,19 @@ class ControladorTurnos extends Controller
         return view('turnos.dengue', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor'));
     }
 
+    public function exudado()
+    {        
+        $horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
+        ->where('horarios_estudios.estudio', 'exudado')
+        ->orderBy('horarios.horario')
+        ->get();
+
+        $cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
+        $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
+
+        return view('turnos.exudado', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor'));
+    }
+
     public function general()
     {        
         $horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
@@ -53,7 +66,7 @@ class ControladorTurnos extends Controller
         return $paciente. ';' .$fecha_nac. ';' .$domicilio. ';' .$telefono. ';' .$obra_social;
     }
 
-    public function guardo_general(Request $request)
+    public function guardo_turno(Request $request)
     {
         //Array con la cantidad de turnos disponibles
         $cons_turnos = config::get()->pluck('cant_turnos_gen')->first();
@@ -96,7 +109,7 @@ class ControladorTurnos extends Controller
 
         //Verificamos si es para p75
         if (empty($request->p75)) {
-            $para = 'general';
+            $para = $request->para;
         } else{
             $para = 'P75';
         }
@@ -129,7 +142,7 @@ class ControladorTurnos extends Controller
                 'comentarios' => $request->comentarios
             ]);
 
-            if (($actualizo_paciente)&&($guardo_turno)) {
+            if (($guardo_paciente)&&($guardo_turno)) {
                 echo "Correcto";
             }
 
@@ -159,8 +172,9 @@ class ControladorTurnos extends Controller
 
             if (($actualizo_paciente)&&($guardo_turno)) {
                 echo "Correcto";
-            }   
+            }
         }
+  
     }
 
     public function comprobante_turno($fecha, $id, $documento, $paciente)

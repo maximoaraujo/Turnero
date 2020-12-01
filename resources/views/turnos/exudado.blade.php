@@ -1,7 +1,7 @@
 @extends('layouts.menu')
 @extends('plantilla')
 
-<title>Gestión de turnos | Dengue</title>
+<title>Gestión de turnos | Exudado</title>
 
 @section('contenido')
 <div class = "row">
@@ -11,13 +11,13 @@
     }
 ?>    
 <div class = "col-sm-2" style = "margin-top:10px;">
-    <input type = "date" class = "form-control" id = "fecha_turno_dengue" min = "<?php echo $fecha=date('Y-m-d'); ?>" value = "<?php echo $fecha=$_GET['f']; ?>">
+    <input type = "date" class = "form-control" id = "fecha_turno_exudado" min = "<?php echo $fecha=date('Y-m-d'); ?>" value = "<?php echo $fecha=$_GET['f']; ?>">
 </div>
 <div class = "col-sm-9" style = "margin-top:10px;">
 <?php
 $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
 ->where('pacientes_turnos.fecha', $fecha)
-->where('pacientes_turnos.para', 'dengue')
+->where('pacientes_turnos.para', 'exudado')
 ->where('pacientes.obra_social', 'IOSCOR')
 ->whereOr('pacientes.obra_social', 'ioscor')->get()->count();
 ?>
@@ -43,7 +43,7 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
     <div class="card card-primary collapsed-card">
         <div class="card-header">
             <?php
-                $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id], ['para', 'dengue']])->get()->count();
+                $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id], ['para', 'exudado']])->get()->count();
             ?>
             <h3 class="card-title">{{$horario->horario}} - <?php echo $cantidad; ?> | {{$cantidad_turnos}}</h3>
             @if($cantidad < $cantidad_turnos)

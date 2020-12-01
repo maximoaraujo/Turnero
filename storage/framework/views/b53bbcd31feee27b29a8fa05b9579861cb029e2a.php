@@ -1,7 +1,7 @@
 
 
 
-<title>Gestión de turnos | Dengue</title>
+<title>Gestión de turnos | Exudado</title>
 
 <?php $__env->startSection('contenido'); ?>
 <div class = "row">
@@ -11,13 +11,13 @@
     }
 ?>    
 <div class = "col-sm-2" style = "margin-top:10px;">
-    <input type = "date" class = "form-control" id = "fecha_turno_dengue" min = "<?php echo $fecha=date('Y-m-d'); ?>" value = "<?php echo $fecha=$_GET['f']; ?>">
+    <input type = "date" class = "form-control" id = "fecha_turno_exudado" min = "<?php echo $fecha=date('Y-m-d'); ?>" value = "<?php echo $fecha=$_GET['f']; ?>">
 </div>
 <div class = "col-sm-9" style = "margin-top:10px;">
 <?php
 $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
 ->where('pacientes_turnos.fecha', $fecha)
-->where('pacientes_turnos.para', 'dengue')
+->where('pacientes_turnos.para', 'exudado')
 ->where('pacientes.obra_social', 'IOSCOR')
 ->whereOr('pacientes.obra_social', 'ioscor')->get()->count();
 ?>
@@ -43,7 +43,7 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
     <div class="card card-primary collapsed-card">
         <div class="card-header">
             <?php
-                $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id], ['para', 'dengue']])->get()->count();
+                $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id], ['para', 'exudado']])->get()->count();
             ?>
             <h3 class="card-title"><?php echo e($horario->horario); ?> - <?php echo $cantidad; ?> | <?php echo e($cantidad_turnos); ?></h3>
             <?php if($cantidad < $cantidad_turnos): ?>
@@ -109,4 +109,4 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
 </div>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('plantilla', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php echo $__env->make('layouts.menu', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\Turnero\resources\views/turnos/dengue.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.menu', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\Turnero\resources\views/turnos/exudado.blade.php ENDPATH**/ ?>

@@ -61,7 +61,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/exudado?f=<?php echo $fecha = date('Y-m-d'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon" style = "color:white;"></i>
                   <p>Exudado</p>
                 </a>
@@ -79,7 +79,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                <a href="/dengue?f=<?php echo $fecha = date('Y-m-d'); ?>" class="nav-link">
+                <a href="/general?f=<?php echo $fecha = date('Y-m-d'); ?>" class="nav-link">
                   <i class="far fa-circle nav-icon" style = "color:cyan;"></i>
                   <p>General</p>
                 </a>
@@ -152,5 +152,6 @@
     </div>    
 </div>
 <!-- ./wrapper -->
-
+<script type = "text/javascript" src = "js/dengue.js"></script>
+<script type = "text/javascript" src = "js/exudado.js"></script>
 <script type = "text/javascript" src = "js/generales.js"></script>
