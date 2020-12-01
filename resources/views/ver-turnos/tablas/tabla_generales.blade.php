@@ -46,7 +46,7 @@
         <td style = 'text-align: center;'><label><input type='checkbox' wire:click='asistencia_generales("{{$turno_general->id_horario}}", "{{$turno_general->letra}}", "{{$turno_general->id}}", "{{$turno_general->documento}}")'></label></td>
         @endif
         <td><button wire:click='editar_datos("{{$turno_general->documento}}")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
-        <td><button wire:click='editar_turno("{{$turno_general->documento}}", "{{$turno_general->horario}}", "{{$turno_general->paciente}}", "{{$turno_general->id_horario}}", "general")' style = "border:none;background-color:transparent;"><i class="far fa-calendar-alt"></i></button></td>
+        <td><button wire:click='editar_turno_general("{{$turno_general->documento}}", "{{$turno_general->horario}}", "{{$turno_general->paciente}}", "{{$turno_general->id_horario}}")' style = "border:none;background-color:transparent;"><i class="far fa-calendar-alt"></i></button></td>
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
         <td><button wire:click='eliminar_turno("{{$turno_general->documento}}", "{{$turno_general->id_horario}}", "{{$fecha}}")' style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>
         @endif    

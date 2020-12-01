@@ -2,8 +2,11 @@
     @if($accion == "editar datos")
         @include('ver-turnos.editar_datos_paciente')
     @endif
-    @if($accion == "editar turno")
+    @if($accion == "editar turno general")
         @include('ver-turnos.editar_turno')
+    @endif
+    @if($accion == "editar turno dengue")
+        @include('ver-turnos.editar_turno_dengue')
     @endif
     @if($accion == "ver")
     <div class = "row">
@@ -30,7 +33,7 @@
                     <a class="nav-link {{$tab_dengue}}" data-toggle="pill" href="#custom-tabs-four-dengue">Dengue</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{$tab_exudado}}" data-toggle="pill" href="#custom-tabs-four-exudado" >Exudado</a>
+                    <a class="nav-link {{$tab_exudado}}" data-toggle="pill" href="#custom-tabs-four-exudado">Exudado</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{$tab_espermograma}}" data-toggle="pill" href="#custom-tabs-four-espermograma">Espermograma</a>
@@ -49,7 +52,7 @@
         <div class="card-body">
         <div class="tab-content" id="custom-tabs-four-tabContent">
             <div class="tab-pane fade {{$tab_dengue_}}" id="custom-tabs-four-dengue" role="tabpanel">
-                Dengue
+                @include('ver-turnos.tablas.tabla_dengue')
             </div>
             <div class="tab-pane fade {{$tab_exudado_}}" id="custom-tabs-four-exudado" role="tabpanel">
                 Exudado

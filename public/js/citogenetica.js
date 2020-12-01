@@ -1,12 +1,12 @@
 $(document).ready(function(){
     
     //Pasamos la fecha como parametro por URL
-    $("#fecha_turno_exudado").on('change', function(){
-      var fecha = $("#fecha_turno_exudado").val();
-      location.href="/exudado?f="+fecha; 
+    $("#fecha_turno_citogenetica").on('change', function(){
+      var fecha = $("#fecha_turno_citogenetica").val();
+      location.href="/citogenetica?f="+fecha; 
     });
 
-    for (let index = 12; index < 18; index++) {
+    for (let index = 23; index < 24; index++) {
       //Buscamos al paciente en la base de datos
       $("#documento"+index).on('blur', function(){
         var documento = $("#documento"+index).val();
@@ -39,7 +39,7 @@ $(document).ready(function(){
       });
 
       $("#guardar"+index).on('click', function(){
-        var fecha_turno = $("#fecha_turno_exudado").val();
+        var fecha_turno = $("#fecha_turno_citogenetica").val();
         var id_horario = index;
         var id_usuario = $("#id_usuario").val();
         var p75 = $("#p75"+index).val();
@@ -50,7 +50,7 @@ $(document).ready(function(){
         var telefono = $("#telefono"+index).val();
         var obra_social = $("#obra_social"+index).val();
         var comentarios = $("#comentarios"+index).val();
-        var para = "exudado";
+        var para = "citogenetica";
         $.ajax({
           type: 'POST',
           url: '/guardo_turno',
@@ -78,7 +78,7 @@ $(document).ready(function(){
             if (datos == "Correcto") {
               event.preventDefault();
               event.stopImmediatePropagation();
-              location.href = "/exudado?f="+fecha_turno;
+              location.href = "/citogenetica?f="+fecha_turno;
               window.open('/comprobante_turno/'+fecha_turno+'/'+id_horario+'/'+documento+'/'+paciente, '_blank');
             }
           }
@@ -88,7 +88,7 @@ $(document).ready(function(){
     
   function verifico_no_laborales(){
       var url = "php/consultar_no_laborales.php";
-      var fecha = $("#fecha_turno_exudado").val();
+      var fecha = $("#fecha_turno_citogenetica").val();
       $.ajax({
           type: 'POST',
           url: url,

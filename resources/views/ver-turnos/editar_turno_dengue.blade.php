@@ -14,15 +14,15 @@
 </div>
 </center>
 <div class = "row" style = "margin-top:20px;">
-@foreach($horarios as $horario)
+@foreach($horarios_dengue as $horario_dengue)
 <div class="col-md-3 col-sm-4 col-12">
 <div class="info-box bg-gradient-info">
     <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
 
     <div class="info-box-content">
-        <span class="info-box-text">{{$horario->horario}}</span>
+        <span class="info-box-text">{{$horario_dengue->horario}}</span>
         <?php
-            $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha_nuevo_turno],['id_horario', $horario->id]])->get()->count();
+            $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha_nuevo_turno],['id_horario', $horario_dengue->id], ['para', "dengue"]])->get()->count();
         ?>
         <span class="info-box-number"><?php echo $cantidad; ?> | {{$cantidad_turnos}}</span>
 
@@ -31,7 +31,7 @@
         </div>
         @if($cantidad < $cantidad_turnos)
         <span class="progress-description">
-            <button type="button" class="btn btn-block btn-default btn-sm" wire:click='nuevo_turno("{{$horario->id_horario}}", "{{Auth::user()->id}}", "general")'>Asignar</button>
+            <button type="button" class="btn btn-block btn-default btn-sm" wire:click='nuevo_turno("{{$horario_dengue->id_horario}}", "{{Auth::user()->id}}", "dengue")'>Asignar</button>
         </span>
         @endif
         </div>

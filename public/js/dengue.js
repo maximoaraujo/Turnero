@@ -76,6 +76,8 @@ $(document).ready(function(){
           },
           success:function(datos){
             if (datos == "Correcto") {
+              event.preventDefault();
+              event.stopImmediatePropagation();
               location.href = "/dengue?f="+fecha_turno;
               window.open('/comprobante_turno/'+fecha_turno+'/'+id_horario+'/'+documento+'/'+paciente, '_blank');
             }
@@ -86,7 +88,7 @@ $(document).ready(function(){
     
   function verifico_no_laborales(){
       var url = "php/consultar_no_laborales.php";
-      var fecha = $("#fecha_turno").val();
+      var fecha = $("#fecha_turno_dengue").val();
       $.ajax({
           type: 'POST',
           url: url,

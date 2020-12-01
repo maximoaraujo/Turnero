@@ -2,8 +2,11 @@
     <?php if($accion == "editar datos"): ?>
         <?php echo $__env->make('ver-turnos.editar_datos_paciente', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <?php endif; ?>
-    <?php if($accion == "editar turno"): ?>
+    <?php if($accion == "editar turno general"): ?>
         <?php echo $__env->make('ver-turnos.editar_turno', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php endif; ?>
+    <?php if($accion == "editar turno dengue"): ?>
+        <?php echo $__env->make('ver-turnos.editar_turno_dengue', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <?php endif; ?>
     <?php if($accion == "ver"): ?>
     <div class = "row">
@@ -30,7 +33,7 @@
                     <a class="nav-link <?php echo e($tab_dengue); ?>" data-toggle="pill" href="#custom-tabs-four-dengue">Dengue</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo e($tab_exudado); ?>" data-toggle="pill" href="#custom-tabs-four-exudado" >Exudado</a>
+                    <a class="nav-link <?php echo e($tab_exudado); ?>" data-toggle="pill" href="#custom-tabs-four-exudado">Exudado</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php echo e($tab_espermograma); ?>" data-toggle="pill" href="#custom-tabs-four-espermograma">Espermograma</a>
@@ -49,7 +52,7 @@
         <div class="card-body">
         <div class="tab-content" id="custom-tabs-four-tabContent">
             <div class="tab-pane fade <?php echo e($tab_dengue_); ?>" id="custom-tabs-four-dengue" role="tabpanel">
-                Dengue
+                <?php echo $__env->make('ver-turnos.tablas.tabla_dengue', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </div>
             <div class="tab-pane fade <?php echo e($tab_exudado_); ?>" id="custom-tabs-four-exudado" role="tabpanel">
                 Exudado
