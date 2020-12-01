@@ -55,7 +55,7 @@
                 @include('ver-turnos.tablas.tabla_dengue')
             </div>
             <div class="tab-pane fade {{$tab_exudado_}}" id="custom-tabs-four-exudado" role="tabpanel">
-                Exudado
+                @include('ver-turnos.tablas.tabla_exudado')
             </div>
             <div class="tab-pane fade {{$tab_espermograma_}}" id="custom-tabs-four-espermograma" role="tabpanel">
                 Espermograma

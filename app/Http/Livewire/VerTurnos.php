@@ -25,6 +25,7 @@ class VerTurnos extends Component
     public $cantidad_turnos;
     //Turnos por tipo de estudio
     public $turnos_dengue = [];
+    public $turnos_exudado = [];
     public $turnos_generales = [];
     public $turnos_p75 = [];
     //Horarios por tipo de estudio
@@ -48,6 +49,7 @@ class VerTurnos extends Component
         $this->fecha = date('Y-m-d');
         $this->cargo_horarios();
         $this->cargo_dengue();
+        $this->cargo_exudado();
         $this->cargo_generales();
         $this->cargo_p75();
         $this->tab_dengue = "";
@@ -88,6 +90,19 @@ class VerTurnos extends Component
         ->orderBy('horarios.horario')
         ->get();
     }
+
+        //Traemos los horarios para EXUDADO
+        public function cargo_exudado()
+        {
+            $condicion_exu = ['pacientes_turnos.fecha' => $this->fecha, 'pacientes_turnos.para' => 'exudado'];
+            $this->turnos_exudado = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
+            ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
+            ->where($condicion_exu)
+            ->select('pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
+            'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
+            ->orderBy('horarios.horario')
+            ->get();
+        }
 
     //Traemos los horarios para GENERALES
     public function cargo_generales()
@@ -135,6 +150,7 @@ class VerTurnos extends Component
     {
         $this->cargo_horarios();
         $this->cargo_dengue();
+        $this->cargo_exudado();
         $this->cargo_generales();
         $this->generales_x_horario();
         $this->cargo_p75();
@@ -143,19 +159,21 @@ class VerTurnos extends Component
     }
 
     //Marcamos la asistencia de los turnos
-    public function asistencia_generales($id_horario, $letra, $id, $documento)
+    public function asistencia($id_horario, $fecha, $documento)
     {
         $asistencia = pacientes_turno::where('fecha', $this->fecha)->where('id_horario', $id_horario)
         ->where('documento', $documento)->update([
             'asistio' => 'si'
         ]);
+    }
 
-        if ($asistencia) {
-            $this->cargo_horarios();
-            $this->cargo_dengue();
-            $this->cargo_generales();
-            $this->cargo_p75();
-        }
+    //Marcamos la asistencia de los turnos
+    public function asistencia_generales($id_horario, $fecha, $documento)
+    {
+        $asistencia = pacientes_turno::where('fecha', $fecha)->where('id_horario', $id_horario)
+        ->where('documento', $documento)->update([
+            'asistio' => 'si'
+        ]);
     }
 
     //Editamos los datos del paciente
@@ -192,6 +210,7 @@ class VerTurnos extends Component
         $this->accion = "ver";
         $this->cargo_horarios();
         $this->cargo_dengue();
+        $this->cargo_exudado();
         $this->cargo_generales();
         $this->cargo_p75();
     }
@@ -285,7 +304,11 @@ class VerTurnos extends Component
         ->where('fecha', $fecha)->delete();
 
         if($elimino_turno){
-            return redirect('/ver-turnos')->back()->with('mensaje', '');
+           $this->cargo_horarios();
+           $this->cargo_generales();
+           $this->generales_x_horario();
+           $this->cargo_dengue();
+           $this->cargo_exudado();
         }
     }
 

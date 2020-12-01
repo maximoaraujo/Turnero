@@ -55,7 +55,7 @@
                 <?php echo $__env->make('ver-turnos.tablas.tabla_dengue', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </div>
             <div class="tab-pane fade <?php echo e($tab_exudado_); ?>" id="custom-tabs-four-exudado" role="tabpanel">
-                Exudado
+                <?php echo $__env->make('ver-turnos.tablas.tabla_exudado', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </div>
             <div class="tab-pane fade <?php echo e($tab_espermograma_); ?>" id="custom-tabs-four-espermograma" role="tabpanel">
                 Espermograma
