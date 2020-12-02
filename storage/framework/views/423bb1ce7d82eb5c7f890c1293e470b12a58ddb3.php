@@ -41,9 +41,9 @@
         <td nowrap><?php echo e($turno_general->domicilio); ?></td>
         <td nowrap><?php echo e($turno_general->obra_social); ?></td>
         <?php if($turno_general->asistio == 'si'): ?>
-        <td style = 'text-align: center;'><label><input type='checkbox' checked></label></td>
+        <td style = 'text-align: center;'><input type='checkbox' checked></td>
         <?php else: ?>
-        <td style = 'text-align: center;'><label><input type='checkbox' wire:click='asistencia("<?php echo e($turno_general->id_horario); ?>", "<?php echo e($fecha); ?>", "<?php echo e($turno_general->documento); ?>")'></label></td>
+        <td style = 'text-align: center;'><button wire:click='asistencia("<?php echo e($turno_general->id_horario); ?>", "<?php echo e($fecha); ?>", "<?php echo e($turno_general->documento); ?>", "general")' style = "outline:none;background-color:transparent;border:none;"><i class="far fa-square"></i></button></td>
         <?php endif; ?>
         <td><button wire:click='editar_datos("<?php echo e($turno_general->documento); ?>")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
         <td><button wire:click='editar_turno_general("<?php echo e($turno_general->documento); ?>", "<?php echo e($turno_general->horario); ?>", "<?php echo e($turno_general->paciente); ?>", "<?php echo e($turno_general->id_horario); ?>")' style = "border:none;background-color:transparent;"><i class="far fa-calendar-alt"></i></button></td>

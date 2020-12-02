@@ -36,9 +36,6 @@
                     <a class="nav-link {{$tab_exudado}}" data-toggle="pill" href="#custom-tabs-four-exudado">Exudado</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{$tab_espermograma}}" data-toggle="pill" href="#custom-tabs-four-espermograma">Espermograma</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link {{$tab_general}}" data-toggle="pill" href="#custom-tabs-four-general">General</a>
                 </li>
                 <li class="nav-item">
@@ -57,14 +54,11 @@
             <div class="tab-pane fade {{$tab_exudado_}}" id="custom-tabs-four-exudado" role="tabpanel">
                 @include('ver-turnos.tablas.tabla_exudado')
             </div>
-            <div class="tab-pane fade {{$tab_espermograma_}}" id="custom-tabs-four-espermograma" role="tabpanel">
-                Espermograma
-            </div>
             <div class="tab-pane fade {{$tab_general_}}" id="custom-tabs-four-general" role="tabpanel">
                 @include('ver-turnos.tablas.tabla_generales')
             </div>
-            <div class="tab-pane fa de {{$tab_citogenetica_}}" id="custom-tabs-four-citogenetica" role="tabpanel">
-               Citogenetica
+            <div class="tab-pane fade {{$tab_citogenetica_}}" id="custom-tabs-four-citogenetica" role="tabpanel">
+                @include('ver-turnos.tablas.tabla_citogenetica')
             </div>
             <div class="tab-pane fade {{$tab_p75_}}" id="custom-tabs-four-p75" role="tabpanel">
                 @include('ver-turnos.tablas.tabla_p75')

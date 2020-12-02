@@ -33,7 +33,7 @@
         <?php if($turno_dengue->asistio == 'si'): ?>
         <td style = 'text-align: center;'><label><input type='checkbox' checked></label></td>
         <?php else: ?>
-        <td style = 'text-align: center;'><label><input type='checkbox' wire:click='asistencia_generales("<?php echo e($turno_dengue->id_horario); ?>", "<?php echo e($turno_dengue->letra); ?>", "<?php echo e($turno_dengue->id); ?>", "<?php echo e($turno_dengue->documento); ?>")'></label></td>
+        <td style = 'text-align: center;'><button wire:click='asistencia("<?php echo e($turno_dengue->id_horario); ?>", "<?php echo e($fecha); ?>", "<?php echo e($turno_dengue->documento); ?>", "dengue")' style = "outline:none;background-color:transparent;border:none;"><i class="far fa-square"></i></button></td>
         <?php endif; ?>
         <td><button wire:click='editar_datos("<?php echo e($turno_dengue->documento); ?>")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
         <td><button wire:click='editar_turno_dengue("<?php echo e($turno_dengue->documento); ?>", "<?php echo e($turno_dengue->horario); ?>", "<?php echo e($turno_dengue->paciente); ?>", "<?php echo e($turno_dengue->id_horario); ?>")' style = "border:none;background-color:transparent;"><i class="far fa-calendar-alt"></i></button></td>

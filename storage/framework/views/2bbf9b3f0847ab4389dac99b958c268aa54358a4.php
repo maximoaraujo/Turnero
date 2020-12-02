@@ -8,8 +8,6 @@
         <th scope="col" nowrap>Documento</th>
         <th scope="col" nowrap>Domicilio</th>
         <th scope="col" nowrap>O.S.</th>
-        <th scope="col" nowrap>Asistió</th>
-        <th scope="col"></th>
         <th scope="col"></th>
         <th scope="col"></th>
         <th scope="col"></th>
@@ -25,7 +23,14 @@
         <td nowrap><?php echo e($turno_p75->documento); ?></td>
         <td nowrap><?php echo e($turno_p75->domicilio); ?></td>
         <td nowrap><?php echo e($turno_p75->obra_social); ?></td>
-        <td nowrap><?php echo e($turno_p75->asistio); ?></td>
+        <td><button wire:click='editar_datos("<?php echo e($turno_p75->documento); ?>")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
+        <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
+        <td><button wire:click='eliminar_turno("<?php echo e($turno_p75->documento); ?>", "<?php echo e($turno_p75->id_horario); ?>", "<?php echo e($fecha); ?>")' style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>
+        <?php endif; ?>    
+        <td><a href = "/comprobante_turno/<?php echo e($fecha); ?>/<?php echo e($turno_p75->id_horario); ?>/<?php echo e($turno_p75->documento); ?>/<?php echo e($turno_p75->paciente); ?>" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
+        <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
+        <td nowrap><?php echo e($turno_p75->name); ?>-<?php echo e($turno_p75->fecha_hora); ?></td>
+        <?php endif; ?>
     </tr>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </tbody>

@@ -8,8 +8,6 @@
         <th scope="col" nowrap>Documento</th>
         <th scope="col" nowrap>Domicilio</th>
         <th scope="col" nowrap>O.S.</th>
-        <th scope="col" nowrap>Asistió</th>
-        <th scope="col"></th>
         <th scope="col"></th>
         <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
         <th scope="col"></th>
@@ -29,11 +27,6 @@
         <td nowrap><?php echo e($turno_exudado->documento); ?></td>
         <td nowrap><?php echo e($turno_exudado->domicilio); ?></td>
         <td nowrap><?php echo e($turno_exudado->obra_social); ?></td>
-        <?php if($turno_exudado->asistio == 'si'): ?>
-        <td style = 'text-align: center;'><label><input type='checkbox' checked></label></td>
-        <?php else: ?>
-        <td style = 'text-align: center;'><label><input type='checkbox' wire:click='asistencia_generales("<?php echo e($turno_exudado->id_horario); ?>", "<?php echo e($turno_exudado->letra); ?>", "<?php echo e($turno_exudado->id); ?>", "<?php echo e($turno_exudado->documento); ?>")'></label></td>
-        <?php endif; ?>
         <td><button wire:click='editar_datos("<?php echo e($turno_exudado->documento); ?>")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
         <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
         <td><button wire:click='eliminar_turno("<?php echo e($turno_exudado->documento); ?>", "<?php echo e($turno_exudado->id_horario); ?>", "<?php echo e($fecha); ?>")' style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>

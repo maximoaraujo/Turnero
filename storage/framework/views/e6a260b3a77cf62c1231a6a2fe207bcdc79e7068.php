@@ -36,9 +36,6 @@
                     <a class="nav-link <?php echo e($tab_exudado); ?>" data-toggle="pill" href="#custom-tabs-four-exudado">Exudado</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo e($tab_espermograma); ?>" data-toggle="pill" href="#custom-tabs-four-espermograma">Espermograma</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link <?php echo e($tab_general); ?>" data-toggle="pill" href="#custom-tabs-four-general">General</a>
                 </li>
                 <li class="nav-item">
@@ -57,14 +54,11 @@
             <div class="tab-pane fade <?php echo e($tab_exudado_); ?>" id="custom-tabs-four-exudado" role="tabpanel">
                 <?php echo $__env->make('ver-turnos.tablas.tabla_exudado', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </div>
-            <div class="tab-pane fade <?php echo e($tab_espermograma_); ?>" id="custom-tabs-four-espermograma" role="tabpanel">
-                Espermograma
-            </div>
             <div class="tab-pane fade <?php echo e($tab_general_); ?>" id="custom-tabs-four-general" role="tabpanel">
                 <?php echo $__env->make('ver-turnos.tablas.tabla_generales', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </div>
-            <div class="tab-pane fa de <?php echo e($tab_citogenetica_); ?>" id="custom-tabs-four-citogenetica" role="tabpanel">
-               Citogenetica
+            <div class="tab-pane fade <?php echo e($tab_citogenetica_); ?>" id="custom-tabs-four-citogenetica" role="tabpanel">
+                <?php echo $__env->make('ver-turnos.tablas.tabla_citogenetica', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </div>
             <div class="tab-pane fade <?php echo e($tab_p75_); ?>" id="custom-tabs-four-p75" role="tabpanel">
                 <?php echo $__env->make('ver-turnos.tablas.tabla_p75', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

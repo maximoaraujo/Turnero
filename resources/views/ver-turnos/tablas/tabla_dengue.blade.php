@@ -33,7 +33,7 @@
         @if ($turno_dengue->asistio == 'si')
         <td style = 'text-align: center;'><label><input type='checkbox' checked></label></td>
         @else
-        <td style = 'text-align: center;'><label><input type='checkbox' wire:click='asistencia_generales("{{$turno_dengue->id_horario}}", "{{$turno_dengue->letra}}", "{{$turno_dengue->id}}", "{{$turno_dengue->documento}}")'></label></td>
+        <td style = 'text-align: center;'><button wire:click='asistencia("{{$turno_dengue->id_horario}}", "{{$fecha}}", "{{$turno_dengue->documento}}", "dengue")' style = "outline:none;background-color:transparent;border:none;"><i class="far fa-square"></i></button></td>
         @endif
         <td><button wire:click='editar_datos("{{$turno_dengue->documento}}")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
         <td><button wire:click='editar_turno_dengue("{{$turno_dengue->documento}}", "{{$turno_dengue->horario}}", "{{$turno_dengue->paciente}}", "{{$turno_dengue->id_horario}}")' style = "border:none;background-color:transparent;"><i class="far fa-calendar-alt"></i></button></td>
