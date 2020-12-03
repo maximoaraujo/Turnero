@@ -38,6 +38,7 @@ Route::get('/planilla', [HomeController::class, 'planilla']);
 
 //Ver turnos
 Route::get('/ver-turnos', [HomeController::class, 'ver_turnos']);
+Route::get('/vista-turnos', [HomeController::class, 'vista_turnos']);
 
 //Pacientes
 Route::get('/pacientes', [HomeController::class, 'pacientes']);

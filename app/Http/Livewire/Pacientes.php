@@ -8,7 +8,7 @@ use App\Models\Pacientes_turno;
 
 class Pacientes extends Component
 {
-    public $paciente, $documento;
+    public $paciente, $documento, $domicilio, $telefono, $obra_social;
     public $pacientes = [];
     public $picked;
     public $movimientos_paciente = [];
@@ -43,6 +43,9 @@ class Pacientes extends Component
     public function buscar_paciente()
     {
         $this->documento = Paciente::where('paciente', $this->paciente)->get()->pluck('documento')->first();
+        $this->domicilio = Paciente::where('paciente', $this->paciente)->get()->pluck('domicilio')->first();
+        $this->telefono = Paciente::where('paciente', $this->paciente)->get()->pluck('telefono')->first();
+        $this->obra_social = Paciente::where('paciente', $this->paciente)->get()->pluck('obra_social')->first();
             
         //Si encontramos al paciente mostramos sus movimientos
         if ($this->documento != "") {

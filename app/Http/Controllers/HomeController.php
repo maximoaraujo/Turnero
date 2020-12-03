@@ -36,6 +36,11 @@ class HomeController extends Controller
         return view('ver-turnos.ver_turnos');
     }
 
+    public function vista_turnos()
+    {
+        return view('ver-turnos.vista_turnos');
+    }
+
     public function pacientes()
     {
         return view('pacientes.pacientes');

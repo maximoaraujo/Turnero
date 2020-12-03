@@ -1,26 +1,49 @@
 <div>
     <div class = "row" style = "margin-top:20px;">
-        <div class = "col-sm-3">
-            <p>Paciente</p>
-            <input wire:model="paciente" 
-            wire:keydown.enter="buscarPaciente" type="text" class="form-control" placeholder="Paciente" autocomplete="off"> 
-            <?php if(count($pacientes)>0): ?>
-                <?php if(!$picked): ?>
-                <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
-                    <?php $__currentLoopData = $pacientes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div style="cursor: pointer;color:black;">
-                        <a wire:click="asignarPaciente('<?php echo e($p->paciente); ?>')">
-                            <?php echo e($p->paciente); ?>
+        <div class = "col-sm-12">
+        <div class="card card-danger">
+            <div class="card-header">
+                <h3 class="card-title">Buscar paciente</h3>
+            </div>
+            <div class="card-body">
+            <div class="row">
+            <div class = "col-sm-3">
+                <input wire:model="paciente" 
+                wire:keydown.enter="buscarPaciente" type="text" class="form-control" placeholder="Paciente" autocomplete="off"> 
+                <?php if(count($pacientes)>0): ?>
+                    <?php if(!$picked): ?>
+                    <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
+                        <?php $__currentLoopData = $pacientes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div style="cursor: pointer;color:black;">
+                            <a wire:click="asignarPaciente('<?php echo e($p->paciente); ?>')">
+                                <?php echo e($p->paciente); ?>
 
-                        </a>
+                            </a>
+                        </div>
+                        <hr>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
-                    <hr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </div>
+                    <?php endif; ?>
                 <?php endif; ?>
-            <?php endif; ?>
+            </div>
+            <div class="col-2">
+                <input type="text" class="form-control" wire:model='documento' readonly>
+            </div>
+            <div class="col-3">
+                <input type="text" class="form-control" wire:model='domicilio'>
+            </div>
+            <div class="col-2">
+                <input type="text" class="form-control" wire:model='telefono'>
+            </div>
+            <div class="col-2">
+                <input type="text" class="form-control" wire:model='obra_social'>
+            </div>
+            </div>
+            </div>
+        </div>   
         </div>
     </div>
+    <hr>
     <div class = "row" style = "margin-top:20px;margin-left:3%;">
     <?php $__currentLoopData = $movimientos_paciente; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $movimiento): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <div class="timeline">
@@ -33,10 +56,10 @@
         <i class="fas fa-info bg-blue"></i>
         <div class="timeline-item">
             <span class="time"><i class="far fa-calendar"></i> <?php echo e(date('d-m-Y H:m:s', strtotime($movimiento->fecha_hora))); ?></span>
-            <h3 class="timeline-header"><a href="#">Turno otorgado por</a> <?php echo e($movimiento->name); ?></h3>
+            <h3 class="timeline-header">Turno otorgado por <?php echo e($movimiento->name); ?></h3>
 
             <div class="timeline-body" style = "width:100%;">
-            Horario asignado: <?php echo e($movimiento->horario); ?> | Turno: <?php echo e($movimiento->letra); ?><?php echo e($movimiento->id); ?> | Para: <?php echo e($movimiento->para); ?> | Asistió: <?php echo e($movimiento->asistio); ?><br>
+            Horario asignado: <span class = "text-danger"><?php echo e($movimiento->horario); ?></span> | Turno: <span class = "text-danger"><?php echo e($movimiento->letra); ?><?php echo e($movimiento->id); ?></span> | Para: <span class = "text-danger"><?php echo e($movimiento->para); ?></span> | Asistió: <span class = "text-danger"><?php echo e($movimiento->asistio); ?></span><br>
             Comentarios: <?php echo e($movimiento->comentarios); ?>
 
             </div>

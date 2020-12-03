@@ -1,25 +1,48 @@
 <div>
     <div class = "row" style = "margin-top:20px;">
-        <div class = "col-sm-3">
-            <p>Paciente</p>
-            <input wire:model="paciente" 
-            wire:keydown.enter="buscarPaciente" type="text" class="form-control" placeholder="Paciente" autocomplete="off"> 
-            @if(count($pacientes)>0)
-                @if(!$picked)
-                <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
-                    @foreach($pacientes as $p)
-                    <div style="cursor: pointer;color:black;">
-                        <a wire:click="asignarPaciente('{{ $p->paciente }}')">
-                            {{ $p->paciente }}
-                        </a>
+        <div class = "col-sm-12">
+        <div class="card card-danger">
+            <div class="card-header">
+                <h3 class="card-title">Buscar paciente</h3>
+            </div>
+            <div class="card-body">
+            <div class="row">
+            <div class = "col-sm-3">
+                <input wire:model="paciente" 
+                wire:keydown.enter="buscarPaciente" type="text" class="form-control" placeholder="Paciente" autocomplete="off"> 
+                @if(count($pacientes)>0)
+                    @if(!$picked)
+                    <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
+                        @foreach($pacientes as $p)
+                        <div style="cursor: pointer;color:black;">
+                            <a wire:click="asignarPaciente('{{ $p->paciente }}')">
+                                {{ $p->paciente }}
+                            </a>
+                        </div>
+                        <hr>
+                        @endforeach
                     </div>
-                    <hr>
-                    @endforeach
-                </div>
+                    @endif
                 @endif
-            @endif
+            </div>
+            <div class="col-2">
+                <input type="text" class="form-control" wire:model='documento' readonly>
+            </div>
+            <div class="col-3">
+                <input type="text" class="form-control" wire:model='domicilio'>
+            </div>
+            <div class="col-2">
+                <input type="text" class="form-control" wire:model='telefono'>
+            </div>
+            <div class="col-2">
+                <input type="text" class="form-control" wire:model='obra_social'>
+            </div>
+            </div>
+            </div>
+        </div>   
         </div>
     </div>
+    <hr>
     <div class = "row" style = "margin-top:20px;margin-left:3%;">
     @foreach($movimientos_paciente as $movimiento)
     <div class="timeline">
@@ -32,10 +55,10 @@
         <i class="fas fa-info bg-blue"></i>
         <div class="timeline-item">
             <span class="time"><i class="far fa-calendar"></i> {{date('d-m-Y H:m:s', strtotime($movimiento->fecha_hora))}}</span>
-            <h3 class="timeline-header"><a href="#">Turno otorgado por</a> {{$movimiento->name}}</h3>
+            <h3 class="timeline-header">Turno otorgado por {{$movimiento->name}}</h3>
 
             <div class="timeline-body" style = "width:100%;">
-            Horario asignado: {{$movimiento->horario}} | Turno: {{$movimiento->letra}}{{$movimiento->id}} | Para: {{$movimiento->para}} | Asistió: {{$movimiento->asistio}}<br>
+            Horario asignado: <span class = "text-danger">{{$movimiento->horario}}</span> | Turno: <span class = "text-danger">{{$movimiento->letra}}{{$movimiento->id}}</span> | Para: <span class = "text-danger">{{$movimiento->para}}</span> | Asistió: <span class = "text-danger">{{$movimiento->asistio}}</span><br>
             Comentarios: {{$movimiento->comentarios}}
             </div>
             <div class="timeline-footer">
