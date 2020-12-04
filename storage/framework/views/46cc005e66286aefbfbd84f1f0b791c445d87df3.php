@@ -97,6 +97,13 @@
                 </li>
             </ul>  
             <li class="nav-item">
+              <a href="/vista-turnos" class="nav-link">
+              <i class="nav-icon far fa-calendar-check"></i>
+              <p>
+                Turnos del día
+              </p>
+            </a>
+            <li class="nav-item">
               <a href="/planilla?f=<?php echo $fecha = date('Y-m-d'); ?>" class="nav-link" target="_blank">
               <i class="nav-icon far fa-file-alt"></i>
               <p>

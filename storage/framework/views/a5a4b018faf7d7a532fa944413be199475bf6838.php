@@ -1,46 +1,24 @@
 
 
 
-<title>Gestión de turnos | Turnos</title>
+<title>Gestión de turnos | Turnos del día</title>
 
 <?php $__env->startSection('contenido'); ?>
-<div class="card-body">
-  <ul class="todo-list ui-sortable" data-widget="todo-list">
-    <li class="done" style="">
-      <span class="handle ui-sortable-handle">
-        <i class="fas fa-ellipsis-v"></i>
-        <i class="fas fa-ellipsis-v"></i>
-      </span>
-      <div class="icheck-primary d-inline ml-2">
-        <input type="checkbox" value="" name="todo2" id="todoCheck2" checked="">
-        <label for="todoCheck2"></label>
-      </div>
-      <span class="text">Make the theme responsive</span>
-      <small class="badge badge-info"><i class="far fa-clock"></i> 4 hours</small>
-        <div class="tools">
-          <i class="fas fa-edit"></i>
-          <i class="fas fa-trash-o"></i>
-        </div>
-      </li><li class="" style="">
-      <li class="done" style="">
-      <span class="handle ui-sortable-handle">
-        <i class="fas fa-ellipsis-v"></i>
-        <i class="fas fa-ellipsis-v"></i>
-      </span>
-      <div class="icheck-primary d-inline ml-2">
-        <input type="checkbox" value="" name="todo2" id="todoCheck2" checked="">
-        <label for="todoCheck2"></label>
-      </div>
-      <span class="text">Make the theme responsive</span>
-      <small class="badge badge-info"><i class="far fa-clock"></i> 4 hours</small>
-        <div class="tools">
-          <i class="fas fa-edit"></i>
-          <i class="fas fa-trash-o"></i>
-        </div>
-      </li><li class="" style="">
-      
-    </ul>
-</div>
+<?php
+if (! isset($_instance)) {
+    $html = \Livewire\Livewire::mount('vista-turnos', [])->html();
+} elseif ($_instance->childHasBeenRendered('ohP3l99')) {
+    $componentId = $_instance->getRenderedChildComponentId('ohP3l99');
+    $componentTag = $_instance->getRenderedChildComponentTagName('ohP3l99');
+    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
+    $_instance->preserveRenderedChild('ohP3l99');
+} else {
+    $response = \Livewire\Livewire::mount('vista-turnos', []);
+    $html = $response->html();
+    $_instance->logRenderedChild('ohP3l99', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+}
+echo $html;
+?>
 <?php $__env->stopSection(); ?>              
 <?php echo $__env->make('plantilla', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->make('layouts.menu', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\Turnero\resources\views/ver-turnos/vista_turnos.blade.php ENDPATH**/ ?>
