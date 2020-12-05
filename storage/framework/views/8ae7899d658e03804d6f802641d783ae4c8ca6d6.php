@@ -1,7 +1,7 @@
 <div>
     <div class = "row" style = "margin-top:20px;">
         <div class = "col-sm-12">
-        <div class="card card-danger">
+        <div class="card card-info">
             <div class="card-header">
                 <h3 class="card-title">Buscar paciente</h3>
             </div>
@@ -44,6 +44,11 @@
         </div>
     </div>
     <hr>
+    <?php if(count($pacientes)>0): ?>
+    <center>
+    <p>Historial de turnos asignados</p>
+    </center>
+    <?php endif; ?>
     <div class = "row" style = "margin-top:20px;margin-left:3%;">
     <?php $__currentLoopData = $movimientos_paciente; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $movimiento): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <div class="timeline">
@@ -59,7 +64,7 @@
             <h3 class="timeline-header">Turno otorgado por <?php echo e($movimiento->name); ?></h3>
 
             <div class="timeline-body" style = "width:100%;">
-            Horario asignado: <span class = "text-danger"><?php echo e($movimiento->horario); ?></span> | Turno: <span class = "text-danger"><?php echo e($movimiento->letra); ?><?php echo e($movimiento->id); ?></span> | Para: <span class = "text-danger"><?php echo e($movimiento->para); ?></span> | Asistió: <span class = "text-danger"><?php echo e($movimiento->asistio); ?></span><br>
+            Horario asignado para turno: <span class = "text-danger"><?php echo e($movimiento->horario); ?></span> | Turno: <span class = "text-danger"><?php echo e($movimiento->letra); ?><?php echo e($movimiento->id); ?></span> | Turno para: <span class = "text-danger"><?php echo e($movimiento->para); ?></span> | Asistió: <span class = "text-danger"><?php echo e($movimiento->asistio); ?></span><br>
             Comentarios: <?php echo e($movimiento->comentarios); ?>
 
             </div>

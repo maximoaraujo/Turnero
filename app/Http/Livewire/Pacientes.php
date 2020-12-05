@@ -57,6 +57,6 @@ class Pacientes extends Component
     {
         $this->movimientos_paciente = Pacientes_turno::join('horarios', 'horarios.id_horario', 'pacientes_turnos.id_horario')
         ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
-        ->where('documento', $this->documento)->orderBy('fecha', 'DESC')->get();
+        ->where('documento', $this->documento)->orderBy('fecha', 'DESC')->take(10)->get();
     }
 }

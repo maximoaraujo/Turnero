@@ -1,7 +1,7 @@
 <div>
     <div class = "row" style = "margin-top:20px;">
         <div class = "col-sm-12">
-        <div class="card card-danger">
+        <div class="card card-info">
             <div class="card-header">
                 <h3 class="card-title">Buscar paciente</h3>
             </div>
@@ -43,6 +43,11 @@
         </div>
     </div>
     <hr>
+    @if(count($pacientes)>0)
+    <center>
+    <p>Historial de turnos asignados</p>
+    </center>
+    @endif
     <div class = "row" style = "margin-top:20px;margin-left:3%;">
     @foreach($movimientos_paciente as $movimiento)
     <div class="timeline">
@@ -58,7 +63,7 @@
             <h3 class="timeline-header">Turno otorgado por {{$movimiento->name}}</h3>
 
             <div class="timeline-body" style = "width:100%;">
-            Horario asignado: <span class = "text-danger">{{$movimiento->horario}}</span> | Turno: <span class = "text-danger">{{$movimiento->letra}}{{$movimiento->id}}</span> | Para: <span class = "text-danger">{{$movimiento->para}}</span> | Asistió: <span class = "text-danger">{{$movimiento->asistio}}</span><br>
+            Horario asignado para turno: <span class = "text-danger">{{$movimiento->horario}}</span> | Turno: <span class = "text-danger">{{$movimiento->letra}}{{$movimiento->id}}</span> | Turno para: <span class = "text-danger">{{$movimiento->para}}</span> | Asistió: <span class = "text-danger">{{$movimiento->asistio}}</span><br>
             Comentarios: {{$movimiento->comentarios}}
             </div>
             <div class="timeline-footer">
