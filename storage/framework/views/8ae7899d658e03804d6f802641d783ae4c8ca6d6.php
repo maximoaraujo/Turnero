@@ -1,4 +1,8 @@
 <div>
+    <?php if($accion == 'editar turno'): ?>
+        <?php echo $__env->make('pacientes.editar_turno', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php endif; ?>
+    <?php if($accion == 'paciente'): ?>
     <div class = "row" style = "margin-top:20px;">
         <div class = "col-sm-12">
         <div class="card card-info">
@@ -69,9 +73,9 @@
 
             </div>
             <div class="timeline-footer">
-                <a class="btn btn-primary btn-sm">Re-imprimir</a>
-                <?php if($movimiento->asistio == 'no'): ?>
-                <a class="btn btn-danger btn-sm">Re-programar</a>
+                <a class="btn btn-primary btn-sm" href = "/comprobante_turno/<?php echo e($movimiento->fecha); ?>/<?php echo e($movimiento->id_horario); ?>/<?php echo e($documento); ?>/<?php echo e($paciente); ?>" target = "_blank">Re-imprimir</a>
+                <?php if(($movimiento->asistio == 'no')&&($movimiento->para == 'general')): ?>
+                <a class="btn btn-danger btn-sm" wire:click='editar_turno("<?php echo e($movimiento->fecha); ?>", "<?php echo e($movimiento->horario); ?>", "<?php echo e($movimiento->id_horario); ?>")'>Re-programar</a>
                 <?php endif; ?>
             </div>
         </div>
@@ -79,5 +83,6 @@
     </div>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
+    <?php endif; ?>
 </div>
 <?php /**PATH C:\laragon\www\Turnero\resources\views/livewire/pacientes.blade.php ENDPATH**/ ?>

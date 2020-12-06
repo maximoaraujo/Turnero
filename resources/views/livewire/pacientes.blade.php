@@ -1,4 +1,8 @@
 <div>
+    @if($accion == 'editar turno')
+        @include('pacientes.editar_turno')
+    @endif
+    @if($accion == 'paciente')
     <div class = "row" style = "margin-top:20px;">
         <div class = "col-sm-12">
         <div class="card card-info">
@@ -67,9 +71,9 @@
             Comentarios: {{$movimiento->comentarios}}
             </div>
             <div class="timeline-footer">
-                <a class="btn btn-primary btn-sm">Re-imprimir</a>
-                @if($movimiento->asistio == 'no')
-                <a class="btn btn-danger btn-sm">Re-programar</a>
+                <a class="btn btn-primary btn-sm" href = "/comprobante_turno/{{$movimiento->fecha}}/{{$movimiento->id_horario}}/{{$documento}}/{{$paciente}}" target = "_blank">Re-imprimir</a>
+                @if(($movimiento->asistio == 'no')&&($movimiento->para == 'general'))
+                <a class="btn btn-danger btn-sm" wire:click='editar_turno("{{$movimiento->fecha}}", "{{$movimiento->horario}}", "{{$movimiento->id_horario}}")'>Re-programar</a>
                 @endif
             </div>
         </div>
@@ -77,4 +81,5 @@
     </div>
     @endforeach
     </div>
+    @endif
 </div>
