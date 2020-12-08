@@ -16,7 +16,7 @@ class VistaTurnos extends Component
 
    public function mount()
    {
-       $this->fecha = date('Y-m-d');
+       $this->fecha = '2020-11-27';
        $this->horarios();
        $this->id_horario = 6;
        $this->cargo_turnos();

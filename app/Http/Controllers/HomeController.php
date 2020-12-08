@@ -45,4 +45,9 @@ class HomeController extends Controller
     {
         return view('pacientes.pacientes');
     }
+
+    public function estadisticas()
+    {
+        return view('estadisticas.estadisticas');
+    }
 }

@@ -127,7 +127,7 @@
             </li>
             @if((Auth::user()->rol == 'administrador')||(Auth::user()->rol == 'desarrollador'))
             <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/estadisticas" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
                 Estadistícas

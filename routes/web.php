@@ -42,3 +42,6 @@ Route::get('/vista-turnos', [HomeController::class, 'vista_turnos']);
 
 //Pacientes
 Route::get('/pacientes', [HomeController::class, 'pacientes']);
+
+//Estadisticas
+Route::get('/estadisticas', [HomeController::class, 'estadisticas']);
