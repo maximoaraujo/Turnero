@@ -50,4 +50,9 @@ class HomeController extends Controller
     {
         return view('estadisticas.estadisticas');
     }
+
+    public function configuraciones()
+    {
+        return view('configuraciones.configuraciones');
+    }
 }

@@ -45,3 +45,6 @@ Route::get('/pacientes', [HomeController::class, 'pacientes']);
 
 //Estadisticas
 Route::get('/estadisticas', [HomeController::class, 'estadisticas']);
+
+//Configuraciones
+Route::get('/configuraciones', [HomeController::class, 'configuraciones']);

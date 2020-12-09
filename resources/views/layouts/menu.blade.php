@@ -40,8 +40,6 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-            <!-- Add icons to the links using the .nav-icon class
-            with font-awesome or any other icon font library -->
             <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-calendar-plus"></i>
@@ -137,7 +135,7 @@
             @endif
             @if(Auth::user()->rol == 'desarrollador')
             <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/configuraciones" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
               <p>
                 Configuraciones
