@@ -27,7 +27,7 @@
     <?php if($informe == 'generados'): ?>
         <?php echo $__env->make('estadisticas.grafico_generados', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <?php elseif($informe == 'asistencia'): ?>
-        
+        <?php echo $__env->make('estadisticas.grafico_asistencia', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <?php endif; ?>
 </div>
 <?php /**PATH C:\laragon\www\Turnero\resources\views/livewire/estadisticas.blade.php ENDPATH**/ ?>

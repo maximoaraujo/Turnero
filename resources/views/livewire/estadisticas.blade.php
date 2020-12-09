@@ -27,6 +27,6 @@
     @if($informe == 'generados')
         @include('estadisticas.grafico_generados')
     @elseif($informe == 'asistencia')
-        
+        @include('estadisticas.grafico_asistencia')
     @endif
 </div>
