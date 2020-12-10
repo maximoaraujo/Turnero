@@ -55,8 +55,10 @@ class ControladorTurnos extends Controller
         return view('turnos.espermograma', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor'));
     }
 
-    public function general()
+    public function general(Request $request)
     {        
+        $fecha = $request->fecha;
+
         $horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
         ->where('horarios_estudios.estudio', 'generales')
         ->orderBy('horarios.horario')
@@ -65,7 +67,7 @@ class ControladorTurnos extends Controller
         $cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
         $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
 
-        return view('turnos.general', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor'));
+        return view('turnos.general', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor', 'fecha'));
     }
 
     public function citogenetica()

@@ -6,6 +6,22 @@ $(document).ready(function(){
       location.href="/general?f="+fecha; 
     });
 
+    function paso_fecha(){
+      var fecha = $("#fecha_turno").val();
+      $.ajax({
+        type: 'POST',
+        url: '/general',
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data:
+        {
+          fecha:fecha
+        }
+      });
+    }
+    window.onload=paso_fecha();
+
     for (let index = 1; index < 9; index++) {
       //Buscamos al paciente en la base de datos
       $("#documento"+index).on('blur', function(){

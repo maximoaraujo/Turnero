@@ -61,14 +61,20 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
                 <input type = "number" class = "form-control" id = "documento{{$horario->id_horario}}" placeholder="Documento" required>
             </div>
             <div class = "col-sm-7">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name = "p75" id="p75">
-                    <label class="custom-control-label" for="p75">P75</label>
-                </div>
+                @if($horario->horario == '06:30')
+                    @if((date('l', strtotime($fecha)) == 'Wednesday') || (date('l', strtotime($fecha)) == 'Friday'))
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name = "p75" id="p75">
+                        <label class="custom-control-label" for="p75">P75</label>
+                    </div>
+                    @endif
+                @endif
+                @if(date('l', strtotime($fecha)) == 'Tuesday')
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input ley{{$horario->id_horario}}" id="ley{{$horario->id_horario}}">
                     <label class="custom-control-label" for="ley{{$horario->id_horario}}">Ley 26743</label>
                 </div>
+                @endif
             </div>
         </div>
         <div class = "row" style = "margin-top:5px;">
