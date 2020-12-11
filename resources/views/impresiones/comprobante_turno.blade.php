@@ -86,5 +86,5 @@ $dompdf->setPaper('A5', 'landscape');
 
 $dompdf->render();
  
-$dompdf->stream('comprobante_'.$paciente.'.pdf', array("Attachment" => false));
+$dompdf->stream('TURNO_'.$paciente.'.pdf', array("Attachment" => false));
 ?>
