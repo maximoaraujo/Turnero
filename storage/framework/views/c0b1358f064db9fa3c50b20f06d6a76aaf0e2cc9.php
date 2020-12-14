@@ -12,6 +12,8 @@
 ?>    
 <div class = "col-sm-2" style = "margin-top:10px;">
     <input type = "date" class = "form-control" name = "fecha_turno" id = "fecha_turno" min = "<?php echo $fecha=date('Y-m-d'); ?>" value = "<?php echo $fecha=$_GET['f']; ?>">
+    <?php echo e($fecha); ?>
+
 </div>
 <div class = "col-sm-9" style = "margin-top:10px;">
 <?php
