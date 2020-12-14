@@ -123,6 +123,14 @@
               </p>
             </a>
             </li>
+            <!--<li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-envelope"></i>
+              <p>
+                Correos
+              </p>
+            </a>
+            </li>-->
             @if((Auth::user()->rol == 'administrador')||(Auth::user()->rol == 'desarrollador'))
             <li class="nav-item">
             <a href="/estadisticas" class="nav-link">

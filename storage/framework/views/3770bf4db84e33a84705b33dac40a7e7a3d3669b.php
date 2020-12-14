@@ -61,10 +61,12 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
                 <input type = "number" class = "form-control" id = "documento<?php echo e($horario->id_horario); ?>" placeholder="Documento" required>
             </div>
             <div class = "col-sm-7">
+                <?php if($horario->horario == '06:30'): ?>
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" name = "p75" id="p75">
                     <label class="custom-control-label" for="p75">P75</label>
                 </div>
+                <?php endif; ?>
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input ley<?php echo e($horario->id_horario); ?>" id="ley<?php echo e($horario->id_horario); ?>">
                     <label class="custom-control-label" for="ley<?php echo e($horario->id_horario); ?>">Ley 26743</label>

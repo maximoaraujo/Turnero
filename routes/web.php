@@ -44,8 +44,11 @@ Route::get('/vista-turnos', [HomeController::class, 'vista_turnos']);
 //Pacientes
 Route::get('/pacientes', [HomeController::class, 'pacientes']);
 
+//Emails
+//Route::get('/emails', [HomeController::class, 'emails']);
+
 //Estadisticas
-Route::get('/estadisticas', [HomeController::class, 'estadisticas']);
+Route::get('/estadisticas', [HomeController::class, 'estadisticas'])->middleware('admin');
 
 //Configuraciones
-Route::get('/configuraciones', [HomeController::class, 'configuraciones']);
+Route::get('/configuraciones', [HomeController::class, 'configuraciones'])->middleware('desarrollador');

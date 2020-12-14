@@ -86,5 +86,7 @@ $dompdf->setPaper('A5', 'landscape');
 
 $dompdf->render();
  
-$dompdf->stream('comprobante_'.$paciente.'.pdf', array("Attachment" => false));
+$dompdf->stream('TURNO_'.$paciente.'.pdf');
+$dompdf->stream('TURNO_'.$paciente.'.pdf', array("Attachment" => false));
+
 ?><?php /**PATH C:\laragon\www\Turnero\resources\views/impresiones/comprobante_turno.blade.php ENDPATH**/ ?>
