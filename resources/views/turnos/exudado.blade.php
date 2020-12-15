@@ -9,7 +9,7 @@
     if (empty($fecha = $_GET['f'])) {
         $fecha = date('Y-m-d');
     }
-?>    
+?>   
 <div class = "col-sm-2" style = "margin-top:10px;">
     <input type = "date" class = "form-control" id = "fecha_turno_exudado" min = "<?php echo $fecha=date('Y-m-d'); ?>" value = "<?php echo $fecha=$_GET['f']; ?>">
 </div>
@@ -58,39 +58,39 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
                 <input type = "number" id = "id_usuario" name = "id_usuario" value = "{{Auth::user()->id}}" hidden>
                 <input type = "number" id = "id_horario" name = "id_horario" value = "{{$horario->id_horario}}" hidden>
             <div class = "col-sm-5">
-                <input type = "number" class = "form-control" id = "documento{{$horario->id_horario}}" placeholder="Documento" required>
+                <input type = "number" class = "form-control" id = "documento_e{{$horario->id_horario}}" placeholder="Documento" required>
             </div>
         </div>
         <div class = "row" style = "margin-top:5px;">
             <div class = "col-sm-12">
-                <input type = "text" class = "form-control" id = "paciente{{$horario->id_horario}}"  placeholder="Paciente" required>
+                <input type = "text" class = "form-control" id = "paciente_e{{$horario->id_horario}}"  placeholder="Paciente" required>
             </div>
         </div>
         <div class = "row" style = "margin-top:5px;">
             <div class = "col-sm-12">
-                <input type = "text" class = "form-control" id = "domicilio{{$horario->id_horario}}" placeholder="Domicilio" required>
+                <input type = "text" class = "form-control" id = "domicilio_e{{$horario->id_horario}}" placeholder="Domicilio" required>
             </div>
         </div>
         <div class = "row" style = "margin-top:5px;">
             <div class = "col-sm-5">
-                <input type = "text" class = "form-control" id = "telefono{{$horario->id_horario}}"  placeholder="Teléfono" required>
+                <input type = "text" class = "form-control" id = "telefono_e{{$horario->id_horario}}"  placeholder="Teléfono" required>
             </div>
             <div class = "col-sm-7">
-                <input type = "date" class = "form-control" id = "fecha_nacimiento{{$horario->id_horario}}" placeholder="Fecha">
+                <input type = "date" class = "form-control" id = "fecha_nacimiento_e{{$horario->id_horario}}" placeholder="Fecha">
             </div>
         </div>
         <div class = "row" style = "margin-top:5px;">
             <div class = "col-sm-12">
-                <input type = "text" class = "form-control" id = "obra_social{{$horario->id_horario}}" placeholder="Obra social" required>
+                <input type = "text" class = "form-control" id = "obra_social_e{{$horario->id_horario}}" placeholder="Obra social" required>
             </div>
         </div>
         <div class = "row" style = "margin-top:5px;">
             <div class = "col-sm-12">
-                <input type = "text" class = "form-control" id = "comentarios{{$horario->id_horario}}" placeholder="Comentarios">
+                <input type = "text" class = "form-control" id = "comentarios_e{{$horario->id_horario}}" placeholder="Comentarios">
             </div>
         </div>
         <center>
-            <button class = "btn btn-success" id = "guardar{{$horario->id_horario}}" style = "margin-top:5px;">Guardar</button>
+            <button class = "btn btn-success" id = "guardar_e{{$horario->id_horario}}" style = "margin-top:5px;">Guardar</button>
         </center>
         </div> 
         </div>

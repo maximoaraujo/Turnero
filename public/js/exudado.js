@@ -8,8 +8,8 @@ $(document).ready(function(){
 
     for (let index = 12; index < 18; index++) {
       //Buscamos al paciente en la base de datos
-      $("#documento"+index).on('blur', function(){
-        var documento = $("#documento"+index).val();
+      $("#documento_e"+index).on('blur', function(){
+        var documento = $("#documento_e"+index).val();
         $.ajax({
             type: 'POST',
             url: '/busco_paciente',
@@ -20,11 +20,11 @@ $(document).ready(function(){
                 documento: documento
             },
             success:function(datos){
-                $("#paciente"+index).val(datos.split(";")[0]);
-                $("#fecha_nacimiento"+index).val(datos.split(";")[1]);
-                $("#domicilio"+index).val(datos.split(";")[2]);
-                $("#telefono"+index).val(datos.split(";")[3]);
-                $("#obra_social"+index).val(datos.split(";")[4]);
+                $("#paciente_e"+index).val(datos.split(";")[0]);
+                $("#fecha_nacimiento_e"+index).val(datos.split(";")[1]);
+                $("#domicilio_e"+index).val(datos.split(";")[2]);
+                $("#telefono_e"+index).val(datos.split(";")[3]);
+                $("#obra_social_e"+index).val(datos.split(";")[4]);
             }
         });
       }); 
@@ -32,24 +32,24 @@ $(document).ready(function(){
       //Si marcamos el check de Ley 26743 lo mandamos como un comentario
       $("#ley"+index).on('change', function(){
         if (document.getElementById('ley'+index).checked) {
-          $("#comentarios"+index).val("Ley 26743");
+          $("#comentarios_e"+index).val("Ley 26743");
         } else {
-          $("#comentarios"+index).val("");
+          $("#comentarios_e"+index).val("");
         }
       });
 
-      $("#guardar"+index).on('click', function(){
+      $("#guardar_e"+index).on('click', function(){
         var fecha_turno = $("#fecha_turno_exudado").val();
         var id_horario = index;
         var id_usuario = $("#id_usuario").val();
         var p75 = $("#p75"+index).val();
-        var documento = $("#documento"+index).val();
-        var paciente = $("#paciente"+index).val();
-        var fecha_nacimiento = $("#fecha_nacimiento"+index).val();
-        var domicilio = $("#domicilio"+index).val();
-        var telefono = $("#telefono"+index).val();
-        var obra_social = $("#obra_social"+index).val();
-        var comentarios = $("#comentarios"+index).val();
+        var documento = $("#documento_e"+index).val();
+        var paciente = $("#paciente_e"+index).val();
+        var fecha_nacimiento = $("#fecha_nacimiento_e"+index).val();
+        var domicilio = $("#domicilio_e"+index).val();
+        var telefono = $("#telefono_e"+index).val();
+        var obra_social = $("#obra_social_e"+index).val();
+        var comentarios = $("#comentarios_e"+index).val();
         var para = "exudado";
         $.ajax({
           type: 'POST',
@@ -72,7 +72,7 @@ $(document).ready(function(){
             para: para
           },
           beforeSend: function(){
-            document.getElementById('guardar'+index).style.display = "none";
+            document.getElementById('guardar_e'+index).style.display = "none";
           },
           success:function(datos){
             if (datos == "Correcto") {
