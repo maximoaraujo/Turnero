@@ -137,3 +137,4 @@ $dompdf->render();
  
 $dompdf->stream('planilla_'.$fecha.'.pdf', array("Attachment" => false));
 ?>
+<?php /**PATH C:\laragon\www\Turnero\resources\views/impresiones/planilla.blade.php ENDPATH**/ ?>

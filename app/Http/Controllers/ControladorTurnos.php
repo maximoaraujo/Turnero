@@ -8,6 +8,7 @@ use App\Models\horario;
 use App\Models\config;
 use App\Models\pacientes_turno;
 use App\Models\paciente;
+use App\Models\pad_def;
 
 class ControladorTurnos extends Controller
 {
@@ -90,7 +91,7 @@ class ControladorTurnos extends Controller
         $domicilio = paciente::where('documento', $request->documento)->get()->pluck('domicilio')->first();
         $telefono = paciente::where('documento', $request->documento)->get()->pluck('telefono')->first();
         $obra_social = paciente::where('documento', $request->documento)->get()->pluck('obra_social')->first();
-
+        
         return $paciente. ';' .$fecha_nac. ';' .$domicilio. ';' .$telefono. ';' .$obra_social;
     }
 
@@ -128,7 +129,20 @@ class ControladorTurnos extends Controller
         //Le pasamos el primer valor del array con los turnos libres
         $id_num = reset($array_libres);
 
-        //Verificamos la fecha de nacimiento
+        //Verificamos valores vacios
+        //Domicilio
+        if (empty($request->domicilio)) {
+            $domicilio = "CTES";
+        } else {
+            $domicilio = $request->domicilio;
+        }
+        //Teléfono
+        if (empty($request->telefono)) {
+            $telefono = 0;
+        } else {
+            $telefono = $request->telefono;
+        }
+        //Fecha de nacimiento
         if (empty($request->fecha_nacimiento)) {
             $fecha_de_nacimiento = date('Y-m-d');    
         } else {
@@ -151,8 +165,8 @@ class ControladorTurnos extends Controller
                 'documento' => $request->documento,
                 'paciente' => $request->paciente,
                 'fecha_nac' => $fecha_de_nacimiento,
-                'domicilio' => $request->domicilio,
-                'telefono' => $request->telefono,
+                'domicilio' => $domicilio,
+                'telefono' => $telefono,
                 'correo' => '-',
                 'obra_social' => $request->obra_social
             ]);

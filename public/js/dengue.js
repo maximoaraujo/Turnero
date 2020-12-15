@@ -19,12 +19,18 @@ $(document).ready(function(){
             data:{
                 documento: documento
             },
+            beforeSend: function(){
+              document.getElementById('loader'+index).style.display = "block";
+              document.getElementById('cuerpo_turno'+index).style.display = "none";
+            },
             success:function(datos){
+                document.getElementById('cuerpo_turno'+index).style.display = "block";
                 $("#paciente"+index).val(datos.split(";")[0]);
                 $("#fecha_nacimiento"+index).val(datos.split(";")[1]);
                 $("#domicilio"+index).val(datos.split(";")[2]);
                 $("#telefono"+index).val(datos.split(";")[3]);
                 $("#obra_social"+index).val(datos.split(";")[4]);
+                document.getElementById('loader'+index).style.display = "none";
             }
         });
       }); 

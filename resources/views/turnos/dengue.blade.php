@@ -73,6 +73,10 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
                 </div>
             </div>
         </div>
+        <center>
+            <span class="loader" id = "loader{{$horario->id_horario}}" style = "display:none;"></span>
+        </center>
+        <div id = "cuerpo_turno{{$horario->id_horario}}">
         <div class = "row" style = "margin-top:5px;">
             <div class = "col-sm-12">
                 <input type = "text" class = "form-control" id = "paciente{{$horario->id_horario}}"  placeholder="Paciente" required>
@@ -104,6 +108,7 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
         <center>
             <button class = "btn btn-success" id = "guardar{{$horario->id_horario}}" style = "margin-top:5px;">Guardar</button>
         </center>
+        </div>
         </div> 
         </div>
     </div>

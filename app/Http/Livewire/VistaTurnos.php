@@ -31,6 +31,7 @@ class VistaTurnos extends Component
    public function updated($id_horario)
    {
         $this->cargo_turnos();
+        $this->horarios();
    }
 
    public function cargo_turnos()
