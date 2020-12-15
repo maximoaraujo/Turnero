@@ -40,7 +40,7 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
 <div class = "row" id = "row_dengue">
 <?php $__currentLoopData = $horarios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $horario): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 <div class = "col-sm-4" style = "margin-top:10px;">
-    <div class="card card-primary collapsed-card">
+    <div class="card card-navy collapsed-card">
         <div class="card-header">
             <?php
                 $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id], ['para', 'dengue']])->get()->count();
