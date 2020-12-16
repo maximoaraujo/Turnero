@@ -6,16 +6,16 @@
 <?php $__env->startSection('contenido'); ?>
 <?php
 if (! isset($_instance)) {
-    $html = \Livewire\Livewire::mount('emails', [])->html();
-} elseif ($_instance->childHasBeenRendered('UWoJqag')) {
-    $componentId = $_instance->getRenderedChildComponentId('UWoJqag');
-    $componentTag = $_instance->getRenderedChildComponentTagName('UWoJqag');
+    $html = \Livewire\Livewire::mount('contar-turnos', [])->html();
+} elseif ($_instance->childHasBeenRendered('a8jOIa5')) {
+    $componentId = $_instance->getRenderedChildComponentId('a8jOIa5');
+    $componentTag = $_instance->getRenderedChildComponentTagName('a8jOIa5');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('UWoJqag');
+    $_instance->preserveRenderedChild('a8jOIa5');
 } else {
-    $response = \Livewire\Livewire::mount('emails', []);
+    $response = \Livewire\Livewire::mount('contar-turnos', []);
     $html = $response->html();
-    $_instance->logRenderedChild('UWoJqag', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('a8jOIa5', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>

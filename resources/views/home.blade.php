@@ -4,6 +4,6 @@
 <title>Gestión de turnos | Inicio</title>
 
 @section('contenido')
-<livewire:emails>
+<livewire:contar-turnos>
 @endsection
 
