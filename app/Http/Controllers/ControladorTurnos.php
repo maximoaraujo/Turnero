@@ -152,7 +152,7 @@ class ControladorTurnos extends Controller
         //Verificamos si es para p75
         if (empty($request->p75)) {
             $para = $request->para;
-        } else{
+        } else {
             $para = 'P75';
         }
 

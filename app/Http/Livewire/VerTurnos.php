@@ -110,7 +110,7 @@ class VerTurnos extends Component
     //Filtramos los horarios GENERALES por horario seleccionado
     public function generales_x_horario()
     {
-        $condicion_gen = ['pacientes_turnos.fecha' => $this->fecha, 'pacientes_turnos.para' => 'general', 'horarios.id_horario' => $this->horario_sel];
+        $condicion_gen = ['pacientes_turnos.fecha' => $this->fecha, 'pacientes_turnos.para' => 'general', 'pacientes_turnos.id_horario' => $this->horario_sel];
         $this->turnos_generales = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
         ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
         ->join('users', 'users.id', 'pacientes_turnos.id_usuario')

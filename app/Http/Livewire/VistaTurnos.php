@@ -40,7 +40,10 @@ class VistaTurnos extends Component
         ->join('pacientes', 'pacientes.documento', 'pacientes_turnos.documento')
         ->select('pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.letra', 'pacientes_turnos.id', 
         'pacientes.paciente', 'pacientes.documento', 'pacientes.obra_social', 'pacientes_turnos.orden', 'pacientes_turnos.asistio')
-        ->where('pacientes_turnos.fecha', $this->fecha)->where('pacientes_turnos.para', 'general')
+        ->where('pacientes_turnos.fecha', $this->fecha)->where(function ($query) {
+            $query->where('pacientes_turnos.para', '=', 'general')
+            ->orWhere('pacientes_turnos.para', '=', 'P75');
+        })
         ->where('pacientes_turnos.id_horario', $this->id_horario)
         ->orderBy('horarios.horario')->get();
    }

@@ -22,6 +22,14 @@ $(document).ready(function(){
     }
     window.onload=paso_fecha();
 
+    $("#p75").on('change', function(){
+      if (document.getElementById('p75').checked) {
+        $("#p75_").val("P75");
+      } else {
+        $("#p75_").val("");
+      }
+    });
+
     for (let index = 1; index < 9; index++) {
       //Buscamos al paciente en la base de datos
       $("#documento"+index).on('blur', function(){
@@ -50,7 +58,7 @@ $(document).ready(function(){
             }
         });
       }); 
-      
+
       //Si marcamos el check de Ley 26743 lo mandamos como un comentario
       $("#ley"+index).on('change', function(){
         if (document.getElementById('ley'+index).checked) {
@@ -64,7 +72,7 @@ $(document).ready(function(){
         var fecha_turno = $("#fecha_turno").val();
         var id_horario = index;
         var id_usuario = $("#id_usuario").val();
-        var p75 = $("#p75"+index).val();
+        var p75 = $('#p75_').val()
         var documento = $("#documento"+index).val();
         var paciente = $("#paciente"+index).val();
         var fecha_nacimiento = $("#fecha_nacimiento"+index).val();
