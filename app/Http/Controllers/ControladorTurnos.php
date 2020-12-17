@@ -127,8 +127,13 @@ class ControladorTurnos extends Controller
         $array_libres = array_diff($array_turnos, $array_ocupados);
         
         //Le pasamos el primer valor del array con los turnos libres
-        $id_num = reset($array_libres);
-
+        if (reset($array_libres) == 0) {
+            $id_num = pacientes_turno::where('fecha', $request->fecha_turno)
+            ->where('id_horario', $request->id_horario)->orderBy('id', 'DESC')->get()->pluck('id')->first() + 1 ;
+        } else {
+            $id_num = reset($array_libres);
+        }
+        
         //Verificamos valores vacios
         //Domicilio
         if (empty($request->domicilio)) {
