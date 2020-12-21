@@ -43,7 +43,7 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
     <div class="card card-navy collapsed-card">
         <div class="card-header">
             <?php
-                $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id]])->get()->count();
+                $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id_horario]])->get()->count();
             ?>
             <h3 class="card-title"><span style = "font-size:22px;">{{$horario->horario}}</span> <br> <?php echo $cantidad; ?> | {{$cantidad_turnos}}</h3>
             @if(($cantidad < $cantidad_turnos)||(Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))

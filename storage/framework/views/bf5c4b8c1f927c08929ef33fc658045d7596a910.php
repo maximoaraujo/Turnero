@@ -40,16 +40,16 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
 <div class = "row" id = "row_dengue">
 <?php $__currentLoopData = $horarios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $horario): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 <div class = "col-sm-4" style = "margin-top:10px;">
-    <div class="card card-primary collapsed-card">
+    <div class="card card-navy collapsed-card">
         <div class="card-header">
             <?php
-                $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id], ['para', 'citogenetica']])->get()->count();
+                $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id_horario], ['para', 'citogenetica']])->get()->count();
             ?>
-            <h3 class="card-title"><?php echo e($horario->horario); ?> - <?php echo $cantidad; ?> | <?php echo e($cantidad_turnos); ?></h3>
+            <h3 class="card-title"><span style = "font-size:22px;"><?php echo e($horario->horario); ?></span> <br> <?php echo $cantidad; ?> | <?php echo e($cantidad_turnos); ?></h3>
             <?php if($cantidad < $cantidad_turnos): ?>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse" style = "display:'.$estado.'">
-                <i class="fas fa-plus" style = "margin-top:10px;"></i></button>
+                <i class="fas fa-plus" style = "margin-top:20px;"></i></button>
             </div>
             <?php endif; ?>
         </div>

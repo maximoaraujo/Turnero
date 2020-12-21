@@ -76,8 +76,6 @@ $(document).ready(function(){
           },
           success:function(datos){
             if (datos == "Correcto") {
-              event.preventDefault();
-              event.stopImmediatePropagation();
               location.href = "/citogenetica?f="+fecha_turno;
               window.open('/comprobante_turno/'+fecha_turno+'/'+id_horario+'/'+documento+'/'+paciente, '_blank');
             }
