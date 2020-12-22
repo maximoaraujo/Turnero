@@ -30,7 +30,6 @@
         </ul> 
     </nav>
     <!-- /.navbar -->
-
     <!--Sidebar contenedor principal-->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <a href="/home" class="brand-link">
@@ -39,6 +38,7 @@
 
         <!-- Sidebar -->
         <div class="sidebar">
+        <?php if(Auth::user()->rol != 'espermograma'): ?>
         <!-- Sidebar Menu -->
         <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
@@ -155,6 +155,7 @@
             <?php endif; ?>
         </ul>
         </nav>
+        <?php endif; ?>
         <!-- /.sidebar-menu -->
         </div>
         <!-- /.sidebar -->
