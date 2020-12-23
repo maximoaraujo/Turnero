@@ -9,6 +9,7 @@
         <th scope="col" nowrap>Domicilio</th>
         <th scope="col" nowrap>O.S.</th>
         <th scope="col"></th>
+        <th scope="col"></th>
         <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
         <th scope="col"></th>
         <?php endif; ?>
@@ -33,7 +34,7 @@
         <?php endif; ?>    
         <td><a href = "/comprobante_turno/<?php echo e($fecha); ?>/<?php echo e($turno_exudado->id_horario); ?>/<?php echo e($turno_exudado->documento); ?>/<?php echo e($turno_exudado->paciente); ?>" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
         <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
-        <td nowrap><?php echo e($turno_exudado->name); ?>-<?php echo e($turno_exudado->fecha_hora); ?></td>
+        <td nowrap><?php echo e($turno_exudado->name); ?>-<?php echo e(date('d-m-Y H:m:s', strtotime($turno_exudado->fecha_hora))); ?></td>
         <?php endif; ?>
     </tr>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

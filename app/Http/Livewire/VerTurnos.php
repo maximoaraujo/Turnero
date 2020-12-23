@@ -12,6 +12,8 @@ class VerTurnos extends Component
 {
     //Fecha para ver los turnos
     public $fecha;
+    //
+    public $opcion_sel;
     //Edición de turnos
     //Para
     public $para;
@@ -46,6 +48,7 @@ class VerTurnos extends Component
 
     public function mount()
     {   
+        $this->opcion_sel = "General";
         $this->accion = "ver";
         $this->fecha = date('Y-m-d');
         $this->cargo_horarios();
@@ -119,7 +122,6 @@ class VerTurnos extends Component
         'users.name', 'pacientes_turnos.fecha_hora', 'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
         ->orderBy('horarios.horario')
         ->get(); 
-
     }
 
     //Traemos los horarios para P75
@@ -128,9 +130,10 @@ class VerTurnos extends Component
         $condicion_p75 = ['pacientes_turnos.fecha' => $this->fecha, 'pacientes_turnos.para' => 'P75'];
         $this->turnos_p75 = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
         ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
+        ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
         ->where($condicion_p75)
-        ->select('horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
-        'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
+        ->select('pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
+        'users.name', 'pacientes_turnos.fecha_hora', 'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
         ->orderBy('horarios.horario')
         ->get();
     }
@@ -154,12 +157,9 @@ class VerTurnos extends Component
         $this->cargo_horarios();
         $this->cargo_dengue();
         $this->cargo_exudado();
-        $this->cargo_generales();
         $this->generales_x_horario();
         $this->cargo_p75();
         $this->cargo_citogenetica();
-        $this->tab_general = "active";
-        $this->tab_general_ = "show active";
     }
 
     //Marcamos la asistencia de los turnos
@@ -171,14 +171,12 @@ class VerTurnos extends Component
         ]);
 
         if ($asistencia) {
-            if ($para == "general") {
-                $this->cargo_horarios();
-                $this->generales_x_horario();
-                $this->tab_general = "active";
-                $this->tab_general_ = "show active";
-            } elseif ($para == "dengue") {
-                $this->cargo_dengue();
-            } 
+            $this->cargo_horarios();
+            $this->cargo_dengue();
+            $this->cargo_exudado();
+            $this->cargo_citogenetica();   
+            $this->generales_x_horario();  
+            $this->cargo_p75();
         }
     }
 
@@ -217,7 +215,7 @@ class VerTurnos extends Component
         $this->cargo_horarios();
         $this->cargo_dengue();
         $this->cargo_exudado();
-        $this->cargo_generales();
+        $this->generales_x_horario();
         $this->cargo_p75();
         $this->cargo_citogenetica();
     }

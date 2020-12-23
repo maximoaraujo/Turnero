@@ -9,6 +9,7 @@
         <th scope="col" nowrap>Domicilio</th>
         <th scope="col" nowrap>O.S.</th>
         <th scope="col"></th>
+        <th scope="col"></th>
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
         <th scope="col"></th>
         @endif
@@ -33,7 +34,7 @@
         @endif    
         <td><a href = "/comprobante_turno/{{$fecha}}/{{$turno_exudado->id_horario}}/{{$turno_exudado->documento}}/{{$turno_exudado->paciente}}" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
-        <td nowrap>{{$turno_exudado->name}}-{{$turno_exudado->fecha_hora}}</td>
+        <td nowrap>{{$turno_exudado->name}}-{{ date('d-m-Y H:m:s', strtotime($turno_exudado->fecha_hora)) }}</td>
         @endif
     </tr>
     @endforeach
