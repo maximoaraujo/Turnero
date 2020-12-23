@@ -8,26 +8,10 @@ use App\Models\horarios_estudio;
 
 class Configuracion extends Component
 {
-    public $select_estudio;
-    public $horarios;
-
+    public $horarios_dengue, $horarios_exudado, $horarios_espermograma, $horarios_general, $horario_citogenetica;
+   
     public function mount()
     {
-        $this->select_estudio = "nada";
-        $this->horarios_x_estudio();
+       
     }
-
-    public function horarios_x_estudio()
-    {
-        $this->horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
-        ->where('horarios_estudios.estudio', $this->select_estudio)
-        ->orderBy('horarios.horario')
-        ->get();
-    }
-
-    public function updated($select_estudio)
-    {
-        $this->horarios_x_estudio();
-    }
-
 }
