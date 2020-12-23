@@ -24,6 +24,7 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //Turnos
+Route::post('/consultar_no_laborales', [ControladorTurnos::class, 'no_laborales']);
 Route::get('/dengue', [ControladorTurnos::class, 'dengue']);
 Route::get('/exudado', [ControladorTurnos::class, 'exudado']);
 Route::get('/espermograma', [ControladorTurnos::class, 'espermograma']);

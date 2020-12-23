@@ -91,19 +91,23 @@ $(document).ready(function(){
     } 
     
   function verifico_no_laborales(){
-      var url = "php/consultar_no_laborales.php";
-      var fecha = $("#fecha_turno_dengue").val();
-      $.ajax({
-          type: 'POST',
-          url: url,
-          data: 'fecha='+fecha,
-          success:function(datos){
-            if (datos != 0){
-              document.getElementById('no_laboral').style.display = "block";
-              document.getElementById('row_general').style.display = "none";
-            }
+    var fecha = $("#fecha_turno").val();
+    $.ajax({
+        type: 'POST',
+        url: "/consultar_no_laborales",
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data:{
+          fecha: fecha
+        },
+        success:function(datos){
+          if (datos != 0){
+            document.getElementById('no_laboral').style.display = "block";
+            document.getElementById('row_general').style.display = "none";
           }
-      });
+        }
+    });
   }
   window.onload=verifico_no_laborales();
   });

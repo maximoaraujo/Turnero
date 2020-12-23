@@ -8,13 +8,22 @@ use App\Models\horario;
 use App\Models\config;
 use App\Models\pacientes_turno;
 use App\Models\paciente;
-use App\Models\pad_def;
+use App\Models\no_laborale;
 
 class ControladorTurnos extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function no_laborales(Request $request)
+    {
+        $fecha = $request->fecha;
+
+        $cons_fecha = no_laborale::where('fecha', $fecha)->get()->count();
+
+        return $cons_fecha;
     }
 
     public function dengue()
