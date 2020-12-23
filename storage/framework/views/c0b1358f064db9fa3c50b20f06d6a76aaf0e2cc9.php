@@ -21,7 +21,7 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
 ->where('pacientes.obra_social', 'IOSCOR')
 ->whereOr('pacientes.obra_social', 'ioscor')->get()->count();
 ?>
-<?php if($cantidad_ioscor == $ioscor): ?>
+<?php if($cantidad_ioscor <= $ioscor): ?>
 <center>
 <div class="callout callout-danger">
     <h5>¡No asignar más turnos a pacientes con IOSCOR!</h5>
