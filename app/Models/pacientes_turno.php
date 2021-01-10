@@ -10,6 +10,7 @@ class pacientes_turno extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id_turno',
         'id', 
         'letra',
         'fecha',

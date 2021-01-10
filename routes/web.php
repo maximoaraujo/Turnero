@@ -29,6 +29,7 @@ Route::get('/dengue', [ControladorTurnos::class, 'dengue']);
 Route::get('/exudado', [ControladorTurnos::class, 'exudado']);
 Route::get('/espermograma', [ControladorTurnos::class, 'espermograma']);
 Route::get('/general', [ControladorTurnos::class, 'general']);
+Route::post('/genero_id_turno', [ControladorTurnos::class, 'genero_id_turno']);
 Route::post('/general', [ControladorTurnos::class, 'general']);
 Route::get('/citogenetica', [ControladorTurnos::class, 'citogenetica']);
 Route::post('/busco_paciente', [ControladorTurnos::class, 'busco_paciente']);

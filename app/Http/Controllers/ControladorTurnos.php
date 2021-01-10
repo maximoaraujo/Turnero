@@ -7,6 +7,7 @@ use App\Models\horarios_estudio;
 use App\Models\horario;
 use App\Models\config;
 use App\Models\pacientes_turno;
+use App\Models\valores_turno;
 use App\Models\paciente;
 use App\Models\no_laborale;
 
@@ -91,6 +92,37 @@ class ControladorTurnos extends Controller
         $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
 
         return view('turnos.citogenetica', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor'));
+    }
+
+    public function genero_id_turno(Request $request)
+    {
+        $valor = valores_turno::orderBy('valor', 'DESC')->get()->pluck('valor')->first();
+
+        if (empty($valor)) {
+           $valor = 1;
+           $inserto = valores_turno::create(['valor' => $valor]);
+        } else {
+           $valor = $valor + 1;
+           $actualizo = valores_turno::where('id', 1)->update(['valor' => $valor]);
+        }
+ 
+        $id_usuario = $request->id_usuario;
+
+        if (strlen($valor) == 1) {
+           $valor = "00000" .$valor;
+        } elseif (strlen($valor) == 2) {
+            $valor = "0000" .$valor;
+        } elseif (strlen($valor) == 3) {
+            $valor = "000" .$valor;
+        }   elseif (strlen($valor) == 4) {
+            $valor = "00" .$valor;
+        } elseif (strlen($valor) == 5) {
+            $valor = "0" .$valor;
+        } elseif (strlen($valor) >= 6) {
+            $valor = $valor;
+        }
+
+        return $id_usuario. '-' .$valor;
     }
 
     public function busco_paciente(Request $request)
@@ -186,6 +218,7 @@ class ControladorTurnos extends Controller
             ]);
 
             $guardo_turno = pacientes_turno::create([
+                'id_turno' => $request->id_turno,
                 'id' => $id_num,
                 'letra' => $letra,
                 'fecha' => $request->fecha_turno,
@@ -214,6 +247,7 @@ class ControladorTurnos extends Controller
             ]);
 
             $guardo_turno = pacientes_turno::create([
+                'id_turno' => $request->id_turno,
                 'id' => $id_num,
                 'letra' => $letra,
                 'fecha' => $request->fecha_turno,

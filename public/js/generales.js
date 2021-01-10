@@ -54,10 +54,28 @@ $(document).ready(function(){
                 $("#domicilio"+index).val(datos.split(";")[2]);
                 $("#telefono"+index).val(datos.split(";")[3]);
                 $("#obra_social"+index).val(datos.split(";")[4]);
+                genero_id_turno();
                 document.getElementById('loader'+index).style.display = "none";
             }
         });
       }); 
+
+      function genero_id_turno(){
+        var id_usuario = $("#id_usuario").val();
+        $.ajax({
+          type: 'POST',
+          url: '/genero_id_turno',
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          data:{
+            id_usuario:id_usuario
+          },
+          success:function(datos){
+            $("#id_turno"+index).val(datos);
+          }
+        });  
+      }
 
       //Si marcamos el check de Ley 26743 lo mandamos como un comentario
       $("#ley"+index).on('change', function(){
@@ -73,6 +91,7 @@ $(document).ready(function(){
         var id_horario = index;
         var id_usuario = $("#id_usuario").val();
         var p75 = $('#p75_').val()
+        var id_turno = $("#id_turno"+index).val();
         var documento = $("#documento"+index).val();
         var paciente = $("#paciente"+index).val();
         var fecha_nacimiento = $("#fecha_nacimiento"+index).val();
@@ -92,6 +111,7 @@ $(document).ready(function(){
             id_horario: id_horario,
             id_usuario: id_usuario,
             p75: p75,
+            id_turno:id_turno,
             documento: documento,
             paciente: paciente,
             fecha_nacimiento: fecha_nacimiento,

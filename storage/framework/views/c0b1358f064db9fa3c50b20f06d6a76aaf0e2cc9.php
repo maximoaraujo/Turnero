@@ -57,6 +57,7 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
             <div class = "row">
                 <input type = "number" id = "id_usuario" name = "id_usuario" value = "<?php echo e(Auth::user()->id); ?>" hidden>
                 <input type = "number" id = "id_horario" name = "id_horario" value = "<?php echo e($horario->id_horario); ?>" hidden>
+                <input type = "text" class = "form-control" id = "id_turno<?php echo e($horario->id_horario); ?>" hidden>   
             <div class = "col-sm-5">
                 <input type = "number" class = "form-control" id = "documento<?php echo e($horario->id_horario); ?>" placeholder="Documento" required>
             </div>
