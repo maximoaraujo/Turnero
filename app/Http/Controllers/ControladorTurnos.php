@@ -74,7 +74,7 @@ class ControladorTurnos extends Controller
         ->where('horarios_estudios.estudio', 'generales')
         ->orderBy('horarios.horario')
         ->get();
-
+        
         $cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
         $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
 

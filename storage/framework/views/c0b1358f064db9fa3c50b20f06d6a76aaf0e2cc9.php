@@ -45,7 +45,12 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
             <?php
                 $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id_horario]])->get()->count();
             ?>
+            <?php if(($horario->horario == '08:50')||($horario->horario == '09:10')): ?>
+            <?php $cantidad_turnos = 10; ?>
             <h3 class="card-title"><span style = "font-size:22px;"><?php echo e($horario->horario); ?></span> <br> <?php echo $cantidad; ?> | <?php echo e($cantidad_turnos); ?></h3>
+            <?php else: ?>
+            <h3 class="card-title"><span style = "font-size:22px;"><?php echo e($horario->horario); ?></span> <br> <?php echo $cantidad; ?> | <?php echo e($cantidad_turnos); ?></h3>
+            <?php endif; ?>
             <?php if(($cantidad < $cantidad_turnos)||(Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse" style = "display:'.$estado.'">
@@ -115,7 +120,8 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
             </div>
         </div>
         <center>
-            <button class = "btn btn-success" id = "guardar<?php echo e($horario->id_horario); ?>" style = "margin-top:5px;">Guardar</button>
+            <button class = "btn btn-primary mt-2" id = "practicas<?php echo e($horario->id_horario); ?>" disabled>Prácticas</button>
+            <button class = "btn btn-success mt-2" id = "guardar<?php echo e($horario->id_horario); ?>" disabled>Guardar</button>
         </center>
         </div>
         </div> 
@@ -126,5 +132,7 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
 <?php $__env->stopSection(); ?>
 
 
+
+<?php echo $__env->make('turnos.modales.modal_practicas', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->make('plantilla', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->make('layouts.menu', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\Turnero\resources\views/turnos/general.blade.php ENDPATH**/ ?>

@@ -55,6 +55,8 @@ $(document).ready(function(){
                 $("#telefono"+index).val(datos.split(";")[3]);
                 $("#obra_social"+index).val(datos.split(";")[4]);
                 genero_id_turno();
+                $('#guardar'+index).attr("disabled", false);
+                $('#practicas'+index).attr("disabled", false);
                 document.getElementById('loader'+index).style.display = "none";
             }
         });
@@ -85,6 +87,8 @@ $(document).ready(function(){
           $("#comentarios"+index).val("");
         }
       });
+
+     
 
       $("#guardar"+index).on('click', function(){
         var fecha_turno = $("#fecha_turno").val();
