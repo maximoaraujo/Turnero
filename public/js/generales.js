@@ -87,7 +87,11 @@ $(document).ready(function(){
         }
       });
 
-      
+      $("#practicas"+index).on('click', function(){
+        var id_turno = $("#id_turno"+index).val();
+        $("#id_turno_practicas").val(id_turno);
+        $("#modal_practicas").modal('show');     
+      });
 
       $("#guardar"+index).on('click', function(){
         var fecha_turno = $("#fecha_turno").val();
