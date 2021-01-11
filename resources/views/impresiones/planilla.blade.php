@@ -76,7 +76,14 @@ $fecha = $_GET['f'];
 </center>
 
 <?php
-include('php/conexion.php');
+$servidor = "localhost";
+$bd= "turnos_laboratorio";
+$usu = "root";
+$contraseña = "";
+//Creamos la conexión
+$conn = mysqli_connect($servidor, $usu, $contraseña, $bd);
+$conn->set_charset("utf8");
+
 $sql_cons_ids = mysqli_query($conn, "SELECT horarios_estudios.id_horario FROM horarios_estudios, horarios WHERE horarios.id_horario = horarios_estudios.id_horario AND horarios_estudios.estudio = 'generales' ORDER BY horarios.horario");
 while ($registros = mysqli_fetch_assoc($sql_cons_ids)) {
     $sql_cons_horario = mysqli_query($conn, "SELECT horario FROM horarios WHERE id_horario = '".$registros['id_horario']."'");

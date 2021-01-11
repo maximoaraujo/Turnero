@@ -121,7 +121,7 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
         </div>
         <center>
             <button class = "btn btn-primary mt-2" id = "practicas{{$horario->id_horario}}" disabled>Prácticas</button>
-            <button class = "btn btn-success mt-2" id = "guardar{{$horario->id_horario}}" disabled>Guardar</button>
+            <button class = "btn btn-success mt-2" id = "guardar{{$horario->id_horario}}">Guardar</button>
         </center>
         </div>
         </div> 
