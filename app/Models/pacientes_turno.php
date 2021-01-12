@@ -20,6 +20,7 @@ class pacientes_turno extends Model
         'fecha_hora',
         'para',
         'asistio',
-        'comentarios'
+        'comentarios',
+        'situacion'
     ];
 }
