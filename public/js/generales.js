@@ -22,6 +22,7 @@ $(document).ready(function(){
     }
     window.onload=paso_fecha();
 
+	
     $("#p75").on('change', function(){
       if (document.getElementById('p75').checked) {
         $("#p75_").val("P75");
@@ -85,12 +86,6 @@ $(document).ready(function(){
         } else {
           $("#comentarios"+index).val("");
         }
-      });
-
-      $("#practicas"+index).on('click', function(){
-        var id_turno = $("#id_turno"+index).val();
-        $("#id_turno_practicas").val(id_turno);
-        $("#modal_practicas").modal('show');     
       });
 
       $("#guardar"+index).on('click', function(){

@@ -11,11 +11,11 @@
     </select>
     </div>
     <div class = "col-sm-2">
-        <input type = "text" class = "form-control mt-1" style = "width:10px;height:20px;background-color:#2ECC71;" readonly>
+        <input type = "text" class = "form-control mt-1" style = "width:10px;height:20px;background-color:#bb8fce;" readonly>
         <p>Ingresó por garage</p>
     </div>
     <div class = "col-sm-2">
-        <input type = "text" class = "form-control mt-1" style = "width:10px;height:20px;background-color:#EC7063;" readonly>
+        <input type = "text" class = "form-control mt-1" style = "width:10px;height:20px;background-color:#5dade2;" readonly>
         <p>Ingresó por admisión</p>
     </div>
 </div>    
@@ -39,11 +39,11 @@
         <tr>
             @if($turno->situacion == 'garage')
                 <td hidden>{{$turno->id_horario}}</td>
-                <td class = "text-white" style = "background-color:#2ECC71;width:10px;text-align:center;">{{$turno->orden}}</td>
-                <td class = "text-white" style = "background-color:#2ECC71;">{{$turno->letra}}{{$turno->id}}</td>
-                <td class = "text-white" style = "background-color:#2ECC71;">{{$turno->paciente}}</td>
-                <td class = "text-white" style = "background-color:#2ECC71;">{{$turno->documento}}</td>
-                <td class = "text-white" style = "background-color:#2ECC71;">{{$turno->obra_social}}</td>
+                <td class = "text-white" style = "background-color:#bb8fce;width:10px;text-align:center;">{{$turno->orden}}</td>
+                <td class = "text-white" style = "background-color:#bb8fce;">{{$turno->letra}}{{$turno->id}}</td>
+                <td class = "text-white" style = "background-color:#bb8fce;">{{$turno->paciente}}</td>
+                <td class = "text-white" style = "background-color:#bb8fce;">{{$turno->documento}}</td>
+                <td class = "text-white" style = "background-color:#bb8fce;">{{$turno->obra_social}}</td>
                 @if($turno->orden == '')
                 <td style = "width:10px;"><button wire:click='ordeno("{{$turno->letra}}", "{{$turno->id}}", "{{$turno->id_horario}}", "{{$turno->documento}}")' style = "border:none;background-color:transparent;outline:none;"><i class="fas fa-sort-numeric-down"></i></button></td>
                 @elseif(($turno->asistio == 'no')&&($turno->orden != ''))
@@ -53,11 +53,11 @@
                 @endif
             @elseif($turno->situacion == 'paso')
                 <td hidden>{{$turno->id_horario}}</td>
-                <td class = "text-white" class = "text-white" style = "background-color:#EC7063 ;width:10px;text-align:center;">{{$turno->orden}}</td>
-                <td class = "text-white" style = "background-color:#EC7063 ;">{{$turno->letra}}{{$turno->id}}</td>
-                <td class = "text-white" style = "background-color:#EC7063 ;">{{$turno->paciente}}</td>
-                <td class = "text-white" style = "background-color:#EC7063 ;">{{$turno->documento}}</td>
-                <td class = "text-white" style = "background-color:#EC7063 ;">{{$turno->obra_social}}</td>
+                <td class = "text-white" class = "text-white" style = "background-color:#5dade2 ;width:10px;text-align:center;">{{$turno->orden}}</td>
+                <td class = "text-white" style = "background-color:#5dade2 ;">{{$turno->letra}}{{$turno->id}}</td>
+                <td class = "text-white" style = "background-color:#5dade2 ;">{{$turno->paciente}}</td>
+                <td class = "text-white" style = "background-color:#5dade2 ;">{{$turno->documento}}</td>
+                <td class = "text-white" style = "background-color:#5dade2 ;">{{$turno->obra_social}}</td>
                 @if($turno->orden == '')
                 <td style = "width:10px;"><button wire:click='ordeno("{{$turno->letra}}", "{{$turno->id}}", "{{$turno->id_horario}}", "{{$turno->documento}}")' style = "border:none;background-color:transparent;outline:none;"><i class="fas fa-sort-numeric-down"></i></button></td>
                 @elseif(($turno->asistio == 'no')&&($turno->orden != ''))
