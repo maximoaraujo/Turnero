@@ -31,7 +31,7 @@ $(document).ready(function(){
       }
     });
 
-    for (let index = 1; index < 9; index++) {
+    for (let index = 1; index < 10; index++) {
       //Buscamos al paciente en la base de datos
       $("#documento"+index).on('blur', function(){
         var documento = $("#documento"+index).val();
@@ -78,6 +78,31 @@ $(document).ready(function(){
           }
         });  
       }
+
+     
+
+      //Buscamos la práctica al presionar enter en el campo código
+      $("#codigo_practica").on('keyup', function (e) {
+        var keycode = e.keyCode || e.which;
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          if (keycode == 13) {
+              var codigo = $("#codigo_practica").val();
+              $.ajax({
+                type: 'POST',
+                url: '/practica_por_codigo',
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:{
+                  codigo:codigo
+                },
+                success:function(datos){
+                  console.log(datos);
+                }
+              });
+          }
+      });
 
       //Si marcamos el check de Ley 26743 lo mandamos como un comentario
       $("#ley"+index).on('change', function(){

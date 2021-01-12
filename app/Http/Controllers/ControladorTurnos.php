@@ -10,6 +10,8 @@ use App\Models\pacientes_turno;
 use App\Models\valores_turno;
 use App\Models\paciente;
 use App\Models\no_laborale;
+use App\Models\practica;
+use App\Models\turnos_practica;
 
 class ControladorTurnos extends Controller
 {
@@ -123,6 +125,15 @@ class ControladorTurnos extends Controller
         }
 
         return $id_usuario. '-' .$valor;
+    }
+
+    public function busco_codigo(Request $request)
+    {
+        $codigo = $request->codigo;
+
+        $practica = practica::where('id_practica', $codigo)->get()->pluck('practica')->first();
+
+        return $practica;
     }
 
     public function busco_paciente(Request $request)
