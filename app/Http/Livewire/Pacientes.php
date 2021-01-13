@@ -7,6 +7,8 @@ use App\Models\horario;
 use App\Models\config;
 use App\Models\Paciente;
 use App\Models\Pacientes_turno;
+use App\Models\valores_turno;
+use Illuminate\Support\Facades\Auth;
 
 class Pacientes extends Component
 {
@@ -16,6 +18,7 @@ class Pacientes extends Component
     public $movimientos_paciente = [];
     public $accion;
     //Para editar el turno
+    public $id_turno;
     public $fecha_turno, $horario_turno, $fecha_nuevo_turno, $id_nuevo_horario, $id_horario_viejo;
     public $horarios = [];
     public $cantidad_turnos;
@@ -87,54 +90,89 @@ class Pacientes extends Component
         $this->cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
     }
 
+    //Generamos el ID del turno
+    public function genero_id_turno()
+    {
+        $valor = valores_turno::orderBy('valor', 'DESC')->get()->pluck('valor')->first();
+
+        if (empty($valor)) {
+           $valor = 1;
+           $inserto = valores_turno::create(['valor' => $valor]);
+        } else {
+           $valor = $valor + 1;
+           $actualizo = valores_turno::where('id', 1)->update(['valor' => $valor]);
+        }
+ 
+        $id_usuario = Auth::user()->id;
+
+        if (strlen($valor) == 1) {
+           $valor = "00000" .$valor;
+        } elseif (strlen($valor) == 2) {
+            $valor = "0000" .$valor;
+        } elseif (strlen($valor) == 3) {
+            $valor = "000" .$valor;
+        }   elseif (strlen($valor) == 4) {
+            $valor = "00" .$valor;
+        } elseif (strlen($valor) == 5) {
+            $valor = "0" .$valor;
+        } elseif (strlen($valor) >= 6) {
+            $valor = $valor;
+        }
+
+        $this->id_turno = $id_usuario. '-' .$valor;
+    }
+
      //Guardamos el nuevo turno
      public function nuevo_turno($id_horario, $id_usuario, $para)
      {
-         $this->id_nuevo_horario = $id_horario;
-         //Array con la cantidad de turnos disponibles
-         $cons_turnos = config::get()->pluck('cant_turnos_gen')->first();
+        $this->genero_id_turno();
+
+        $this->id_nuevo_horario = $id_horario;
+        //Array con la cantidad de turnos disponibles
+        $cons_turnos = config::get()->pluck('cant_turnos_gen')->first();
  
-         for ($i=1; $i < $cons_turnos + 1; $i++) { 
-             $array_turnos[] = $i;
-         }    
+        for ($i=1; $i < $cons_turnos + 1; $i++) { 
+            $array_turnos[] = $i;
+        }    
                  
-         //Letra según el horario seleccionado
-         $letra = horario::where('id_horario', $this->id_nuevo_horario)->get()->pluck('letra')->first();
+        //Letra según el horario seleccionado
+        $letra = horario::where('id_horario', $this->id_nuevo_horario)->get()->pluck('letra')->first();
                  
-         //Array con los turnos ya ocupados
-         $cons_ocupados = pacientes_turno::join('horarios', 'horarios.id_horario', 'pacientes_turnos.id_horario')
-         ->select('pacientes_turnos.id')
-         ->where('horarios.id_horario', $this->id_nuevo_horario)
-         ->where('pacientes_turnos.fecha', $this->fecha_nuevo_turno)
-         ->get();
+        //Array con los turnos ya ocupados
+        $cons_ocupados = pacientes_turno::join('horarios', 'horarios.id_horario', 'pacientes_turnos.id_horario')
+        ->select('pacientes_turnos.id')
+        ->where('horarios.id_horario', $this->id_nuevo_horario)
+        ->where('pacientes_turnos.fecha', $this->fecha_nuevo_turno)
+        ->get();
                  
-         foreach ($cons_ocupados as $ocupados) {
-             $array_ocupados[] = $ocupados['id'];
-         }
+        foreach ($cons_ocupados as $ocupados) {
+            $array_ocupados[] = $ocupados['id'];
+        }
          
-         //Si el array de ocupados esta vacío lo ponemos en 0
-         if (empty($array_ocupados)) {
-             $array_ocupados = array("0");
-         }
+        //Si el array de ocupados esta vacío lo ponemos en 0
+        if (empty($array_ocupados)) {
+            $array_ocupados = array("0");
+        }
                  
-         //Sacamos la diferencia entre los dos arrays
-         $array_libres = array_diff($array_turnos, $array_ocupados);
+        //Sacamos la diferencia entre los dos arrays
+        $array_libres = array_diff($array_turnos, $array_ocupados);
                  
-         //Le pasamos el primer valor del array con los turnos libres
-         $id_num = reset($array_libres);
+        //Le pasamos el primer valor del array con los turnos libres
+        $id_num = reset($array_libres);
  
-         $fecha_hora = date('Y-m-d H:m:s');
+        $fecha_hora = date('Y-m-d H:m:s');
  
-         $guardo_turno = pacientes_turno::create([
-             'id' => $id_num,
-             'letra' => $letra,
-             'fecha' => $this->fecha_nuevo_turno,
-             'id_horario' => $this->id_nuevo_horario,
-             'documento' => $this->documento,
-             'id_usuario' => $id_usuario,
-             'fecha_hora' => $fecha_hora,
-             'para' => $para,
-             'asistio' => 'no',
+        $guardo_turno = pacientes_turno::create([
+            'id_turno' => $this->id_turno,
+            'id' => $id_num,
+            'letra' => $letra,
+            'fecha' => $this->fecha_nuevo_turno,
+            'id_horario' => $this->id_nuevo_horario,
+            'documento' => $this->documento,
+            'id_usuario' => $id_usuario,
+            'fecha_hora' => $fecha_hora,
+            'para' => $para,
+            'asistio' => 'no',
             'comentarios' => ''
         ]);
  

@@ -7,6 +7,8 @@ use App\Models\horario;
 use App\Models\pacientes_turno;
 use App\Models\paciente;
 use App\Models\config;
+use App\Models\valores_turno;
+use Illuminate\Support\Facades\Auth;
 
 class VerTurnos extends Component
 {
@@ -19,6 +21,8 @@ class VerTurnos extends Component
     public $para;
     //Fecha del nuevo turno
     public $fecha_nuevo_turno;
+    //ID del turno
+    public $id_turno;
     //Horario del turno que se esta por editar
     public $horario_turno, $id_horario_viejo;
     //ID del nuevo horario al editar un turno
@@ -151,6 +155,38 @@ class VerTurnos extends Component
         ->get();
     }
 
+    //Generamos el ID del turno
+    public function genero_id_turno()
+    {
+        $valor = valores_turno::orderBy('valor', 'DESC')->get()->pluck('valor')->first();
+
+        if (empty($valor)) {
+           $valor = 1;
+           $inserto = valores_turno::create(['valor' => $valor]);
+        } else {
+           $valor = $valor + 1;
+           $actualizo = valores_turno::where('id', 1)->update(['valor' => $valor]);
+        }
+ 
+        $id_usuario = Auth::user()->id;
+
+        if (strlen($valor) == 1) {
+           $valor = "00000" .$valor;
+        } elseif (strlen($valor) == 2) {
+            $valor = "0000" .$valor;
+        } elseif (strlen($valor) == 3) {
+            $valor = "000" .$valor;
+        }   elseif (strlen($valor) == 4) {
+            $valor = "00" .$valor;
+        } elseif (strlen($valor) == 5) {
+            $valor = "0" .$valor;
+        } elseif (strlen($valor) >= 6) {
+            $valor = $valor;
+        }
+
+        $this->id_turno = $id_usuario. '-' .$valor;
+    }
+
     //Después de actualizar la fecha o el horario seleccionado mostramos los turnos
     public function updated($fecha, $horario_sel)
     {
@@ -160,6 +196,7 @@ class VerTurnos extends Component
         $this->generales_x_horario();
         $this->cargo_p75();
         $this->cargo_citogenetica();
+        $this->genero_id_turno();
     }
 
     //Marcamos la asistencia de los turnos
@@ -281,6 +318,7 @@ class VerTurnos extends Component
         $fecha_hora = date('Y-m-d H:m:s');
 
         $guardo_turno = pacientes_turno::create([
+            'id_turno' => $this->id_turno,
             'id' => $id_num,
             'letra' => $letra,
             'fecha' => $this->fecha_nuevo_turno,

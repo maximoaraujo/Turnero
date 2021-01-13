@@ -79,7 +79,11 @@ $(document).ready(function(){
         });  
       }
 
-     
+      $("#practicas"+index).on('click', function(){
+        var id_turno = $("#id_turno"+index).val();
+        $("#modal_practicas").modal('show');
+        $("#id_turno_practicas").val(id_turno);
+      });
 
       //Buscamos la práctica al presionar enter en el campo código
       $("#codigo_practica").on('keyup', function (e) {
