@@ -5,7 +5,7 @@
     <p>Fecha del turno: {{date('d-m-Y', strtotime($fecha_turno))}}</p>
 </div>
 <div class = "row" style = "margin-left:10px;">
-    <p>Horario del turno: {{$horario_turno}} {{$id_horario_viejo}}</p>
+    <p>Horario del turno: {{$horario_turno}}</p>
 </div>
 <hr>
 <center>

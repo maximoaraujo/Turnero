@@ -57,6 +57,7 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
             <div class = "row">
                 <input type = "number" id = "id_usuario" name = "id_usuario" value = "{{Auth::user()->id}}" hidden>
                 <input type = "number" id = "id_horario" name = "id_horario" value = "{{$horario->id_horario}}" hidden>
+                <input type = "text" class = "form-control" id = "id_turno{{$horario->id_horario}}" hidden>
             <div class = "col-sm-5">
                 <input type = "number" class = "form-control" id = "documento{{$horario->id_horario}}" placeholder="Documento" required>
             </div>
@@ -89,7 +90,8 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
                 <input type = "text" class = "form-control" id = "comentarios{{$horario->id_horario}}" placeholder="Comentarios">
             </div>
         </div>
-        <center>
+        <center>    
+            <button class = "btn btn-primary mt-2" id = "practicas{{$horario->id_horario}}" disabled>Prácticas</button>
             <button class = "btn btn-success" id = "guardar{{$horario->id_horario}}" style = "margin-top:5px;">Guardar</button>
         </center>
         </div> 
@@ -98,3 +100,5 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
 @endforeach
 </div>
 @endsection
+
+@extends('turnos.modales.modal_practicas')

@@ -12,6 +12,7 @@ use App\Models\paciente;
 use App\Models\no_laborale;
 use App\Models\practica;
 use App\Models\turnos_practica;
+use Illuminate\Support\Facades\Auth;
 
 class ControladorTurnos extends Controller
 {
@@ -62,7 +63,7 @@ class ControladorTurnos extends Controller
         ->orderBy('horarios.horario')
         ->get();
 
-        $cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
+        $cantidad_turnos = config::get()->pluck('cant_turnos_esp')->first();
         $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
 
         return view('turnos.espermograma', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor'));
@@ -71,16 +72,17 @@ class ControladorTurnos extends Controller
     public function general(Request $request)
     {        
         $fecha = $request->fecha;
-
+        $picked = true;
+        $practicas = [];
         $horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
         ->where('horarios_estudios.estudio', 'generales')
         ->orderBy('horarios.horario')
         ->get();
-        
+
         $cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
         $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
 
-        return view('turnos.general', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor', 'fecha'));
+        return view('turnos.general', compact('picked', 'practicas', 'horarios', 'cantidad_turnos', 'cantidad_ioscor', 'fecha'));
     }
 
     public function citogenetica()
@@ -108,7 +110,7 @@ class ControladorTurnos extends Controller
            $actualizo = valores_turno::where('id', 1)->update(['valor' => $valor]);
         }
  
-        $id_usuario = $request->id_usuario;
+        $id_usuario = Auth::user()->id;
 
         if (strlen($valor) == 1) {
            $valor = "00000" .$valor;
@@ -136,6 +138,13 @@ class ControladorTurnos extends Controller
         return $practica;
     }
 
+    public function busco_practica(Request $request)
+    {   
+        $practicas = practica::where('practica', 'LIKE', '%' .$request->practica. '%')->get();
+
+        return response(json_encode($practicas), 200)->header('Content-type', 'text/plain');
+    }
+
     public function busco_paciente(Request $request)
     {
         $paciente = paciente::where('documento', $request->documento)->get()->pluck('paciente')->first();
@@ -145,6 +154,29 @@ class ControladorTurnos extends Controller
         $obra_social = paciente::where('documento', $request->documento)->get()->pluck('obra_social')->first();
         
         return $paciente. ';' .$fecha_nac. ';' .$domicilio. ';' .$telefono. ';' .$obra_social;
+    }
+
+    public function turno_practicas(Request $request)
+    {
+        $guardo_practica = turnos_practica::create([
+            'id_turno' => $request->id_turno,
+            'id_practica' => $request->id_practica,
+            'cantidad' => 1
+        ]);
+    }
+
+    public function muestro_practicas(Request $request)
+    {
+        $practicas = turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
+        ->select('practicas.id_practica', 'practicas.practica')
+        ->where('turnos_practicas.id_turno', $request->id_turno)->get();
+
+        return response(json_encode($practicas), 200)->header('Content-type', 'text/plain');
+    }
+
+    public function elimino_practica(Request $request)
+    {
+        $eliminar = turnos_practica::where('id_turno', $request->id_turno)->where('id_practica', $request->id_practica)->delete();
     }
 
     public function guardo_turno(Request $request)
@@ -278,13 +310,14 @@ class ControladorTurnos extends Controller
   
     }
 
-    public function comprobante_turno($fecha, $id, $documento, $paciente)
+    public function comprobante_turno($fecha, $id, $documento, $paciente, $id_turno)
     {
         $fecha = $fecha;
         $id_horario = $id;
         $documento = $documento;
         $paciente = $paciente;
+        $id_turno = $id_turno;
 
-        return view('impresiones.comprobante_turno', compact('fecha', 'id_horario', 'documento', 'paciente'));
+        return view('impresiones.comprobante_turno', compact('fecha', 'id_horario', 'documento', 'paciente', 'id_turno'));
     }
 }

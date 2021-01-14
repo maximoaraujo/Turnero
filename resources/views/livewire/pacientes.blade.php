@@ -42,6 +42,9 @@
                 <input type="text" class="form-control" wire:model='obra_social'>
             </div>
             </div>
+            @if($documento != '')
+            <button class = "btn btn-success mt-1" wire:click='actualizar_datos'>Guardar</button>
+            @endif
             </div>
         </div>   
         </div>

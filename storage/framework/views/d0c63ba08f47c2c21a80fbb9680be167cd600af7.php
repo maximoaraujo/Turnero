@@ -11,19 +11,17 @@
     </select>
     </div>
     <div class = "col-sm-2">
-        <input type = "text" class = "form-control mt-1" style = "width:10px;height:20px;background-color:#2ECC71;" readonly>
+        <input type = "text" class = "form-control mt-1" style = "width:10px;height:20px;background-color:#bb8fce;" readonly>
         <p>Ingresó por garage</p>
     </div>
     <div class = "col-sm-2">
-        <input type = "text" class = "form-control mt-1" style = "width:10px;height:20px;background-color:#EC7063;" readonly>
+        <input type = "text" class = "form-control mt-1" style = "width:10px;height:20px;background-color:#5dade2;" readonly>
         <p>Ingresó por admisión</p>
     </div>
 </div>    
 </center>
 
 <div class="card-body">
-<?php echo e($asistio); ?>
-
 <div class="table-responsive">
 <table class="table table-bordered">
     <thead>
@@ -41,11 +39,11 @@
         <tr>
             <?php if($turno->situacion == 'garage'): ?>
                 <td hidden><?php echo e($turno->id_horario); ?></td>
-                <td class = "text-white" style = "background-color:#2ECC71;width:10px;text-align:center;"><?php echo e($turno->orden); ?></td>
-                <td class = "text-white" style = "background-color:#2ECC71;"><?php echo e($turno->letra); ?><?php echo e($turno->id); ?></td>
-                <td class = "text-white" style = "background-color:#2ECC71;"><?php echo e($turno->paciente); ?></td>
-                <td class = "text-white" style = "background-color:#2ECC71;"><?php echo e($turno->documento); ?></td>
-                <td class = "text-white" style = "background-color:#2ECC71;"><?php echo e($turno->obra_social); ?></td>
+                <td class = "text-white" style = "background-color:#bb8fce;width:10px;text-align:center;"><?php echo e($turno->orden); ?></td>
+                <td class = "text-white" style = "background-color:#bb8fce;"><?php echo e($turno->letra); ?><?php echo e($turno->id); ?></td>
+                <td class = "text-white" style = "background-color:#bb8fce;"><?php echo e($turno->paciente); ?></td>
+                <td class = "text-white" style = "background-color:#bb8fce;"><?php echo e($turno->documento); ?></td>
+                <td class = "text-white" style = "background-color:#bb8fce;"><?php echo e($turno->obra_social); ?></td>
                 <?php if($turno->orden == ''): ?>
                 <td style = "width:10px;"><button wire:click='ordeno("<?php echo e($turno->letra); ?>", "<?php echo e($turno->id); ?>", "<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "border:none;background-color:transparent;outline:none;"><i class="fas fa-sort-numeric-down"></i></button></td>
                 <?php elseif(($turno->asistio == 'no')&&($turno->orden != '')): ?>
@@ -55,11 +53,11 @@
                 <?php endif; ?>
             <?php elseif($turno->situacion == 'paso'): ?>
                 <td hidden><?php echo e($turno->id_horario); ?></td>
-                <td class = "text-white" class = "text-white" style = "background-color:#EC7063 ;width:10px;text-align:center;"><?php echo e($turno->orden); ?></td>
-                <td class = "text-white" style = "background-color:#EC7063 ;"><?php echo e($turno->letra); ?><?php echo e($turno->id); ?></td>
-                <td class = "text-white" style = "background-color:#EC7063 ;"><?php echo e($turno->paciente); ?></td>
-                <td class = "text-white" style = "background-color:#EC7063 ;"><?php echo e($turno->documento); ?></td>
-                <td class = "text-white" style = "background-color:#EC7063 ;"><?php echo e($turno->obra_social); ?></td>
+                <td class = "text-white" class = "text-white" style = "background-color:#5dade2 ;width:10px;text-align:center;"><?php echo e($turno->orden); ?></td>
+                <td class = "text-white" style = "background-color:#5dade2 ;"><?php echo e($turno->letra); ?><?php echo e($turno->id); ?></td>
+                <td class = "text-white" style = "background-color:#5dade2 ;"><?php echo e($turno->paciente); ?></td>
+                <td class = "text-white" style = "background-color:#5dade2 ;"><?php echo e($turno->documento); ?></td>
+                <td class = "text-white" style = "background-color:#5dade2 ;"><?php echo e($turno->obra_social); ?></td>
                 <?php if($turno->orden == ''): ?>
                 <td style = "width:10px;"><button wire:click='ordeno("<?php echo e($turno->letra); ?>", "<?php echo e($turno->id); ?>", "<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "border:none;background-color:transparent;outline:none;"><i class="fas fa-sort-numeric-down"></i></button></td>
                 <?php elseif(($turno->asistio == 'no')&&($turno->orden != '')): ?>

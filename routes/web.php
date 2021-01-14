@@ -31,11 +31,15 @@ Route::get('/espermograma', [ControladorTurnos::class, 'espermograma']);
 Route::get('/general', [ControladorTurnos::class, 'general']);
 Route::post('/genero_id_turno', [ControladorTurnos::class, 'genero_id_turno']);
 Route::post('/practica_por_codigo', [ControladorTurnos::class, 'busco_codigo']);
+Route::post('/busco_practica', [ControladorTurnos::class, 'busco_practica']);
+Route::post('/turno_practicas', [ControladorTurnos::class, 'turno_practicas']);
+Route::post('/muestro_practicas', [ControladorTurnos::class, 'muestro_practicas']);
+Route::post('/elimino_practica', [ControladorTurnos::class, 'elimino_practica']);
 Route::post('/general', [ControladorTurnos::class, 'general']);
 Route::get('/citogenetica', [ControladorTurnos::class, 'citogenetica']);
 Route::post('/busco_paciente', [ControladorTurnos::class, 'busco_paciente']);
 Route::post('/guardo_turno', [ControladorTurnos::class, 'guardo_turno']);
-Route::get('/comprobante_turno/{fecha}/{id}/{documento}/{paciente}', [ControladorTurnos::class, 'comprobante_turno']);
+Route::get('/comprobante_turno/{fecha}/{id}/{documento}/{paciente}/{id_turno}', [ControladorTurnos::class, 'comprobante_turno']);
 
 //Planilla
 Route::get('/planilla', [HomeController::class, 'planilla']);

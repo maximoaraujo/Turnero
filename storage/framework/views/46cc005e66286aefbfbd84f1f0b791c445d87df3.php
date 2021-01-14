@@ -53,8 +53,8 @@
             <ul class="nav nav-treeview">
                 <li class="nav-item">
                 <a href="/dengue?f=<?php echo $fecha = date('Y-m-d'); ?>" class="nav-link">
-                  <i class="far fa-circle nav-icon" style = "color:red;"></i>
-                  <p>Dengue</p>
+                  <i class="far fa-circle nav-icon" style = "color:black;"></i>
+                  <p>Dengue | SARS</p>
                 </a>
                 </li>
             </ul>
@@ -93,7 +93,33 @@
                   <p>Citogenetíca</p>
                 </a>
                 </li>
-            </ul>  
+            </ul>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                <a href="/" class="nav-link">
+                  <i class="far fa-circle nav-icon" style = "color:red;"></i>
+                  <p>Rechazo</p>
+                </a>
+                </li>
+            </ul>
+            </li>  
+            <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-line"></i>
+              <p>
+                Demanda
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/" class="nav-link">
+                  <i class="far fa-circle nav-icon" style = "color:brown;"></i>
+                  <p>Consulta general</p>
+                </a>
+              </li>
+            </ul>
+            </li>
             <li class="nav-item">
               <a href="/vista-turnos" class="nav-link">
               <i class="nav-icon far fa-calendar-check"></i>

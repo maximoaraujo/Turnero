@@ -5,7 +5,7 @@
     <p>Fecha del turno: <?php echo e(date('d-m-Y', strtotime($fecha_turno))); ?></p>
 </div>
 <div class = "row" style = "margin-left:10px;">
-    <p>Horario del turno: <?php echo e($horario_turno); ?> <?php echo e($id_horario_viejo); ?></p>
+    <p>Horario del turno: <?php echo e($horario_turno); ?></p>
 </div>
 <hr>
 <center>
@@ -13,8 +13,6 @@
     <input type = "date" class = "form-control" wire:model='fecha_nuevo_turno'>
 </div>
 </center>
-<?php echo e($id_turno); ?>
-
 <div class = "row" style = "margin-top:20px;">
 <?php $__currentLoopData = $horarios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $horario): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 <div class="col-md-3 col-sm-4 col-12">

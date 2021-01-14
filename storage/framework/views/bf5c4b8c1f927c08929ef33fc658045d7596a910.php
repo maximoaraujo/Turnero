@@ -57,6 +57,7 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
             <div class = "row">
                 <input type = "number" id = "id_usuario" name = "id_usuario" value = "<?php echo e(Auth::user()->id); ?>" hidden>
                 <input type = "number" id = "id_horario" name = "id_horario" value = "<?php echo e($horario->id_horario); ?>" hidden>
+                <input type = "text" class = "form-control" id = "id_turno<?php echo e($horario->id_horario); ?>" hidden>
             <div class = "col-sm-5">
                 <input type = "number" class = "form-control" id = "documento<?php echo e($horario->id_horario); ?>" placeholder="Documento" required>
             </div>
@@ -89,7 +90,8 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
                 <input type = "text" class = "form-control" id = "comentarios<?php echo e($horario->id_horario); ?>" placeholder="Comentarios">
             </div>
         </div>
-        <center>
+        <center>    
+            <button class = "btn btn-primary mt-2" id = "practicas<?php echo e($horario->id_horario); ?>">Prácticas</button>
             <button class = "btn btn-success" id = "guardar<?php echo e($horario->id_horario); ?>" style = "margin-top:5px;">Guardar</button>
         </center>
         </div> 
@@ -98,5 +100,8 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </div>
 <?php $__env->stopSection(); ?>
+
+
+<?php echo $__env->make('turnos.modales.modal_practicas', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->make('plantilla', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->make('layouts.menu', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\Turnero\resources\views/turnos/citogenetica.blade.php ENDPATH**/ ?>

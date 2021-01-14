@@ -64,6 +64,16 @@ class Pacientes extends Component
         } 
     }
 
+    public function actualizar_datos()
+    {
+        $actualizo = Paciente::where('documento', $this->documento)->update([
+            'paciente' => $this->paciente,
+            'domicilio' => $this->domicilio,
+            'telefono' => $this->telefono,
+            'obra_social' => $this->obra_social
+        ]);
+    }
+
     public function movimientos_paciente()
     {
         $this->movimientos_paciente = Pacientes_turno::join('horarios', 'horarios.id_horario', 'pacientes_turnos.id_horario')
