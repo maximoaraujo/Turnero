@@ -21,6 +21,7 @@
     <tbody>
     @foreach($turnos_exudado as $turno_exudado)
     <tr>
+        <td hidden>{{$turno_exudado->id_turno}}</td>
         <td hidden>{{$turno_exudado->id_horario}}</td>
         <td nowrap>{{$turno_exudado->horario}}</td>
         <td nowrap>{{$turno_exudado->letra}}{{$turno_exudado->id}}</td>
@@ -32,7 +33,7 @@
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
         <td><button wire:click='eliminar_turno("{{$turno_exudado->documento}}", "{{$turno_exudado->id_horario}}", "{{$fecha}}")' style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>
         @endif    
-        <td><a href = "/comprobante_turno/{{$fecha}}/{{$turno_exudado->id_horario}}/{{$turno_exudado->documento}}/{{$turno_exudado->paciente}}" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
+        <td><a href = "/comprobante_turno/{{$fecha}}/{{$turno_exudado->id_horario}}/{{$turno_exudado->documento}}/{{$turno_exudado->paciente}}/{{$turno_exudado->id_turno}}" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
         <td nowrap>{{$turno_exudado->name}}-{{ date('d-m-Y H:m:s', strtotime($turno_exudado->fecha_hora)) }}</td>
         @endif

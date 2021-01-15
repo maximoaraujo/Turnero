@@ -21,6 +21,7 @@
     <tbody>
     @foreach($turnos_citogenetica as $turno_citogenetica)
     <tr>
+        <td hidden>{{$turno_citogenetica->id_turno}}</td>
         <td hidden>{{$turno_citogenetica->id_horario}}</td>
         <td nowrap>{{$turno_citogenetica->horario}}</td>
         <td nowrap>{{$turno_citogenetica->letra}}{{$turno_citogenetica->id}}</td>
@@ -32,7 +33,7 @@
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
         <td><button wire:click='eliminar_turno("{{$turno_citogenetica->documento}}", "{{$turno_citogenetica->id_horario}}", "{{$fecha}}")' style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>
         @endif    
-        <td><a href = "/comprobante_turno/{{$fecha}}/{{$turno_citogenetica->id_horario}}/{{$turno_citogenetica->documento}}/{{$turno_citogenetica->paciente}}" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
+        <td><a href = "/comprobante_turno/{{$fecha}}/{{$turno_citogenetica->id_horario}}/{{$turno_citogenetica->documento}}/{{$turno_citogenetica->paciente}}/{{$turno_citogenetica->id_turno}}" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
         <td nowrap>{{$turno_citogenetica->name}}-{{ date('d-m-Y H:m:s', strtotime($turno_citogenetica->fecha_hora)) }}</td>
         @endif

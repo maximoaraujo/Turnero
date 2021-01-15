@@ -31,6 +31,7 @@
     <tbody>
     <?php $__currentLoopData = $turnos_generales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $turno_general): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <tr>
+        <td hidden><?php echo e($turno_general->id_turno); ?></td>
         <td hidden><?php echo e($turno_general->id_horario); ?></td>
         <td nowrap><?php echo e($turno_general->horario); ?></td>
         <td nowrap><?php echo e($turno_general->letra); ?><?php echo e($turno_general->id); ?></td>

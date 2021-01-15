@@ -31,6 +31,7 @@
     <tbody>
     @foreach($turnos_generales as $turno_general)
     <tr>
+        <td hidden>{{$turno_general->id_turno}}</td>
         <td hidden>{{$turno_general->id_horario}}</td>
         <td nowrap>{{$turno_general->horario}}</td>
         <td nowrap>{{$turno_general->letra}}{{$turno_general->id}}</td>

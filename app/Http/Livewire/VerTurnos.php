@@ -82,7 +82,7 @@ class VerTurnos extends Component
         $this->turnos_dengue = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
         ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
         ->where($condicion_den)
-        ->select('pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
+        ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
         'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
         ->orderBy('horarios.horario')
         ->get();
@@ -95,7 +95,7 @@ class VerTurnos extends Component
         $this->turnos_exudado = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
         ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
         ->where($condicion_exu)
-        ->select('pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
+        ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
         'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
         ->orderBy('horarios.horario')
         ->get();
@@ -122,7 +122,7 @@ class VerTurnos extends Component
         ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
         ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
         ->where($condicion_gen)
-        ->select('pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
+        ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
         'users.name', 'pacientes_turnos.fecha_hora', 'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
         ->orderBy('horarios.horario')
         ->get(); 
@@ -136,7 +136,7 @@ class VerTurnos extends Component
         ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
         ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
         ->where($condicion_p75)
-        ->select('pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
+        ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
         'users.name', 'pacientes_turnos.fecha_hora', 'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
         ->orderBy('horarios.horario')
         ->get();
@@ -149,7 +149,7 @@ class VerTurnos extends Component
         $this->turnos_citogenetica = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
         ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
         ->where($condicion_cit)
-        ->select('pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
+        ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
         'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
         ->orderBy('horarios.horario')
         ->get();
