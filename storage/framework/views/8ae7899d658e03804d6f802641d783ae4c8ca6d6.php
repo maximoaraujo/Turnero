@@ -76,7 +76,7 @@
 
             </div>
             <div class="timeline-footer">
-                <a class="btn btn-primary btn-sm" href = "/comprobante_turno/<?php echo e($movimiento->fecha); ?>/<?php echo e($movimiento->id_horario); ?>/<?php echo e($documento); ?>/<?php echo e($paciente); ?>" target = "_blank">Re-imprimir</a>
+                <a class="btn btn-primary btn-sm" href = "/comprobante_turno/<?php echo e($movimiento->fecha); ?>/<?php echo e($movimiento->id_horario); ?>/<?php echo e($documento); ?>/<?php echo e($paciente); ?>/<?php echo e($id_turno); ?>" target = "_blank">Re-imprimir</a>
                 <?php if(($movimiento->asistio == 'no')&&($movimiento->para == 'general')): ?>
                 <a class="btn btn-danger btn-sm" wire:click='editar_turno("<?php echo e($movimiento->fecha); ?>", "<?php echo e($movimiento->horario); ?>", "<?php echo e($movimiento->id_horario); ?>")'>Re-programar</a>
                 <?php endif; ?>
