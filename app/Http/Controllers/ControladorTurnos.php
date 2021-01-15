@@ -320,4 +320,14 @@ class ControladorTurnos extends Controller
 
         return view('impresiones.comprobante_turno', compact('fecha', 'id_horario', 'documento', 'paciente', 'id_turno'));
     }
+
+    public function rechazo_turno()
+    {
+        return view('turnos.rechazo');
+    }
+
+    public function consultas()
+    {
+        return view('demanda.consultas');
+    }
 }

@@ -96,7 +96,7 @@
             </ul>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                <a href="/" class="nav-link">
+                <a href="/rechazo" class="nav-link">
                   <i class="far fa-circle nav-icon" style = "color:red;"></i>
                   <p>Rechazo</p>
                 </a>
@@ -113,7 +113,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/" class="nav-link">
+                <a href="/consultas" class="nav-link">
                   <i class="far fa-circle nav-icon" style = "color:brown;"></i>
                   <p>Consulta general</p>
                 </a>
