@@ -114,29 +114,6 @@ while ($registros = mysqli_fetch_assoc($sql_cons_ids)) {
     echo " </table>"; 
 }
 
-//Fila para mostrar los turnos de las 09:00
-echo "<center>
-        <li id = 'cabecera_horarios_1'><small>09:00</small></li>
-      </center>";
-echo "<table cellspacing='0' width='100%'>"; 
-
-$sql_cons_pac = mysqli_query($conn, "SELECT concat_ws('', pacientes_turnos.letra, pacientes_turnos.id) AS turno, pacientes.paciente, pacientes.documento, pacientes_turnos.comentarios, pacientes_turnos.para
-FROM pacientes_turnos, pacientes WHERE pacientes_turnos.documento = pacientes.documento AND pacientes_turnos.id_horario = '10'
-AND pacientes_turnos.fecha = '".$fecha."'"); 
-
-while($reg = mysqli_fetch_assoc($sql_cons_pac)){
-echo '<tbody>
-    <tr>
-        <td style = "text-align:center;border:1px solid grey;height:10px;">'.$reg['turno'].'</td>
-        <td style = "text-align:center;border:1px solid grey;height:10px;"><small>'.$reg['paciente'].'</small></td>
-        <td style = "text-align:center;border:1px solid grey;height:10px;"><small>'.$reg['documento'].'</small></td>
-        <td style = "text-align:center;border:1px solid grey;height:10px;"><small>'.$reg['comentarios'].'</small></td>
-    </tr>
-    </tbody>';  
-}      
-
-echo "</table>";
-
 $dompdf = new Dompdf();
 $dompdf->loadhtml(ob_get_clean());
 
