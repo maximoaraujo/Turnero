@@ -21,6 +21,7 @@
     <tbody>
     <?php $__currentLoopData = $turnos_exudado; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $turno_exudado): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <tr>
+        <td hidden><?php echo e($turno_exudado->id_turno); ?></td>
         <td hidden><?php echo e($turno_exudado->id_horario); ?></td>
         <td nowrap><?php echo e($turno_exudado->horario); ?></td>
         <td nowrap><?php echo e($turno_exudado->letra); ?><?php echo e($turno_exudado->id); ?></td>
@@ -32,7 +33,7 @@
         <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
         <td><button wire:click='eliminar_turno("<?php echo e($turno_exudado->documento); ?>", "<?php echo e($turno_exudado->id_horario); ?>", "<?php echo e($fecha); ?>")' style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>
         <?php endif; ?>    
-        <td><a href = "/comprobante_turno/<?php echo e($fecha); ?>/<?php echo e($turno_exudado->id_horario); ?>/<?php echo e($turno_exudado->documento); ?>/<?php echo e($turno_exudado->paciente); ?>" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
+        <td><a href = "/comprobante_turno/<?php echo e($fecha); ?>/<?php echo e($turno_exudado->id_horario); ?>/<?php echo e($turno_exudado->documento); ?>/<?php echo e($turno_exudado->paciente); ?>/<?php echo e($turno_exudado->id_turno); ?>" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
         <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
         <td nowrap><?php echo e($turno_exudado->name); ?>-<?php echo e(date('d-m-Y H:m:s', strtotime($turno_exudado->fecha_hora))); ?></td>
         <?php endif; ?>

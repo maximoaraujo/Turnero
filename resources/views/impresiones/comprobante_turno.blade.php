@@ -149,7 +149,6 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 <p id = "paciente">Paciente: {{$paciente}}</p>
 </center>
 
-<!--<p id = "solicito">Solicitó un turno para realizarse los siguientes estudios:</p>-->
 
 <?php
     //$practicas = App\Models\turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
@@ -167,8 +166,7 @@ WHATSAPP 3795-393798 | 3795-403798</p>
 <p id = "info_2"><strong>Visite nuestra página web:</strong>laboratorio.saludcorrientes.gob.ar</p>
 <?php
 $dompdf = new Dompdf();
-$dompdf->set_option('isRemoteEnabled', true);  
-$dompdf->loadhtml(ob_get_clean());
+ $dompdf->loadhtml(ob_get_clean());
 $dompdf->setPaper('A5');
 
 $dompdf->render();

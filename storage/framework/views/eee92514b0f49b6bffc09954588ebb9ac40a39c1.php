@@ -149,17 +149,16 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 <p id = "paciente">Paciente: <?php echo e($paciente); ?></p>
 </center>
 
-<p id = "solicito">Solicitó un turno para realizarse los siguientes estudios:</p>
 
 <?php
-    $practicas = App\Models\turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
-    ->select('practicas.practica')->where('turnos_practicas.id_turno', $id_turno)->get();
+    //$practicas = App\Models\turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
+    //->select('practicas.practica')->where('turnos_practicas.id_turno', $id_turno)->get();
 
-    foreach ($practicas as $practica) {
-        echo "<ul>
-                <li style = 'font-size:10px;'>".$practica->practica."</li>
-              </ul>";
-    }
+    //foreach ($practicas as $practica) {
+    //    echo "<ul>
+    //            <li style = 'font-size:10px;'>".$practica->practica."</li>
+    //          </ul>";
+    //}
 ?>
 <p id = "info">SI TIENE FIEBRE Y/O SÍNTOMAS RELACIONADOS CON COVID-19 REPROGRAME SU TURNO AL
 WHATSAPP 3795-393798 | 3795-403798</p>
@@ -167,13 +166,12 @@ WHATSAPP 3795-393798 | 3795-403798</p>
 <p id = "info_2"><strong>Visite nuestra página web:</strong>laboratorio.saludcorrientes.gob.ar</p>
 <?php
 $dompdf = new Dompdf();
-$dompdf->set_option('isRemoteEnabled', true);  
-$dompdf->loadhtml(ob_get_clean());
+ $dompdf->loadhtml(ob_get_clean());
 $dompdf->setPaper('A5');
 
 $dompdf->render();
  
-//$dompdf->stream('TURNO_'.$paciente.'.pdf');
+$dompdf->stream('TURNO_'.$paciente.'.pdf');
 $dompdf->stream('TURNO_'.$paciente.'.pdf', array("Attachment" => false));
 
 ?><?php /**PATH C:\laragon\www\Turnero\resources\views/impresiones/comprobante_turno.blade.php ENDPATH**/ ?>
