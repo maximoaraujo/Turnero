@@ -149,6 +149,8 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 <p id = "paciente">Paciente: {{$paciente}}</p>
 </center>
 
+<!--<p id = "solicito">Solicitó un turno para realizarse los siguientes estudios:</p>-->
+
 <?php
     //$practicas = App\Models\turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
     //->select('practicas.practica')->where('turnos_practicas.id_turno', $id_turno)->get();
