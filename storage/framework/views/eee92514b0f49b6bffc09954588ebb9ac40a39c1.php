@@ -90,7 +90,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
         case "Mon":
             $dia = "Lunes";
             break;
-        case "Tus":
+        case "Tue":
             $dia = "Martes";
             break;
         case "Wed":
