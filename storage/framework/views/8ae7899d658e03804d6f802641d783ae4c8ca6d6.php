@@ -63,12 +63,13 @@
     <div class="time-label">
         <span class="bg-red"><?php echo e(date('d-m-Y', strtotime($movimiento->fecha))); ?></span>
     </div>
-    <!-- timeline item -->
+    <!---->
     <div>
         <i class="fas fa-info bg-blue"></i>
         <div class="timeline-item">
             <span class="time"><i class="far fa-calendar"></i> <?php echo e(date('d-m-Y H:m:s', strtotime($movimiento->fecha_hora))); ?></span>
             <h3 class="timeline-header">Turno otorgado por <?php echo e($movimiento->name); ?></h3>
+            <?php echo e($movimiento->id_turno); ?>
 
             <div class="timeline-body" style = "width:100%;">
             Horario asignado para turno: <span class = "text-danger"><?php echo e($movimiento->horario); ?></span> | Turno: <span class = "text-danger"><?php echo e($movimiento->letra); ?><?php echo e($movimiento->id); ?></span> | Turno para: <span class = "text-danger"><?php echo e($movimiento->para); ?></span> | Asistió: <span class = "text-danger"><?php echo e($movimiento->asistio); ?></span><br>

@@ -62,19 +62,18 @@
     <div class="time-label">
         <span class="bg-red">{{date('d-m-Y', strtotime($movimiento->fecha))}}</span>
     </div>
-    <!-- timeline item -->
+    <!---->
     <div>
         <i class="fas fa-info bg-blue"></i>
         <div class="timeline-item">
             <span class="time"><i class="far fa-calendar"></i> {{date('d-m-Y H:m:s', strtotime($movimiento->fecha_hora))}}</span>
             <h3 class="timeline-header">Turno otorgado por {{$movimiento->name}}</h3>
-
             <div class="timeline-body" style = "width:100%;">
             Horario asignado para turno: <span class = "text-danger">{{$movimiento->horario}}</span> | Turno: <span class = "text-danger">{{$movimiento->letra}}{{$movimiento->id}}</span> | Turno para: <span class = "text-danger">{{$movimiento->para}}</span> | Asistió: <span class = "text-danger">{{$movimiento->asistio}}</span><br>
             Comentarios: {{$movimiento->comentarios}}
             </div>
             <div class="timeline-footer">
-                <a class="btn btn-primary btn-sm" href = "/comprobante_turno/{{$movimiento->fecha}}/{{$movimiento->id_horario}}/{{$documento}}/{{$paciente}}/{{$id_turno}}" target = "_blank">Re-imprimir</a>
+                <a class="btn btn-primary btn-sm" href = "/comprobante_turno/{{$movimiento->fecha}}/{{$movimiento->id_horario}}/{{$documento}}/{{$paciente}}/{{$movimiento->id_turno}}" target = "_blank">Re-imprimir</a>
                 @if(($movimiento->asistio == 'no')&&($movimiento->para == 'general'))
                 <a class="btn btn-danger btn-sm" wire:click='editar_turno("{{$movimiento->fecha}}", "{{$movimiento->horario}}", "{{$movimiento->id_horario}}")'>Re-programar</a>
                 @endif
