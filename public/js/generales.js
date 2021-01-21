@@ -53,7 +53,6 @@ $(document).ready(function(){
                 $("#fecha_nacimiento"+index).val(datos.split(";")[1]);
                 $("#domicilio"+index).val(datos.split(";")[2]);
                 $("#telefono"+index).val(datos.split(";")[3]);
-                $("#obra_social"+index).val(datos.split(";")[4]);
                 genero_id_turno();
                 $('#practicas'+index).attr("disabled", false);
                 document.getElementById('loader'+index).style.display = "none";
@@ -288,7 +287,7 @@ $(document).ready(function(){
             fecha_nacimiento: fecha_nacimiento,
             domicilio: domicilio,
             telefono: telefono,
-            obra_social: obra_social,
+            obra_social_id: obra_social,
             comentarios: comentarios,
             para: para
           },

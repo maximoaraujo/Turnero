@@ -9,6 +9,7 @@ use App\Models\config;
 use App\Models\pacientes_turno;
 use App\Models\valores_turno;
 use App\Models\paciente;
+use App\Models\obras_socials;
 use App\Models\no_laborale;
 use App\Models\practica;
 use App\Models\turnos_practica;
@@ -74,6 +75,7 @@ class ControladorTurnos extends Controller
         $fecha = $request->fecha;
         $picked = true;
         $practicas = [];
+        $obras_sociales = obras_socials::where('estado', 'H')->orderBy('obra_social')->get();
         $horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
         ->where('horarios_estudios.estudio', 'generales')
         ->orderBy('horarios.horario')
@@ -82,7 +84,7 @@ class ControladorTurnos extends Controller
         $cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
         $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
 
-        return view('turnos.general', compact('picked', 'practicas', 'horarios', 'cantidad_turnos', 'cantidad_ioscor', 'fecha'));
+        return view('turnos.general', compact('picked', 'practicas', 'horarios', 'cantidad_turnos', 'cantidad_ioscor', 'fecha', 'obras_sociales'));
     }
 
     public function citogenetica()
@@ -151,9 +153,8 @@ class ControladorTurnos extends Controller
         $fecha_nac = paciente::where('documento', $request->documento)->get()->pluck('fecha_nac')->first();
         $domicilio = paciente::where('documento', $request->documento)->get()->pluck('domicilio')->first();
         $telefono = paciente::where('documento', $request->documento)->get()->pluck('telefono')->first();
-        $obra_social = paciente::where('documento', $request->documento)->get()->pluck('obra_social')->first();
         
-        return $paciente. ';' .$fecha_nac. ';' .$domicilio. ';' .$telefono. ';' .$obra_social;
+        return $paciente. ';' .$fecha_nac. ';' .$domicilio. ';' .$telefono;
     }
 
     public function turno_practicas(Request $request)
@@ -257,7 +258,7 @@ class ControladorTurnos extends Controller
                 'domicilio' => $domicilio,
                 'telefono' => $telefono,
                 'correo' => '-',
-                'obra_social' => $request->obra_social
+                'obra_social_id' => $request->obra_social_id
             ]);
 
             $guardo_turno = pacientes_turno::create([
@@ -286,7 +287,7 @@ class ControladorTurnos extends Controller
                 'domicilio' => $request->domicilio,
                 'telefono' => $request->telefono,
                 'correo' => '-',
-                'obra_social' => $request->obra_social
+                'obra_social_id' => $request->obra_social_id
             ]);
 
             $guardo_turno = pacientes_turno::create([
