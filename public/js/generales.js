@@ -97,6 +97,7 @@ $(document).ready(function(){
                 },
                 success:function(datos){
                   if (datos != '') {
+                    $("#id_practica_agregar").val(datos);
                     guardo_turno_practica();
                     cargo_practicas();
                     document.getElementById('codigo_practica').value = "";
@@ -110,7 +111,7 @@ $(document).ready(function(){
 
       function guardo_turno_practica(){
         var id_turno = $("#id_turno_practicas").val();
-        var id_practica = $("#codigo_practica").val();
+        var id_practica = $("#id_practica_agregar").val();
         $.ajax({
           type: 'POST',
           url: '/turno_practicas',
@@ -124,7 +125,7 @@ $(document).ready(function(){
         });
       }
 
-      //Buscamos la práctica al presionar enter en el campo práctica
+      //Buscamos la práctica al tipearla en el campo "practica"
       $("#practica").on('keyup', function (e) {
           var keycode = e.keyCode || e.which;
           e.preventDefault();
@@ -147,7 +148,7 @@ $(document).ready(function(){
                     $("#tabla_busqueda").empty();
                     var arreglo = JSON.parse(datos);
                     for (var x = 0; x < arreglo.length; x++){
-                        var fila = "<tr><td>"+arreglo[x].id_practica+"</td>";
+                        var fila = "<tr><td>"+arreglo[x].codigo+"</td>";
                         fila+= "<td>"+arreglo[x].practica+"</td>";
                         fila+= "<td><button class = 'sel_practica' style = 'border:none;background-color:transparent;'><i class='fas fa-file-import'></i></button></td>";
                         $("#tabla_busqueda").append(fila);
@@ -210,7 +211,7 @@ $(document).ready(function(){
             $("#tabla_agregado").empty();
             var arreglo = JSON.parse(datos);
             for (var x = 0; x < arreglo.length; x++){
-              var fila = "<tr><td>"+arreglo[x].id_practica+"</td>";
+              var fila = "<tr><td>"+arreglo[x].codigo+"</td>";
               fila+= "<td>"+arreglo[x].practica+"</td>";
               fila+= "<td><button class = 'elimino_sel' style = 'border:none;background-color:transparent;'><i class='fas fa-trash'></i></button></td>";
               $("#tabla_agregado").append(fila);

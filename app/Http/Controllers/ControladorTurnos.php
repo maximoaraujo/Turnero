@@ -135,9 +135,9 @@ class ControladorTurnos extends Controller
     {
         $codigo = $request->codigo;
 
-        $practica = practica::where('id_practica', $codigo)->get()->pluck('practica')->first();
+        $id_practica = practica::where('codigo', $codigo)->get()->pluck('id_practica')->first();
 
-        return $practica;
+        return $id_practica;
     }
 
     public function busco_practica(Request $request)
@@ -169,7 +169,7 @@ class ControladorTurnos extends Controller
     public function muestro_practicas(Request $request)
     {
         $practicas = turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
-        ->select('practicas.id_practica', 'practicas.practica')
+        ->select('practicas.codigo', 'practicas.practica')
         ->where('turnos_practicas.id_turno', $request->id_turno)->get();
 
         return response(json_encode($practicas), 200)->header('Content-type', 'text/plain');
