@@ -100,6 +100,16 @@ class ControladorTurnos extends Controller
         return view('turnos.citogenetica', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor'));
     }
 
+    public function busco_paciente(Request $request)
+    {
+        $paciente = paciente::where('documento', $request->documento)->get()->pluck('paciente')->first();
+        $fecha_nac = paciente::where('documento', $request->documento)->get()->pluck('fecha_nac')->first();
+        $domicilio = paciente::where('documento', $request->documento)->get()->pluck('domicilio')->first();
+        $telefono = paciente::where('documento', $request->documento)->get()->pluck('telefono')->first();
+        
+        return $paciente. ';' .$fecha_nac. ';' .$domicilio. ';' .$telefono;
+    }
+
     public function genero_id_turno(Request $request)
     {
         $valor = valores_turno::orderBy('valor', 'DESC')->get()->pluck('valor')->first();
@@ -145,16 +155,6 @@ class ControladorTurnos extends Controller
         $practicas = practica::where('practica', 'LIKE', '%' .$request->practica. '%')->get();
 
         return response(json_encode($practicas), 200)->header('Content-type', 'text/plain');
-    }
-
-    public function busco_paciente(Request $request)
-    {
-        $paciente = paciente::where('documento', $request->documento)->get()->pluck('paciente')->first();
-        $fecha_nac = paciente::where('documento', $request->documento)->get()->pluck('fecha_nac')->first();
-        $domicilio = paciente::where('documento', $request->documento)->get()->pluck('domicilio')->first();
-        $telefono = paciente::where('documento', $request->documento)->get()->pluck('telefono')->first();
-        
-        return $paciente. ';' .$fecha_nac. ';' .$domicilio. ';' .$telefono;
     }
 
     public function turno_practicas(Request $request)

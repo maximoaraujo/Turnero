@@ -84,8 +84,8 @@ $(document).ready(function(){
           var keycode = e.keyCode || e.which;
           e.preventDefault();
           e.stopImmediatePropagation();
+          var codigo = $("#codigo_practica").val();
           if (keycode == 13) {
-              var codigo = $("#codigo_practica").val();
               $.ajax({
                 type: 'POST',
                 url: '/practica_por_codigo',
@@ -96,14 +96,7 @@ $(document).ready(function(){
                   codigo:codigo
                 },
                 success:function(datos){
-                  if (datos != '') {
-                    $("#id_practica_agregar").val(datos);
-                    guardo_turno_practica();
-                    cargo_practicas();
-                    document.getElementById('codigo_practica').value = "";
-                    document.getElementById('practica').value = "";
-                    $("#codigo_practica").focus();
-                  }
+                  console.log(datos);
                 }
               });
           }
