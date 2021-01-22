@@ -169,7 +169,7 @@ class ControladorTurnos extends Controller
     public function muestro_practicas(Request $request)
     {
         $practicas = turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
-        ->select('practicas.codigo', 'practicas.practica')
+        ->select('turnos_practicas.id', 'practicas.codigo', 'practicas.practica')
         ->where('turnos_practicas.id_turno', $request->id_turno)->get();
 
         return response(json_encode($practicas), 200)->header('Content-type', 'text/plain');

@@ -8,9 +8,7 @@
             </div>
             <div class="modal-body">
                 <div class = "row">
-                    <div class = "col-sm-3">
-                        <input type = "number" class = "form-control" id = "id_practica_agregar">
-                    </div>
+                    <input type = "number" class = "form-control" id = "id_practica" hidden>
                     <div class = "col-sm-3">
                         <p>Código</p>
                         <input type = "number" class = "form-control" id = "codigo_practica">
