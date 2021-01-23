@@ -176,8 +176,8 @@ $(document).ready(function(){
                         id_turno:id_turno,
                         id_practica:id_practica
                       },
-                      success:function(datos){
-                        console.log(datos);
+                      success:function(){
+                        
                       }
                     });
                   }
@@ -244,7 +244,6 @@ $(document).ready(function(){
             $(".elimino_sel").on('dblclick', function(){
               elimino_practica();
             });
-
           }
         });
       }

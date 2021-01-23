@@ -38,7 +38,7 @@
                 <div class = "table-responsive mt-2">
                     <table class = "table">
                         <thead>
-                            <tr>
+                            <tr>    
                                 <th nowrap>Cod.</th>
                                 <th nowrap>Práctica</th>
                                 <th></th>

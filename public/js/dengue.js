@@ -126,7 +126,7 @@ $(document).ready(function(){
                     for (var x = 0; x < arreglo.length; x++){
                         var fila = "<tr><td hidden>"+arreglo[x].id_practica+"</td>";
                         fila+= "<td>"+arreglo[x].codigo+"</td>";
-                        fila+= "<td>"+arreglo[x].practic+"</td>";
+                        fila+= "<td>"+arreglo[x].practica+"</td>";
                         fila+= "<td><button class = 'sel_practica' style = 'border:none;background-color:transparent;'><i class='fas fa-file-import'></i></button></td>";
                         $("#tabla_busqueda").append(fila);
                     }
