@@ -46,37 +46,40 @@ $(document).ready(function(){
       $("#practicas"+index).on('click', function(){
         var id_turno = $("#id_turno"+index).val();
         $("#modal_practicas").modal('show');
+        $("#tabla_busqueda").empty();
         $("#id_turno_practicas").val(id_turno);
       });
 
       //Buscamos la práctica al presionar enter en el campo código
       $("#codigo_practica").on('keyup', function (e) {
-          var keycode = e.keyCode || e.which;
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          if (keycode == 13) {
-              var codigo = $("#codigo_practica").val();
-              $.ajax({
-                type: 'POST',
-                url: '/practica_por_codigo',
-                headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data:{
-                  codigo:codigo
-                },
-                success:function(datos){
-                  if (datos != '') {
-                    $("#id_practica").val(datos);
-                    guardo_turno_practica();
-                    cargo_practicas();
-                    document.getElementById('codigo_practica').value = "";
-                    document.getElementById('practica').value = "";
-                    $("#codigo_practica").focus();
-                  }
+        var keycode = e.keyCode || e.which;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var codigo = $("#codigo_practica").val();
+        var nomenclador = $("#nomenclador_practicas").val();
+        if (keycode == 13) {
+            $.ajax({
+              type: 'POST',
+              url: '/practica_por_codigo',
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              data:{
+                nomenclador:nomenclador,
+                codigo:codigo
+              },
+              success:function(datos){
+                if (datos != '') {
+                  $("#id_practica").val(datos);
+                  guardo_turno_practica();
+                  cargo_practicas();
+                  document.getElementById('codigo_practica').value = "";
+                  document.getElementById('practica').value = "";
+                  $("#codigo_practica").focus();
                 }
-              });
-          }
+              }
+            });
+        }
       });
 
       function guardo_turno_practica(){
@@ -102,6 +105,7 @@ $(document).ready(function(){
           e.stopImmediatePropagation();
           if (keycode == 13) {
               var practica = $("#practica").val();
+              var nomenclador = $("#nomenclador_practicas").val();
               $.ajax({
                 type: 'POST',
                 url: '/busco_practica',
@@ -109,6 +113,7 @@ $(document).ready(function(){
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data:{
+                  nomenclador:nomenclador,
                   practica:practica
                 },
                 success:function(datos){

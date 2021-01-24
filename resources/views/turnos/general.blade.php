@@ -110,6 +110,7 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
             </div>
         </div>
         <div class = "row" style = "margin-top:5px;">
+            <input type = "number" id = "nomenclador" hidden>
             <div class = "col-sm-12">
                 <select class="browser-default custom-select" id = "obra_social{{$horario->id_horario}}">
                     <option value = "nada" selected disabled>--Obra social--</option>

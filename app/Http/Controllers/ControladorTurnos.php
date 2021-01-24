@@ -33,6 +33,9 @@ class ControladorTurnos extends Controller
 
     public function dengue()
     {        
+        $picked = true;
+        $practicas = [];
+        $obras_sociales = obras_socials::where('estado', 'H')->orderBy('obra_social')->get();
         $horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
         ->where('horarios_estudios.estudio', 'dengue')
         ->orderBy('horarios.horario')
@@ -41,7 +44,7 @@ class ControladorTurnos extends Controller
         $cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
         $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
 
-        return view('turnos.dengue', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor'));
+        return view('turnos.dengue', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor', 'obras_sociales', 'practicas'));
     }
 
     public function exudado()
@@ -141,18 +144,29 @@ class ControladorTurnos extends Controller
         return $id_usuario. '-' .$valor;
     }
 
+    public function busco_nomenclador(Request $request)
+    {
+        $obra_social_id = $request->obra_social_id;
+        $nomenclador = obras_socials::where('id', $obra_social_id)->get()->pluck('nomenclador')->first();
+
+        return $nomenclador;
+    }
+
     public function busco_codigo(Request $request)
     {
         $codigo = $request->codigo;
+        $nomenclador = $request->nomenclador;
 
-        $id_practica = practica::where('codigo', $codigo)->get()->pluck('id_practica')->first();
+        $id_practica = practica::where('codigo', $codigo)->where('nomenclador', $nomenclador)
+        ->where('estado', 'H')->get()->pluck('id_practica')->first();
 
         return $id_practica;
     }
 
     public function busco_practica(Request $request)
     {   
-        $practicas = practica::where('practica', 'LIKE', '%' .$request->practica. '%')->get();
+        $practicas = practica::where('practica', 'LIKE', '%' .$request->practica. '%')
+        ->where('nomenclador', $request->nomenclador)->where('estado', 'H')->get();
 
         return response(json_encode($practicas), 200)->header('Content-type', 'text/plain');
     }
@@ -161,6 +175,7 @@ class ControladorTurnos extends Controller
     {
         $guardo_practica = turnos_practica::create([
             'id_turno' => $request->id_turno,
+            'id_obra_social' => $request->id_obra_social,
             'id_practica' => $request->id_practica,
             'cantidad' => 1
         ]);

@@ -30,6 +30,7 @@ Route::get('/exudado', [ControladorTurnos::class, 'exudado']);
 Route::get('/espermograma', [ControladorTurnos::class, 'espermograma']);
 Route::get('/general', [ControladorTurnos::class, 'general']);
 Route::post('/genero_id_turno', [ControladorTurnos::class, 'genero_id_turno']);
+Route::post('/busco_nomenclador', [ControladorTurnos::class, 'busco_nomenclador']);
 Route::post('/practica_por_codigo', [ControladorTurnos::class, 'busco_codigo']);
 Route::post('/busco_practica', [ControladorTurnos::class, 'busco_practica']);
 Route::post('/turno_practicas', [ControladorTurnos::class, 'turno_practicas']);

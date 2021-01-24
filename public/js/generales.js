@@ -73,10 +73,30 @@ $(document).ready(function(){
         });  
       }
 
+      $("#obra_social"+index).on('change', function(){
+        var obra_social_id = $("#obra_social"+index).val();
+        $.ajax({
+          type: 'POST',
+          url: '/busco_nomenclador',
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          data:{
+            obra_social_id: obra_social_id
+          },
+          success:function(datos){
+            $("#nomenclador").val(datos);
+          }
+        });
+      });
+
       $("#practicas"+index).on('click', function(){
         var id_turno = $("#id_turno"+index).val();
+        var nomenclador = $("#nomenclador").val();
         $("#modal_practicas").modal('show');
+        $("#tabla_busqueda").empty();
         $("#id_turno_practicas").val(id_turno);
+        $("#nomenclador_practicas").val(nomenclador);
       });
 
       //Buscamos la práctica al presionar enter en el campo código
@@ -85,6 +105,7 @@ $(document).ready(function(){
           e.preventDefault();
           e.stopImmediatePropagation();
           var codigo = $("#codigo_practica").val();
+          var nomenclador = $("#nomenclador_practicas").val();
           if (keycode == 13) {
               $.ajax({
                 type: 'POST',
@@ -93,6 +114,7 @@ $(document).ready(function(){
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data:{
+                  nomenclador:nomenclador,
                   codigo:codigo
                 },
                 success:function(datos){
@@ -120,6 +142,7 @@ $(document).ready(function(){
           },
           data:{
             id_turno:id_turno,
+            id_obra_social: id_obra_social,
             id_practica:id_practica
           }
         });
@@ -132,6 +155,7 @@ $(document).ready(function(){
           e.stopImmediatePropagation();
           if (keycode == 13) {
               var practica = $("#practica").val();
+              var nomenclador = $("#nomenclador_practicas").val();
               $.ajax({
                 type: 'POST',
                 url: '/busco_practica',
@@ -139,6 +163,7 @@ $(document).ready(function(){
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data:{
+                  nomenclador:nomenclador,
                   practica:practica
                 },
                 success:function(datos){

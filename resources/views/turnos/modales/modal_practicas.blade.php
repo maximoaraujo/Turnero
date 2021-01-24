@@ -8,6 +8,7 @@
             </div>
             <div class="modal-body">
                 <div class = "row">
+                    <input type = "number" class = "form-control" id = "nomenclador_practicas" hidden>
                     <input type = "number" class = "form-control" id = "id_practica" hidden>
                     <div class = "col-sm-3">
                         <p>Código</p>
