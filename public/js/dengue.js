@@ -89,6 +89,7 @@ $(document).ready(function(){
 
       function guardo_turno_practica(){
         var id_turno = $("#id_turno_practicas").val();
+        var id_obra_social = $("#id_obra_social").val();
         var id_practica = $("#id_practica").val();
         $.ajax({
           type: 'POST',
@@ -98,6 +99,7 @@ $(document).ready(function(){
           },
           data:{
             id_turno:id_turno,
+            id_obra_social: id_obra_social,
             id_practica:id_practica
           }
         });
