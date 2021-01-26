@@ -110,14 +110,14 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
             </div>
         </div>
         <div class = "row" style = "margin-top:5px;">
-            <input type = "number" id = "nomenclador" hidden>
+            <input type = "number" id = "nomenclador_general" hidden>
             <div class = "col-sm-12">
-                <select class="browser-default custom-select" id = "obra_social{{$horario->id_horario}}">
-                    <option value = "nada" selected disabled>--Obra social--</option>
-                    @foreach($obras_sociales as $obra_social)
-                    <option value = "{{$obra_social->id}}">{{$obra_social->obra_social}}</option>
-                    @endforeach
-                </select>
+            <select class="browser-default custom-select" id = "obra_social{{$horario->id_horario}}">
+                <option selected="selected">--</option>
+                @foreach($obras_sociales as $obra_social)
+                <option value = "{{$obra_social->id}}">{{$obra_social->obra_social}}</option>
+                @endforeach    
+            </select>
             </div>
         </div>
         <div class = "row" style = "margin-top:5px;">

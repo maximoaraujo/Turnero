@@ -3,13 +3,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Agregar prácticas</h5>
+                <div class = "col-sm-2">
+                    <h5 class="modal-title" id="exampleModalLabel"><input type = "text" class = "form-control" id = "id_obra_social" style = "border:none;background-color:transparent;"></h5>
+                </div>
                 <input type = "text" id = "id_turno_practicas" hidden>
             </div>
             <div class="modal-body">
                 <div class = "row">
-                    <input type = "number" class = "form-control" id = "id_obra_social" hidden>
-                    <input type = "number" class = "form-control" id = "nomenclador_practicas" hidden>
+                    <input type = "number" class = "form-control" id = "nomenclador_practicas">
                     <input type = "number" class = "form-control" id = "id_practica" hidden>
                     <div class = "col-sm-3">
                         <p>Código</p>

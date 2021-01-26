@@ -32,7 +32,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 }
 #turno{
     font-size:80px;
-    margin-left: 85%;
+    margin-left: 80%;
     margin-top:-125px;
 }
 #solicito{
@@ -134,17 +134,21 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 <p id = "paciente">Paciente: {{$paciente}}</p>
 </center>
 
-<p class = "small">Solicitó un turno para realizarse las siguientes prácticas:</p>
-
 <?php
-    $practicas = App\Models\turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
-    ->select('practicas.practica')->where('turnos_practicas.id_turno', $id_turno)->get();
+    //$id_obra_social = App\Models\turnos_practica::where('id_turno', $id_turno)->get()->pluck('id_obra_social')->first();
+    
+    //$nomenclador = App\Models\obras_socials::where('id', $id_obra_social)->get()
+    //->pluck('nomenclador')->first();
+    
+    //$practicas = App\Models\turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
+    //->select('practicas.practica')->where('turnos_practicas.id_turno', $id_turno)
+    //->where('practicas.nomenclador', $nomenclador)->get();
 
-    foreach ($practicas as $practica) {
-        echo "<ul>
-                <li style = 'font-size:10px;'>".$practica->practica."</li>
-              </ul>";
-    }
+    //foreach ($practicas as $practica) {
+    //    echo "<ul>
+    //            <li style = 'font-size:10px;'>".$practica->practica."</li>
+    //          </ul>";
+    //}
 ?>
 <p id = "info">SI TIENE FIEBRE Y/O SÍNTOMAS RELACIONADOS CON COVID-19 REPROGRAME SU TURNO AL
 WHATSAPP 3795-393798 | 3795-403798</p>

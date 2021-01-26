@@ -16,10 +16,10 @@
 <div class = "col-sm-9" style = "margin-top:10px;">
 <?php
 $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
+->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
 ->where('pacientes_turnos.fecha', $fecha)
 ->where('pacientes_turnos.para', 'exudado')
-->where('pacientes.obra_social', 'IOSCOR')
-->whereOr('pacientes.obra_social', 'ioscor')->get()->count();
+->where('obras_socials.obra_social', 'IOSCOR')->get()->count();
 ?>
 @if($cantidad_ioscor == $ioscor)
 <center>
@@ -81,17 +81,23 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
             </div>
         </div>
         <div class = "row" style = "margin-top:5px;">
+            <input type = "number" id = "nomenclador_exudado" hidden>
             <div class = "col-sm-12">
-                <input type = "text" class = "form-control" id = "obra_social_e{{$horario->id_horario}}" placeholder="Obra social" required>
+                <select class="browser-default custom-select" id = "obra_social{{$horario->id_horario}}">
+                    <option value = "nada" selected disabled>--Obra social--</option>
+                    @foreach($obras_sociales as $obra_social)
+                    <option value = "{{$obra_social->id}}">{{$obra_social->obra_social}}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <div class = "row" style = "margin-top:5px;">
             <div class = "col-sm-12">
-                <input type = "text" class = "form-control" id = "comentarios_e{{$horario->id_horario}}" placeholder="Comentarios">
+                <input type = "text" class = "form-control" id = "comentarios{{$horario->id_horario}}" placeholder="Comentarios">
             </div>
         </div>
         <center>
-            <button class = "btn btn-primary mt-2" id = "practicas{{$horario->id_horario}}" disabled>Prácticas</button>    
+            <button class = "btn btn-primary mt-2" id = "practicas{{$horario->id_horario}}">Prácticas</button>    
             <button class = "btn btn-success" id = "guardar_e{{$horario->id_horario}}" style = "margin-top:5px;">Guardar</button>
         </center>
         </div> 

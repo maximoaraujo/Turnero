@@ -44,11 +44,14 @@ class ControladorTurnos extends Controller
         $cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
         $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
 
-        return view('turnos.dengue', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor', 'obras_sociales', 'practicas'));
+        return view('turnos.dengue', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor', 'obras_sociales', 'practicas', 'picked'));
     }
 
     public function exudado()
     {        
+        $picked = true;
+        $practicas = [];
+        $obras_sociales = obras_socials::where('estado', 'H')->orderBy('obra_social')->get();
         $horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
         ->where('horarios_estudios.estudio', 'exudado')
         ->orderBy('horarios.horario')
@@ -57,11 +60,14 @@ class ControladorTurnos extends Controller
         $cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
         $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
 
-        return view('turnos.exudado', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor'));
+        return view('turnos.exudado', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor', 'obras_sociales', 'practicas', 'picked'));
     }
 
     public function espermograma()
     {        
+        $picked = true;
+        $practicas = [];
+        $obras_sociales = obras_socials::where('estado', 'H')->orderBy('obra_social')->get();
         $horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
         ->where('horarios_estudios.estudio', 'espermograma')
         ->orderBy('horarios.horario')
@@ -70,13 +76,13 @@ class ControladorTurnos extends Controller
         $cantidad_turnos = config::get()->pluck('cant_turnos_esp')->first();
         $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
 
-        return view('turnos.espermograma', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor'));
+        return view('turnos.espermograma', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor', 'obras_sociales', 'practicas', 'picked'));
     }
 
     public function general(Request $request)
-    {        
+    {      
+        $picked = true; 
         $fecha = $request->fecha;
-        $picked = true;
         $practicas = [];
         $obras_sociales = obras_socials::where('estado', 'H')->orderBy('obra_social')->get();
         $horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
@@ -87,11 +93,14 @@ class ControladorTurnos extends Controller
         $cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
         $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
 
-        return view('turnos.general', compact('picked', 'practicas', 'horarios', 'cantidad_turnos', 'cantidad_ioscor', 'fecha', 'obras_sociales'));
+        return view('turnos.generales-livewire', compact('picked', 'practicas', 'horarios', 'cantidad_turnos', 'cantidad_ioscor', 'fecha', 'obras_sociales', 'picked'));
     }
 
     public function citogenetica()
-    {        
+    {       
+        $picked = true; 
+        $practicas = [];
+        $obras_sociales = obras_socials::where('estado', 'H')->orderBy('obra_social')->get();
         $horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
         ->where('horarios_estudios.estudio', 'citogenetica')
         ->orderBy('horarios.horario')
@@ -100,7 +109,7 @@ class ControladorTurnos extends Controller
         $cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
         $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
 
-        return view('turnos.citogenetica', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor'));
+        return view('turnos.citogenetica', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor', 'obras_sociales', 'practicas', 'picked'));
     }
 
     public function busco_paciente(Request $request)
@@ -184,8 +193,10 @@ class ControladorTurnos extends Controller
     public function muestro_practicas(Request $request)
     {
         $practicas = turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
-        ->select('turnos_practicas.id', 'practicas.codigo', 'practicas.practica')
-        ->where('turnos_practicas.id_turno', $request->id_turno)->get();
+        ->select('turnos_practicas.id_practica', 'practicas.codigo', 'practicas.practica')
+        ->where('turnos_practicas.id_turno', $request->id_turno)
+        ->where('practicas.nomenclador', $request->nomenclador)->orderBy('practicas.codigo')
+        ->get();
 
         return response(json_encode($practicas), 200)->header('Content-type', 'text/plain');
     }

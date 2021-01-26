@@ -30,6 +30,11 @@
   <!-- AdminLTE for demo purposes -->
   <script src="dist/js/demo.js"></script>
   <script src="plugins/chart.js/Chart.min.js"></script>
+  <!---->
+  <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <!-- Select2 -->
+  <script src="../../plugins/select2/js/select2.full.min.js"></script>
   
   @livewireStyles
   </head>

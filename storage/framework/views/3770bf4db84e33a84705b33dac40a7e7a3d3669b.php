@@ -98,6 +98,7 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
         </div>
         <div class = "row" style = "margin-top:5px;">
             <div class = "col-sm-12">
+                <input type = "number" id = "nomenclador_dengue" hidden>
                 <select class="browser-default custom-select" id = "obra_social<?php echo e($horario->id_horario); ?>">
                     <option value = "nada" selected disabled>--Obra social--</option>
                     <?php $__currentLoopData = $obras_sociales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $obra_social): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

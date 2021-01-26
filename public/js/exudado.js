@@ -43,11 +43,32 @@ $(document).ready(function(){
         });  
       }
 
+      $("#obra_social"+index).on('change', function(){
+        var obra_social_id = $("#obra_social"+index).val();
+        $.ajax({
+          type: 'POST',
+          url: '/busco_nomenclador',
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          data:{
+            obra_social_id: obra_social_id
+          },
+          success:function(datos){
+            $("#nomenclador_exudado").val(datos);
+          }
+        });
+      });
+
       $("#practicas"+index).on('click', function(){
         var id_turno = $("#id_turno"+index).val();
+        var id_obra_social = $("#obra_social"+index).val();
+        var nomenclador = $("#nomenclador_exudado").val();
         $("#modal_practicas").modal('show');
         $("#tabla_busqueda").empty();
         $("#id_turno_practicas").val(id_turno);
+        $("#id_obra_social").val(id_obra_social);
+        $("#nomenclador_practicas").val(nomenclador);
       });
 
       //Buscamos la práctica al presionar enter en el campo código
@@ -143,6 +164,7 @@ $(document).ready(function(){
 
                   function guardo_turno_practica(){
                     var id_turno = $("#id_turno_practicas").val();
+                    var id_obra_social = $("#id_obra_social").val();
                     $.ajax({
                       type: 'POST',
                       url: '/turno_practicas',
@@ -151,10 +173,11 @@ $(document).ready(function(){
                       },
                       data:{
                         id_turno:id_turno,
+                        id_obra_social:id_obra_social,
                         id_practica:id_practica
                       },
-                      success:function(datos){
-                        console.log(datos);
+                      success:function(){
+                        
                       }
                     });
                   }
@@ -176,6 +199,7 @@ $(document).ready(function(){
 
       function cargo_practicas(){
         var id_turno = $("#id_turno_practicas").val();
+        var nomenclador = $("#nomenclador_practicas").val();
         $.ajax({
           type: 'POST',
           url: '/muestro_practicas',
@@ -183,13 +207,15 @@ $(document).ready(function(){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           data:{
+            nomenclador:nomenclador,
             id_turno:id_turno
           },
           success:function(datos){
             $("#tabla_agregado").empty();
             var arreglo = JSON.parse(datos);
             for (var x = 0; x < arreglo.length; x++){
-              var fila = "<tr><td>"+arreglo[x].codigo+"</td>";
+              var fila = "<tr><td hidden>"+arreglo[x].id_practica+"</td>";
+              fila+= "<td>"+arreglo[x].codigo+"</td>";
               fila+= "<td>"+arreglo[x].practica+"</td>";
               fila+= "<td><button class = 'elimino_sel' style = 'border:none;background-color:transparent;'><i class='fas fa-trash'></i></button></td>";
               $("#tabla_agregado").append(fila);

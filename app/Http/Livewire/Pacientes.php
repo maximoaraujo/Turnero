@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\horario;
 use App\Models\config;
 use App\Models\Paciente;
+use App\Models\obras_socials;
 use App\Models\Pacientes_turno;
 use App\Models\valores_turno;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,7 @@ class Pacientes extends Component
     public $fecha_turno, $horario_turno, $fecha_nuevo_turno, $id_nuevo_horario, $id_horario_viejo;
     public $horarios = [];
     public $cantidad_turnos;
+    public $para;
 
     //Inicio del componente
     public function mount()
@@ -56,7 +58,8 @@ class Pacientes extends Component
         $this->documento = Paciente::where('paciente', $this->paciente)->get()->pluck('documento')->first();
         $this->domicilio = Paciente::where('paciente', $this->paciente)->get()->pluck('domicilio')->first();
         $this->telefono = Paciente::where('paciente', $this->paciente)->get()->pluck('telefono')->first();
-        $this->obra_social = Paciente::where('paciente', $this->paciente)->get()->pluck('obra_social')->first();
+        $obra_social_id = Paciente::where('paciente', $this->paciente)->get()->pluck('obra_social_id')->first();
+        $this->obra_social = obras_socials::where('id', $obra_social_id)->get()->pluck('obra_social')->first();
             
         //Si encontramos al paciente mostramos sus movimientos
         if ($this->documento != "") {
@@ -83,19 +86,63 @@ class Pacientes extends Component
         ->where('documento', $this->documento)->orderBy('fecha', 'DESC')->take(10)->get();
     }
 
-    public function editar_turno($fecha, $horario, $id_horario)
+    public function editar_turno($fecha, $horario, $id_horario, $para)
     {
         $this->accion = "editar turno";
         $this->fecha_turno = $fecha;
         $this->horario_turno = $horario;
         $this->id_horario_viejo = $id_horario;
-        $this->horarios();
+        
+        $this->para = $para;
+        if ($this->para == 'general') {
+            $this->horarios();
+        } elseif ($this->para == 'dengue') {
+            $this->horarios_dengue();
+        } elseif ($this->para == 'exudado'){
+            $this->horarios_exudado();
+        } elseif ($this->para == 'espermograma'){
+            $this->horarios_espermograma();
+        } elseif ($this->para == 'citogenetica'){
+            $this->horarios_citogenetica();
+        }
     }
 
     public function horarios()
     {
         $this->horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
         ->where('horarios_estudios.estudio', 'generales')
+        ->orderBy('horarios.horario')->get();
+        $this->cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
+    }
+
+    public function horarios_dengue()
+    {
+        $this->horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
+        ->where('horarios_estudios.estudio', 'dengue')
+        ->orderBy('horarios.horario')->get();
+        $this->cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
+    }
+
+    public function horarios_exudado()
+    {
+        $this->horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
+        ->where('horarios_estudios.estudio', 'exudado')
+        ->orderBy('horarios.horario')->get();
+        $this->cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
+    }
+
+    public function horarios_espermograma()
+    {
+        $this->horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
+        ->where('horarios_estudios.estudio', 'espermograma')
+        ->orderBy('horarios.horario')->get();
+        $this->cantidad_turnos = config::get()->pluck('cant_turnos_esp')->first();
+    }
+
+    public function horarios_citogenetica()
+    {
+        $this->horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
+        ->where('horarios_estudios.estudio', 'citogenetica')
         ->orderBy('horarios.horario')->get();
         $this->cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
     }

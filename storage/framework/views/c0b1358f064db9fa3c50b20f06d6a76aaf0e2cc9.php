@@ -110,14 +110,14 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
             </div>
         </div>
         <div class = "row" style = "margin-top:5px;">
-            <input type = "number" id = "nomenclador" hidden>
+            <input type = "number" id = "nomenclador_general">
             <div class = "col-sm-12">
-                <select class="browser-default custom-select" id = "obra_social<?php echo e($horario->id_horario); ?>">
-                    <option value = "nada" selected disabled>--Obra social--</option>
-                    <?php $__currentLoopData = $obras_sociales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $obra_social): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <option value = "<?php echo e($obra_social->id); ?>"><?php echo e($obra_social->obra_social); ?></option>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </select>
+            <select class="browser-default custom-select" id = "obra_social<?php echo e($horario->id_horario); ?>">
+                <option selected="selected">--</option>
+                <?php $__currentLoopData = $obras_sociales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $obra_social): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <option value = "<?php echo e($obra_social->id); ?>"><?php echo e($obra_social->obra_social); ?></option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>    
+            </select>
             </div>
         </div>
         <div class = "row" style = "margin-top:5px;">
