@@ -337,15 +337,17 @@ class ControladorTurnos extends Controller
   
     }
 
-    public function comprobante_turno($fecha, $id, $documento, $paciente, $id_turno)
+    public function comprobante_turno($id_turno)
     {
-        $fecha = $fecha;
-        $id_horario = $id;
-        $documento = $documento;
-        $paciente = $paciente;
         $id_turno = $id_turno;
+        $documento = pacientes_turno::where('id_turno', $id_turno)->get()->pluck('documento')->first();
+        $paciente = paciente::where('documento', $documento)->get()->pluck('paciente')->first();
+        $id_horario = pacientes_turno::where('id_turno', $id_turno)->get()->pluck('id_horario')->first();
+        $letra = horario::where('id_horario', $id_horario)->get()->pluck('letra')->first();
+        $id = pacientes_turno::where('id_turno', $id_turno)->get()->pluck('id')->first();
+        $fecha = pacientes_turno::where('id_turno', $id_turno)->get()->pluck('fecha')->first();
 
-        return view('impresiones.comprobante_turno', compact('fecha', 'id_horario', 'documento', 'paciente', 'id_turno'));
+        return view('impresiones.comprobante_turno', compact('id_turno', 'documento', 'paciente', 'id_horario', 'fecha', 'letra', 'id'));
     }
 
     public function rechazo_turno()

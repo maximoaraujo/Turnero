@@ -19,26 +19,41 @@ class Generales extends Component
 {
     public $fecha;
     public $vista;
+    public $id_usuario;
+    public $para, $p75, $ley;
     public $nomenclador;
+    public $horario;
     public $id_turno, $id_practica, $codigo_practica;
     //Parametros para la busqueda
     public $picked, $picked_;
     public $obras_sociales = [];
     public $practicas = [];
     public $horarios = [];
+    public $practicas_agregadas = [];
     //Buscadores
     public $obrasocial, $practica;
     public $cantidad_turnos, $cantidad_ioscor;
+    //Horarios
+    public $id_horario;
     //Datos del paciente
-    public $documento, $paciente, $domicilio, $telefono, $fecha_nacimiento, $obra_social_id;
+    public $documento, $paciente, $domicilio, $telefono, $fecha_nacimiento, $comentarios, $obra_social_id;
+
+    protected $listeners = ['descargado'];
+
+    public function descargado()
+    {
+        $this->vista = 'turnos';
+    }
 
     public function mount()
     {
         $this->fecha = date('Y-m-d');
-        $this->vista = 'asignar';
+        $this->vista = 'turnos';
         $this->picked = true;
         $this->picked_1 = true;
         $this->general();
+        $this->para = 'general';
+        $this->id_usuario = Auth::user()->id;
     }
 
     public function general()
@@ -52,8 +67,10 @@ class Generales extends Component
         $this->cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
     }
 
-    public function Asignarturno()
+    public function Asignarturno($id_horario)
     {
+        $this->id_horario = $id_horario;
+        $this->horario = horario::where('id_horario', $this->id_horario)->get()->pluck('horario')->first();
         $this->vista = 'asignar';
     }
 
@@ -78,8 +95,6 @@ class Generales extends Component
            $actualizo = valores_turno::where('id', 1)->update(['valor' => $valor]);
         }
  
-        $id_usuario = Auth::user()->id;
-
         if (strlen($valor) == 1) {
            $valor = "00000" .$valor;
         } elseif (strlen($valor) == 2) {
@@ -94,7 +109,7 @@ class Generales extends Component
             $valor = $valor;
         }
 
-        $this->id_turno = $id_usuario. '-' .$valor;
+        $this->id_turno = $this->id_usuario. '-' .$valor;
     }
 
     //Mostramos los resultados 
@@ -123,11 +138,13 @@ class Generales extends Component
 
     public function cancelar()
     {
-        $this->vista = 'general';
+        $this->vista = 'turnos';
     }
     
     public function buscar_x_codigo()
     {
+        $this->muestro_practicas();
+
         $this->id_practica = practica::where('codigo', $this->codigo_practica)->where('nomenclador', $this->nomenclador)
         ->get()->pluck('id_practica')->first();
         $this->practica = practica::where('codigo', $this->codigo_practica)->where('nomenclador', $this->nomenclador)
@@ -135,6 +152,7 @@ class Generales extends Component
 
         if (($this->id_practica != '')&&($this->practica != '')) {
             $this->guardoPractica();
+            $this->reset('id_practica', 'codigo_practica', 'practica');
         }
     }
 
@@ -143,10 +161,12 @@ class Generales extends Component
     {
         $this->picked_ = false;
     
+        $this->muestro_practicas();  
+
         $this->practicas = practica::where("practica", 'LIKE', '%' .$this->practica. '%')
         ->where('nomenclador', $this->nomenclador)
         ->take(3)
-        ->get();      
+        ->get();    
     }
     
     //Asignamos la práctica a la que se le hizo click
@@ -161,6 +181,11 @@ class Generales extends Component
     {
         $this->id_practica = practica::where('practica', $this->practica)->get()->pluck('id_practica')->first();
         $this->codigo_practica = practica::where('practica', $this->practica)->get()->pluck('codigo')->first();
+        
+        if (($this->id_practica != '')&&($this->practica != '')) {
+            $this->guardoPractica();
+            $this->reset('id_practica', 'codigo_practica', 'practica');
+        }
     }
 
     //Guardamos las prácticas
@@ -176,6 +201,171 @@ class Generales extends Component
             'id_practica' => $this->id_practica,
             'cantidad' => 1
         ]);
+
+        if ($guardoPractica) {
+            $this->muestro_practicas();
+        }
+    }
+
+    public function muestro_practicas()
+    {
+        $this->practicas_agregadas = turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
+        ->select('turnos_practicas.id', 'practicas.codigo', 'practicas.practica')
+        ->where('turnos_practicas.id_turno', $this->id_turno)
+        ->where('practicas.nomenclador', $this->nomenclador)->orderBy('practicas.codigo')
+        ->get();
+    }
+
+    public function eliminarPractica($id_practica)
+    {
+        $eliminar = turnos_practica::where('id', $id_practica)->delete();
+        $this->muestro_practicas();
+    }
+
+    public function guardo_turno()
+    {
+        //Array con la cantidad de turnos disponibles
+        $cons_turnos = config::get()->pluck('cant_turnos_gen')->first();
+
+        for ($i=1; $i < $cons_turnos + 1; $i++) { 
+            $array_turnos[] = $i;
+        }    
+        
+        //Letra según el horario seleccionado
+        $letra = horario::where('id_horario', $this->id_horario)->get()->pluck('letra')->first();
+        
+        //Array con los turnos ya ocupados
+        $cons_ocupados = pacientes_turno::join('horarios', 'horarios.id_horario', 'pacientes_turnos.id_horario')
+        ->select('pacientes_turnos.id')
+        ->where('horarios.id_horario', $this->id_horario)
+        ->where('pacientes_turnos.fecha', $this->fecha)
+        ->get();
+        
+        foreach ($cons_ocupados as $ocupados) {
+            $array_ocupados[] = $ocupados['id'];
+        }
+
+        //Si el array de ocupados esta vacío lo ponemos en 0
+        if (empty($array_ocupados)) {
+            $array_ocupados = array("0");
+        }
+        
+        //Sacamos la diferencia entre los dos arrays
+        $array_libres = array_diff($array_turnos, $array_ocupados);
+        
+        //Le pasamos el primer valor del array con los turnos libres
+        if (reset($array_libres) == 0) {
+            $id_num = pacientes_turno::where('fecha', $this->fecha)
+            ->where('id_horario', $this->id_horario)->orderBy('id', 'DESC')->get()->pluck('id')->first() + 1 ;
+        } else {
+            $id_num = reset($array_libres);
+        }
+        
+        //Verificamos valores vacios
+        //Domicilio
+        if (empty($this->domicilio)) {
+            $domicilio = "CTES";
+        } else {
+            $domicilio = $this->domicilio;
+        }
+        //Teléfono
+        if (empty($this->telefono)) {
+            $telefono = 0;
+        } else {
+            $telefono = $this->telefono;
+        }
+        //Fecha de nacimiento
+        if (empty($this->fecha_nacimiento)) {
+            $fecha_de_nacimiento = date('Y-m-d');    
+        } else {
+            $fecha_de_nacimiento = $this->fecha_nacimiento;
+        }
+
+        //Verificamos si es para p75
+        if (empty($this->p75)) {
+            $this->para = $this->para;
+        } else {
+            $this->para = 'P75';
+        }
+
+        //Verificamos si es para p75
+        if (empty($this->ley)) {
+            $this->comentarios = '';
+        } else {
+            $this->comentarios = 'Ley 26743';
+        }
+
+        $fecha_hora = date('Y-m-d H:m:s');
+
+        $cantidad = paciente::where('documento', $this->documento)->get()->count();
+
+        if (empty($cantidad)) {
+            $guardo_paciente = paciente::create([
+                'documento' => $this->documento,
+                'paciente' => $this->paciente,
+                'fecha_nac' => $fecha_de_nacimiento,
+                'domicilio' => $domicilio,
+                'telefono' => $telefono,
+                'correo' => '-',
+                'obra_social_id' => $this->obra_social_id
+            ]);
+
+            $guardo_turno = pacientes_turno::create([
+                'id_turno' => $this->id_turno,
+                'id' => $id_num,
+                'letra' => $letra,
+                'fecha' => $this->fecha,
+                'id_horario' => $this->id_horario,
+                'documento' => $this->documento,
+                'id_usuario' => $this->id_usuario,
+                'fecha_hora' => $fecha_hora,
+                'para' => $this->para,
+                'asistio' => 'no',
+                'comentarios' => $this->comentarios
+            ]);
+
+            if (($guardo_paciente)&&($guardo_turno)) {
+                echo "Correcto";
+            }
+
+        } else {
+            $actualizo_paciente = paciente::where('documento', $this->documento)->update([
+                'documento' => $this->documento,
+                'paciente' => $this->paciente,
+                'fecha_nac' => $fecha_de_nacimiento,
+                'domicilio' => $this->domicilio,
+                'telefono' => $this->telefono,
+                'correo' => '-',
+                'obra_social_id' => $this->obra_social_id
+            ]);
+
+            $guardo_turno = pacientes_turno::create([
+                'id_turno' => $this->id_turno,
+                'id' => $id_num,
+                'letra' => $letra,
+                'fecha' => $this->fecha,
+                'id_horario' => $this->id_horario,
+                'documento' => $this->documento,
+                'id_usuario' => $this->id_usuario,
+                'fecha_hora' => $fecha_hora,
+                'para' => $this->para,
+                'asistio' => 'no',
+                'comentarios' => $this->comentarios
+            ]);
+
+            if (($actualizo_paciente)&&($guardo_turno)) {
+                $this->comprobante_turno($this->id_turno);
+            }
+        }
+    }
+
+    public function comprobante_turno($id_turno)
+    {
+        $id_turno = $id_turno;
+ 
+        return redirect()->to('/comprobante_turno/'.$id_turno);
+
+        $this->emit('descargado');
     }
 
 }

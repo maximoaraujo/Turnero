@@ -3,6 +3,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 ?>
+
 <title>Comprobante {{$paciente}}</title>
 <style>
 #logo{
@@ -59,13 +60,10 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 <?php echo '<img src="data:image/png;base64,' . DNS2D::getBarcodePNG($id_turno, 'QRCODE') . '" style = "margin-top:-25px;margin-left:20px;"/>'; ?>
 </center>
 
-<?php
-    $letra = App\Models\horario::where('id_horario', $id_horario)->get()->pluck('letra')->first();
-    $id = App\Models\pacientes_turno::where('fecha', $fecha)->where('documento', $documento)->get()->pluck('id')->first();
-?>
+
 <center>
 
-<p id = "turno"><?php echo $letra. '' .$id; ?></p>
+<p id = "turno">{{$letra}}{{$id}}</p>
 <?php
  $horario = App\Models\horario::where('id_horario', $id_horario)->get()->pluck('horario')->first();
 ?>
@@ -167,7 +165,7 @@ $dompdf->setPaper('A5');
 
 $dompdf->render();
  
-//$dompdf->stream('TURNO_'.$paciente.'.pdf');
+$dompdf->stream('TURNO_'.$paciente.'.pdf');
 $dompdf->stream('TURNO_'.$paciente.'.pdf', array("Attachment" => false));
 
 ?>
