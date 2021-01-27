@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\horarios_estudio;
 use App\Models\horario;
 use App\Models\config;
@@ -16,12 +15,14 @@ use App\Models\turnos_practica;
 use App\Models\usuario_fechs;
 use Illuminate\Support\Facades\Auth;
 
-class Dengue extends Component
+use Livewire\Component;
+
+class Espermograma extends Component
 {
     public $fecha;
     public $vista;
     public $id_usuario;
-    public $para, $ley;
+    public $para;
     public $nomenclador;
     public $horario;
     public $no_laboral;
@@ -48,7 +49,7 @@ class Dengue extends Component
         $this->picked = true;
         $this->picked_1 = true;
         $this->horarios();
-        $this->para = 'dengue'; 
+        $this->para = 'espermograma'; 
     }
 
     public function usuario_fecha()
@@ -86,11 +87,11 @@ class Dengue extends Component
     public function horarios()
     {     
         $this->horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
-        ->where('horarios_estudios.estudio', 'dengue')
+        ->where('horarios_estudios.estudio', 'espermograma')
         ->orderBy('horarios.horario')
         ->get();
 
-        $this->cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
+        $this->cantidad_turnos = config::get()->pluck('cant_turnos_esp')->first();
         $this->cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
     }
 
@@ -252,7 +253,7 @@ class Dengue extends Component
     public function guardo_turno()
     {
         //Array con la cantidad de turnos disponibles
-        $cons_turnos = config::get()->pluck('cant_turnos_gen')->first();
+        $cons_turnos = config::get()->pluck('cant_turnos_esp')->first();
 
         for ($i=1; $i < $cons_turnos + 1; $i++) { 
             $array_turnos[] = $i;
@@ -306,13 +307,6 @@ class Dengue extends Component
             $fecha_de_nacimiento = date('Y-m-d');    
         } else {
             $fecha_de_nacimiento = $this->fecha_nacimiento;
-        }
-
-        //Verificamos si es por la ley
-        if (empty($this->ley)) {
-            $this->comentarios = '';
-        } else {
-            $this->comentarios = 'Ley 26743';
         }
 
         $fecha_hora = date('Y-m-d H:m:s');
@@ -383,6 +377,6 @@ class Dengue extends Component
     {
         $id_turno = $id_turno;
         session()->flash('message', $id_turno);
-        return redirect()->to('/dengue');
+        return redirect()->to('/espermograma');
     }
 }

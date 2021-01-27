@@ -20,7 +20,7 @@
     <?php endif; ?>
     <div class = "row">
     <?php $__currentLoopData = $motivos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $motivo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class = "col-sm-4">
+        <div class = "col-sm-4 mt-3">
         <div class="form-check">
             <input class="form-check-input" type="checkbox" value="<?php echo e($motivo->id); ?>" wire:click = 'pasoID(<?php echo e($motivo->id); ?>)' id = "check<?php echo e($motivo->id); ?>">
             <label class="form-check-label" for = "check<?php echo e($motivo->id); ?>">

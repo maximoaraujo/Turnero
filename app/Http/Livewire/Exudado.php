@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\horarios_estudio;
 use App\Models\horario;
 use App\Models\config;
@@ -16,7 +15,9 @@ use App\Models\turnos_practica;
 use App\Models\usuario_fechs;
 use Illuminate\Support\Facades\Auth;
 
-class Dengue extends Component
+use Livewire\Component;
+
+class Exudado extends Component
 {
     public $fecha;
     public $vista;
@@ -48,7 +49,7 @@ class Dengue extends Component
         $this->picked = true;
         $this->picked_1 = true;
         $this->horarios();
-        $this->para = 'dengue'; 
+        $this->para = 'exudado'; 
     }
 
     public function usuario_fecha()
@@ -86,7 +87,7 @@ class Dengue extends Component
     public function horarios()
     {     
         $this->horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
-        ->where('horarios_estudios.estudio', 'dengue')
+        ->where('horarios_estudios.estudio', 'exudado')
         ->orderBy('horarios.horario')
         ->get();
 
@@ -383,6 +384,6 @@ class Dengue extends Component
     {
         $id_turno = $id_turno;
         session()->flash('message', $id_turno);
-        return redirect()->to('/dengue');
+        return redirect()->to('/exudado');
     }
 }

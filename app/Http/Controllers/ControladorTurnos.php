@@ -3,16 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\horarios_estudio;
 use App\Models\horario;
-use App\Models\config;
 use App\Models\pacientes_turno;
-use App\Models\valores_turno;
 use App\Models\paciente;
-use App\Models\obras_socials;
-use App\Models\no_laborale;
-use App\Models\practica;
-use App\Models\turnos_practica;
 use Illuminate\Support\Facades\Auth;
 
 class ControladorTurnos extends Controller
@@ -34,50 +27,17 @@ class ControladorTurnos extends Controller
 
     public function exudado()
     {        
-        $picked = true;
-        $practicas = [];
-        $obras_sociales = obras_socials::where('estado', 'H')->orderBy('obra_social')->get();
-        $horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
-        ->where('horarios_estudios.estudio', 'exudado')
-        ->orderBy('horarios.horario')
-        ->get();
-
-        $cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
-        $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
-
-        return view('turnos.exudado', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor', 'obras_sociales', 'practicas', 'picked'));
+        return view('turnos.exudado-livewire');
     }
 
     public function espermograma()
     {        
-        $picked = true;
-        $practicas = [];
-        $obras_sociales = obras_socials::where('estado', 'H')->orderBy('obra_social')->get();
-        $horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
-        ->where('horarios_estudios.estudio', 'espermograma')
-        ->orderBy('horarios.horario')
-        ->get();
-
-        $cantidad_turnos = config::get()->pluck('cant_turnos_esp')->first();
-        $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
-
-        return view('turnos.espermograma', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor', 'obras_sociales', 'practicas', 'picked'));
+        return view('turnos.espermograma-livewire');
     }
 
     public function citogenetica()
     {       
-        $picked = true; 
-        $practicas = [];
-        $obras_sociales = obras_socials::where('estado', 'H')->orderBy('obra_social')->get();
-        $horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
-        ->where('horarios_estudios.estudio', 'citogenetica')
-        ->orderBy('horarios.horario')
-        ->get();
-
-        $cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
-        $cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
-
-        return view('turnos.citogenetica', compact('horarios', 'cantidad_turnos', 'cantidad_ioscor', 'obras_sociales', 'practicas', 'picked'));
+       return view('turnos.citogenetica-livewire');
     }
 
     public function comprobante_turno($id_turno)

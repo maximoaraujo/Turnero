@@ -30,7 +30,7 @@
     <div class="alert alert-warning alert-dismissible">
         <button type="button" class="close">×</button>
         <h5><i class="icon fas fa-exclamation-triangle"></i> Atención!</h5>
-        ¡El laboratorio permanecera cerrado!
+        ¡El laboratorio permanecerá cerrado!
     </div>
     </div>
     </center>
@@ -48,32 +48,32 @@
     <?php if($vista == 'turnos'): ?>
     <div class = "row">
     <!--Horarios-->
-    <div class="row mt-2 ml-1">
-        <?php $__currentLoopData = $horarios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $horario): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class="col-lg-3 col-6">
-            <!---->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h4><?php echo e($horario->horario); ?></h4>
+    <?php $__currentLoopData = $horarios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $horario): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <div class="col-lg-3 col-6 mt-2">
+      <!---->
+      <div class="small-box bg-info">
+        <div class="inner">
+          <h4><?php echo e($horario->horario); ?></h4>
 
-                <?php
-                  $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id_horario]])->get()->count();
-                ?>
-                <h3><?php echo $cantidad; ?>/<?php echo e($cantidad_turnos); ?></h3>
-              </div>
-              <div class="icon">
-                <i class="fas fa-calendar-alt"></i>
-              </div>
-              <?php if(($cantidad < $cantidad_turnos)||(Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
-              <a href="#" class="small-box-footer" wire:click='Asignarturno(<?php echo e($horario->id_horario); ?>)'>
-              Asignar turno <i class="far fa-calendar-plus fa-sm"></i>
-              </a>
-              <?php endif; ?>
-            </div>
-          </div>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          <?php
+            $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id_horario]])->get()->count();
+          ?>
+          <h3><?php echo $cantidad; ?>/<?php echo e($cantidad_turnos); ?></h3>
+        </div>
+        <div class="icon">
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <?php if(($cantidad < $cantidad_turnos)||(Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
+        <a href="#" class="small-box-footer" wire:click='Asignarturno(<?php echo e($horario->id_horario); ?>)'>
+          Asignar turno <i class="far fa-calendar-plus fa-sm"></i>
+        </a>
+        <?php endif; ?>
+      </div>
+    </div>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
     <?php endif; ?>
+
     <?php if($vista == 'asignar'): ?>
     <div class = "row">
 

@@ -22,7 +22,6 @@
         <th scope="col"></th>
         <th scope="col"></th>
         <th scope="col"></th>
-        <th scope="col"></th>
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
         <th scope="col"></th>
         @endif
@@ -45,7 +44,7 @@
         <td style = 'text-align: center;'><button wire:click='asistencia("{{$turno_general->id_horario}}", "{{$fecha}}", "{{$turno_general->documento}}", "general")' style = "outline:none;background-color:transparent;border:none;"><i class="far fa-square"></i></button></td>
         @endif
         <td><button wire:click='editar_datos("{{$turno_general->documento}}")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
-        <td><button wire:click='editar_turno_general("{{$turno_general->documento}}", "{{$turno_general->horario}}", "{{$turno_general->paciente}}", "{{$turno_general->id_horario}}")' style = "border:none;background-color:transparent;"><i class="far fa-calendar-alt"></i></button></td>
+        <!--<td><button wire:click='editar_turno_general("{{$turno_general->documento}}", "{{$turno_general->horario}}", "{{$turno_general->paciente}}", "{{$turno_general->id_horario}}")' style = "border:none;background-color:transparent;"><i class="far fa-calendar-alt"></i></button></td>-->
         <td><button wire:click='eliminar_turno("{{$turno_general->documento}}", "{{$turno_general->id_horario}}", "{{$fecha}}")' style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>  
         <td><a href = "/comprobante_turno/{{$fecha}}/{{$turno_general->id_horario}}/{{$turno_general->documento}}/{{$turno_general->paciente}}/{{$turno_general->id_turno}}" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))

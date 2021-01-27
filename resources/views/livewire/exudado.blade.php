@@ -48,32 +48,32 @@
     @if($vista == 'turnos')
     <div class = "row">
     <!--Horarios-->
-    <div class="row mt-2 ml-2">
-        @foreach($horarios as $horario)
-        <div class="col-lg-3 col-6">
-            <!---->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h4>{{$horario->horario}}</h4>
+    @foreach($horarios as $horario)
+    <div class="col-lg-3 col-6 mt-2">
+      <!---->
+      <div class="small-box bg-info">
+        <div class="inner">
+          <h4>{{$horario->horario}}</h4>
 
-                <?php
-                  $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id_horario]])->get()->count();
-                ?>
-                <h3><?php echo $cantidad; ?>/{{$cantidad_turnos}}</h3>
-              </div>
-              <div class="icon">
-                <i class="fas fa-calendar-alt"></i>
-              </div>
-              @if(($cantidad < $cantidad_turnos)||(Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
-              <a href="#" class="small-box-footer" wire:click='Asignarturno({{$horario->id_horario}})'>
-              Asignar turno <i class="far fa-calendar-plus fa-sm"></i>
-              </a>
-              @endif
-            </div>
-          </div>
-        @endforeach
+          <?php
+            $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id_horario]])->get()->count();
+          ?>
+          <h3><?php echo $cantidad; ?>/{{$cantidad_turnos}}</h3>
+        </div>
+        <div class="icon">
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        @if(($cantidad < $cantidad_turnos)||(Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
+        <a href="#" class="small-box-footer" wire:click='Asignarturno({{$horario->id_horario}})'>
+          Asignar turno <i class="far fa-calendar-plus fa-sm"></i>
+        </a>
+        @endif
+      </div>
+    </div>
+    @endforeach
     </div>
     @endif
+    
     @if($vista == 'asignar')
     <div class = "row">
 
@@ -84,14 +84,6 @@
           <h3 class="card-title">Paciente</h3>
         </div>
         <div class="card-body">
-          @if($horario == '06:30')
-            @if((date('l', strtotime($fecha)) == 'Wednesday') || (date('l', strtotime($fecha)) == 'Friday'))
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" wire:model='p75' id = 'p75'>   
-                <label class="custom-control-label" for="p75">P75</label> 
-              </div>
-            @endif
-          @endif
           @if(date('l', strtotime($fecha)) == 'Tuesday')
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" wire:model='ley' id = "ley">
@@ -218,5 +210,7 @@
     @endif
     <!---->
 </div>
+
+
 
 

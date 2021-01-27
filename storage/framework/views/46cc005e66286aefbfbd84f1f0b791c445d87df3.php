@@ -90,7 +90,7 @@
                 <li class="nav-item">
                 <a href="/citogenetica" class="nav-link">
                   <i class="far fa-circle nav-icon" style = "color:blue;"></i>
-                  <p>Citogenetíca</p>
+                  <p>Citogenética</p>
                 </a>
                 </li>
             </ul>

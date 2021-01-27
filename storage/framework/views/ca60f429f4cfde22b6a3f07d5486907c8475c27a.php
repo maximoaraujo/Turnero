@@ -79,7 +79,7 @@ $fecha = $_GET['f'];
 $servidor = "localhost";
 $bd= "turnos_laboratorio";
 $usu = "root";
-$contraseña = "pmartinez1044";
+$contraseña = "kiara2012";
 //Creamos la conexión
 $conn = mysqli_connect($servidor, $usu, $contraseña, $bd);
 $conn->set_charset("utf8");
