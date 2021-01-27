@@ -3,6 +3,15 @@
     <div class = "col-sm-2 mt-2">
         <input type = "date" class = "form-control" wire:model='fecha'>
     </div>
+    <?php if(session()->has('message')): ?>
+    <input type = "text" value = "<?php echo e(session('message')); ?>" id = "id_turno" hidden>
+       <script>
+          var id_turno = $("#id_turno").val();
+          $(document).ready(function(){
+              window.open('/comprobante_turno/'+id_turno, '_blank');
+          }); 
+       </script>
+    <?php endif; ?>
     <?php if($vista == 'turnos'): ?>
     <div class = "row">
     <!--Horarios-->

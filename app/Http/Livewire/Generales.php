@@ -38,13 +38,6 @@ class Generales extends Component
     //Datos del paciente
     public $documento, $paciente, $domicilio, $telefono, $fecha_nacimiento, $comentarios, $obra_social_id;
 
-    protected $listeners = ['descargado'];
-
-    public function descargado()
-    {
-        $this->vista = 'turnos';
-    }
-
     public function mount()
     {
         $this->fecha = date('Y-m-d');
@@ -362,10 +355,8 @@ class Generales extends Component
     public function comprobante_turno($id_turno)
     {
         $id_turno = $id_turno;
- 
-        return redirect()->to('/comprobante_turno/'.$id_turno);
-
-        $this->emit('descargado');
+        session()->flash('message', $id_turno);
+        return redirect()->to('/general');
     }
 
 }
