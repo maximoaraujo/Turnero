@@ -16,12 +16,12 @@ use App\Models\turnos_practica;
 use App\Models\usuario_fechs;
 use Illuminate\Support\Facades\Auth;
 
-class Generales extends Component
+class Dengue extends Component
 {
     public $fecha;
     public $vista;
     public $id_usuario;
-    public $para, $p75, $ley;
+    public $para, $ley;
     public $nomenclador;
     public $horario;
     public $no_laboral;
@@ -44,11 +44,11 @@ class Generales extends Component
     {
         $this->id_usuario = Auth::user()->id;
         $this->usuario_fecha();
-        $this->vista = 'turnos';
+        $this->vista = 'asignar';
         $this->picked = true;
         $this->picked_1 = true;
         $this->horarios();
-        $this->para = 'general'; 
+        $this->para = 'dengue'; 
     }
 
     public function usuario_fecha()
@@ -86,7 +86,7 @@ class Generales extends Component
     public function horarios()
     {     
         $this->horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
-        ->where('horarios_estudios.estudio', 'generales')
+        ->where('horarios_estudios.estudio', 'dengue')
         ->orderBy('horarios.horario')
         ->get();
 
@@ -308,14 +308,7 @@ class Generales extends Component
             $fecha_de_nacimiento = $this->fecha_nacimiento;
         }
 
-        //Verificamos si es para p75
-        if (empty($this->p75)) {
-            $this->para = $this->para;
-        } else {
-            $this->para = 'P75';
-        }
-
-        //Verificamos si es para p75
+        //Verificamos si es por la ley
         if (empty($this->ley)) {
             $this->comentarios = '';
         } else {
@@ -390,7 +383,6 @@ class Generales extends Component
     {
         $id_turno = $id_turno;
         session()->flash('message', $id_turno);
-        return redirect()->to('/general');
+        return redirect()->to('/dengue');
     }
-
 }

@@ -48,7 +48,7 @@
     @if($vista == 'turnos')
     <div class = "row">
     <!--Horarios-->
-    <div class="row mt-2 ml-2">
+    <div class="row mt-2 ml-1">
         @foreach($horarios as $horario)
         <div class="col-lg-3 col-6">
             <!---->
@@ -84,14 +84,6 @@
           <h3 class="card-title">Paciente</h3>
         </div>
         <div class="card-body">
-          @if($horario == '06:30')
-            @if((date('l', strtotime($fecha)) == 'Wednesday') || (date('l', strtotime($fecha)) == 'Friday'))
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" wire:model='p75' id = 'p75'>   
-                <label class="custom-control-label" for="p75">P75</label> 
-              </div>
-            @endif
-          @endif
           @if(date('l', strtotime($fecha)) == 'Tuesday')
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" wire:model='ley' id = "ley">
@@ -218,5 +210,6 @@
     @endif
     <!---->
 </div>
+
 
 
