@@ -342,7 +342,7 @@ class Citogenetica extends Component
             ]);
 
             if (($guardo_paciente)&&($guardo_turno)) {
-                echo "Correcto";
+                $this->comprobante_turno($this->id_turno);
             }
 
         } else {

@@ -109,7 +109,7 @@ class Generales extends Component
         $this->fecha_nacimiento = paciente::where('documento', $this->documento)->get()->pluck('fecha_nac')->first();
         $this->genero_id_turno();
     }
-
+		
     public function genero_id_turno()
     {
         $valor = valores_turno::orderBy('valor', 'DESC')->get()->pluck('valor')->first();
@@ -354,7 +354,7 @@ class Generales extends Component
             ]);
 
             if (($guardo_paciente)&&($guardo_turno)) {
-                echo "Correcto";
+                $this->comprobante_turno($this->id_turno);
             }
 
         } else {
