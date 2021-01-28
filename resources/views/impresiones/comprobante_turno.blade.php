@@ -132,7 +132,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 <p id = "paciente">Paciente: {{$paciente}}</p>
 </center>
 
-<p id = "turno">Solicitó un turno para realizarse las siguientes prácticas:</p>
+<p id = "solicito">Solicitó un turno para realizarse las siguientes prácticas:</p>
 
 <?php
     $id_obra_social = App\Models\turnos_practica::where('id_turno', $id_turno)->get()->pluck('id_obra_social')->first();
