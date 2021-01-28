@@ -225,7 +225,7 @@ class Espermograma extends Component
 
         $guardoPractica = turnos_practica::create([
             'id_turno' => $this->id_turno,
-            'id_obra_social' => $this->obra_social_id,
+            'obra_social_id' => $this->obra_social_id,
             'id_practica' => $this->id_practica,
             'cantidad' => 1
         ]);

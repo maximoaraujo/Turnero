@@ -179,9 +179,9 @@ class Pacientes extends Component
         $this->id_turno = $id_usuario. '-' .$valor;
     }
 
-     //Guardamos el nuevo turno
-     public function nuevo_turno($id_horario, $id_usuario, $para)
-     {
+    //Guardamos el nuevo turno
+    public function nuevo_turno($id_horario, $id_usuario, $para)
+    {
         $this->genero_id_turno();
 
         $this->id_nuevo_horario = $id_horario;
@@ -240,7 +240,7 @@ class Pacientes extends Component
                 $this->cancelar_edicion();
             }
         }       
-     }
+    }
 
     public function cancelar_edicion()
     {
