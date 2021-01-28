@@ -102,7 +102,7 @@
           <div class="row">
             <div class = "col-sm-4">
                 <input type = "number" class = "form-control" wire:model='documento' wire:keydown.enter='buscoPaciente' placeholder="Documento">
-				<?php $__errorArgs = ['documento'];
+				        <?php $__errorArgs = ['documento'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -122,7 +122,7 @@ unset($__errorArgs, $__bag); ?>
           <div class = "row mt-2">
             <div class = "col-sm-12">
                 <input type = "text" class = "form-control" wire:model='paciente' placeholder="Paciente">
-				<?php $__errorArgs = ['paciente'];
+				        <?php $__errorArgs = ['paciente'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -163,9 +163,10 @@ unset($__errorArgs, $__bag); ?>
         <div class="card-body">
           <div class = "row">
             <div class = "col-sm-12">
+            
             <input wire:model.debounce.500ms="obrasocial" 
             wire:keydown="buscarObrasocial" type="text" class="form-control" placeholder="Obra social" autocomplete="off"> 
-			<?php $__errorArgs = ['obrasocial'];
+			      <?php $__errorArgs = ['obrasocial'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
