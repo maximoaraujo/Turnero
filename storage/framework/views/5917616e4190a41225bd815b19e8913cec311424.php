@@ -13,32 +13,17 @@
     <input type = "date" class = "form-control" wire:model='fecha_nuevo_turno'>
 </div>
 </center>
-<div class = "row" style = "margin-top:20px;">
-<?php $__currentLoopData = $horarios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $horario): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-<div class="col-md-3 col-sm-4 col-12">
-<div class="info-box bg-gradient-info">
-    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
-
-    <div class="info-box-content">
-        <span class="info-box-text"><?php echo e($horario->horario); ?></span>
-        <?php
-            $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha_nuevo_turno],['id_horario', $horario->id]])->get()->count();
-        ?>
-        <span class="info-box-number"><?php echo $cantidad; ?> | <?php echo e($cantidad_turnos); ?></span>
-
-        <div class="progress">
-            <div class="progress-bar" style="width: <?php echo ($cantidad * 10); ?>%"></div>
-        </div>
-        <?php if($cantidad < $cantidad_turnos): ?>
-        <span class="progress-description">
-            <button type="button" class="btn btn-block btn-default btn-sm" wire:click='nuevo_turno("<?php echo e($horario->id_horario); ?>", "<?php echo e(Auth::user()->id); ?>", "general")'>Asignar</button>
-        </span>
-        <?php endif; ?>
-        </div>
-    </div>
-</div>
-<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-</div>
+<?php if($para == 'general'): ?>
+    <?php echo $__env->make('pacientes.turnos_para.generales', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php elseif($para == 'dengue'): ?>  
+    <?php echo $__env->make('pacientes.turnos_para.dengue', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php elseif($para == 'exudado'): ?>
+    <?php echo $__env->make('pacientes.turnos_para.exudado', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php elseif($para == 'espermograma'): ?>
+    <?php echo $__env->make('pacientes.turnos_para.espermograma', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>   
+<?php elseif($para == 'citogenetica'): ?>
+    <?php echo $__env->make('pacientes.turnos_para.citogenetica', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>   
+<?php endif; ?>
 <center>
 <div class = "col-sm-2">
     <button class = "btn btn-danger" wire:click='cancelar_edicion'>Volver</button>

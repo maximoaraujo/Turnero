@@ -23,39 +23,38 @@ class ContarTurnos extends Component
 
         $this->cant_dengue = pacientes_turno::where('fecha', $fecha)->where('para', 'dengue')->get()->count();
         $this->cant_dengue_ios = paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
+        ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
         ->where('pacientes_turnos.fecha', $fecha)
         ->where('pacientes_turnos.para', 'dengue')
-        ->where('pacientes.obra_social', 'IOSCOR')
-        ->whereOr('pacientes.obra_social', 'ioscor')->get()->count();
+        ->where('obras_socials.obra_social', 'IOSCOR')->get()->count();
         $this->cant_exudado = pacientes_turno::where('fecha', $fecha)->where('para', 'exudado')->get()->count();
         $this->cant_exudado_ios =  paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
+        ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
         ->where('pacientes_turnos.fecha', $fecha)
-        ->where('pacientes_turnos.para', 'exudado')
-        ->where('pacientes.obra_social', 'IOSCOR')
-        ->whereOr('pacientes.obra_social', 'ioscor')->get()->count();
+        ->where('pacientes_turnos.para', 'exudado')->get()->count();
         $this->cant_espermograma = pacientes_turno::where('fecha', $fecha)->where('para', 'espermograma')->get()->count();
         $this->cant_espermograma_ios =  paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
+        ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
         ->where('pacientes_turnos.fecha', $fecha)
         ->where('pacientes_turnos.para', 'espermograma')
-        ->where('pacientes.obra_social', 'IOSCOR')
-        ->whereOr('pacientes.obra_social', 'ioscor')->get()->count();
+        ->where('obras_socials.obra_social', 'IOSCOR')->get()->count();
         $this->cant_general = pacientes_turno::where('fecha', $fecha)->where('para', 'general')->get()->count();
         $this->cant_general_ios =  paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
+        ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
         ->where('pacientes_turnos.fecha', $fecha)
         ->where('pacientes_turnos.para', 'general')
-        ->where('pacientes.obra_social', 'IOSCOR')
-        ->whereOr('pacientes.obra_social', 'ioscor')->get()->count();
+        ->where('obras_socials.obra_social', 'IOSCOR')->get()->count();
         $this->cant_p75 = pacientes_turno::where('fecha', $fecha)->where('para', 'P75')->get()->count();
         $this->cant_p75_ios =  paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
+        ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
         ->where('pacientes_turnos.fecha', $fecha)
         ->where('pacientes_turnos.para', 'P75')
-        ->where('pacientes.obra_social', 'IOSCOR')
-        ->whereOr('pacientes.obra_social', 'ioscor')->get()->count();
+        ->where('obras_socials.obra_social', 'IOSCOR')->get()->count();
         $this->cant_citogenetica = pacientes_turno::where('fecha', $fecha)->where('para', 'citogenetica')->get()->count();
         $this->cant_citogenetica_ios =  paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
+        ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
         ->where('pacientes_turnos.fecha', $fecha)
         ->where('pacientes_turnos.para', 'citogenetica')
-        ->where('pacientes.obra_social', 'IOSCOR')
-        ->whereOr('pacientes.obra_social', 'ioscor')->get()->count();
+        ->where('obras_socials.obra_social', 'IOSCOR')->get()->count();
     }
 }

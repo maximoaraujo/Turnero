@@ -1,18 +1,3 @@
-<div class = "row" style = "margin-top:20px;margin-left:10px;">
-    <p>Paciente: {{$paciente}}</p>
-</div>
-<div class = "row" style = "margin-left:10px;">
-    <p>Fecha del turno: {{date('d-m-Y', strtotime($fecha))}}</p>
-</div>
-<div class = "row" style = "margin-left:10px;">
-    <p>Horario del turno: {{$horario_turno}}</p>
-</div>
-<hr>
-<center>
-<div class = "col-sm-3">
-    <input type = "date" class = "form-control" wire:model='fecha_nuevo_turno'>
-</div>
-</center>
 <div class = "row" style = "margin-top:20px;">
 @foreach($horarios as $horario)
 <div class="col-md-3 col-sm-4 col-12">
@@ -31,7 +16,7 @@
         </div>
         @if($cantidad < $cantidad_turnos)
         <span class="progress-description">
-            <button type="button" class="btn btn-block btn-default btn-sm" wire:click='nuevo_turno("{{$horario->id_horario}}", "{{Auth::user()->id}}", "general")'>Asignar</button>
+            <button type="button" class="btn btn-block btn-default btn-sm" wire:click='nuevo_turno("{{$horario->id_horario}}", "{{Auth::user()->id}}", "exudado")'>Asignar</button>
         </span>
         @endif
         </div>
@@ -39,8 +24,3 @@
 </div>
 @endforeach
 </div>
-<center>
-<div class = "col-sm-2">
-    <button class = "btn btn-danger" wire:click='cancelar_edicion'>Volver</button>
-</div>
-</center>

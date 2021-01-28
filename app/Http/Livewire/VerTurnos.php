@@ -8,6 +8,8 @@ use App\Models\pacientes_turno;
 use App\Models\paciente;
 use App\Models\config;
 use App\Models\valores_turno;
+use App\Models\obras_socials;
+use DB;
 use Illuminate\Support\Facades\Auth;
 
 class VerTurnos extends Component
@@ -83,7 +85,7 @@ class VerTurnos extends Component
         ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
         ->where($condicion_den)
         ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
-        'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
+        'pacientes.domicilio', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio')
         ->orderBy('horarios.horario')
         ->get();
     }
@@ -96,7 +98,7 @@ class VerTurnos extends Component
         ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
         ->where($condicion_exu)
         ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
-        'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
+        'pacientes.domicilio', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio')
         ->orderBy('horarios.horario')
         ->get();
     }
@@ -109,7 +111,7 @@ class VerTurnos extends Component
         ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
         ->where($condicion_gen)
         ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
-        'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
+        'pacientes.domicilio', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio')
         ->orderBy('horarios.horario')
         ->get();
     }
@@ -123,8 +125,8 @@ class VerTurnos extends Component
         ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
         ->where($condicion_gen)
         ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
-        'users.name', 'pacientes_turnos.fecha_hora', 'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
-        ->orderBy('horarios.horario')
+        'users.name', 'pacientes_turnos.fecha_hora', 'pacientes.domicilio', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 
+        'pacientes_turnos.asistio')->orderBy('horarios.horario')
         ->get(); 
     }
 
@@ -137,7 +139,7 @@ class VerTurnos extends Component
         ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
         ->where($condicion_p75)
         ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
-        'users.name', 'pacientes_turnos.fecha_hora', 'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
+        'users.name', 'pacientes_turnos.fecha_hora', 'pacientes.domicilio', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio')
         ->orderBy('horarios.horario')
         ->get();
     }
@@ -150,41 +152,9 @@ class VerTurnos extends Component
         ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
         ->where($condicion_cit)
         ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
-        'pacientes.domicilio', 'pacientes.obra_social', 'pacientes_turnos.asistio')
+        'pacientes.domicilio', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio')
         ->orderBy('horarios.horario')
         ->get();
-    }
-
-    //Generamos el ID del turno
-    public function genero_id_turno()
-    {
-        $valor = valores_turno::orderBy('valor', 'DESC')->get()->pluck('valor')->first();
-
-        if (empty($valor)) {
-           $valor = 1;
-           $inserto = valores_turno::create(['valor' => $valor]);
-        } else {
-           $valor = $valor + 1;
-           $actualizo = valores_turno::where('id', 1)->update(['valor' => $valor]);
-        }
- 
-        $id_usuario = Auth::user()->id;
-
-        if (strlen($valor) == 1) {
-           $valor = "00000" .$valor;
-        } elseif (strlen($valor) == 2) {
-            $valor = "0000" .$valor;
-        } elseif (strlen($valor) == 3) {
-            $valor = "000" .$valor;
-        }   elseif (strlen($valor) == 4) {
-            $valor = "00" .$valor;
-        } elseif (strlen($valor) == 5) {
-            $valor = "0" .$valor;
-        } elseif (strlen($valor) >= 6) {
-            $valor = $valor;
-        }
-
-        $this->id_turno = $id_usuario. '-' .$valor;
     }
 
     //Después de actualizar la fecha o el horario seleccionado mostramos los turnos
@@ -196,7 +166,6 @@ class VerTurnos extends Component
         $this->generales_x_horario();
         $this->cargo_p75();
         $this->cargo_citogenetica();
-        $this->genero_id_turno();
     }
 
     //Marcamos la asistencia de los turnos
@@ -226,7 +195,8 @@ class VerTurnos extends Component
         $this->fecha_nacimiento = paciente::where('documento', $this->documento)->get()->pluck('fecha_nac')->first();
         $this->domicilio = paciente::where('documento', $this->documento)->get()->pluck('domicilio')->first();
         $this->telefono = paciente::where('documento', $this->documento)->get()->pluck('telefono')->first();
-        $this->obra_social = paciente::where('documento', $this->documento)->get()->pluck('obra_social')->first();
+        $id_obra_social = paciente::where('documento', $this->documento)->get()->pluck('obra_social_id')->first();
+        $this->obra_social = obras_socials::where('id', $id_obra_social)->get()->pluck('obra_social')->first();
     }
 
     //Guardamos la actualización de datos del paciente
@@ -255,89 +225,6 @@ class VerTurnos extends Component
         $this->generales_x_horario();
         $this->cargo_p75();
         $this->cargo_citogenetica();
-    }
-
-    //Editar turnos generales
-    public function editar_turno_general($documento, $horario, $paciente, $id_horario_viejo)
-    {   
-        $this->accion = "editar turno general";
-        $this->paciente = $paciente;
-        $this->horario_turno = $horario;
-        $this->id_horario_viejo = $id_horario_viejo;
-        $this->documento = $documento;
-        $this->cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
-    }
-
-    //Editar turnos dengue
-    public function editar_turno_dengue($documento, $horario, $paciente, $id_horario_viejo)
-    {   
-        $this->accion = "editar turno dengue";
-        $this->paciente = $paciente;
-        $this->horario_turno = $horario;
-        $this->id_horario_viejo = $id_horario_viejo;
-        $this->documento = $documento;
-        $this->cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
-    }
-
-    //Guardamos el nuevo turno
-    public function nuevo_turno($id_horario, $id_usuario, $para)
-    {
-        $this->id_nuevo_horario = $id_horario;
-        //Array con la cantidad de turnos disponibles
-        $cons_turnos = config::get()->pluck('cant_turnos_gen')->first();
-
-        for ($i=1; $i < $cons_turnos + 1; $i++) { 
-            $array_turnos[] = $i;
-        }    
-                
-        //Letra según el horario seleccionado
-        $letra = horario::where('id_horario', $this->id_nuevo_horario)->get()->pluck('letra')->first();
-                
-        //Array con los turnos ya ocupados
-        $cons_ocupados = pacientes_turno::join('horarios', 'horarios.id_horario', 'pacientes_turnos.id_horario')
-        ->select('pacientes_turnos.id')
-        ->where('horarios.id_horario', $this->id_nuevo_horario)
-        ->where('pacientes_turnos.fecha', $this->fecha_nuevo_turno)
-        ->get();
-                
-        foreach ($cons_ocupados as $ocupados) {
-            $array_ocupados[] = $ocupados['id'];
-        }
-        
-        //Si el array de ocupados esta vacío lo ponemos en 0
-        if (empty($array_ocupados)) {
-            $array_ocupados = array("0");
-        }
-                
-        //Sacamos la diferencia entre los dos arrays
-        $array_libres = array_diff($array_turnos, $array_ocupados);
-                
-        //Le pasamos el primer valor del array con los turnos libres
-        $id_num = reset($array_libres);
-
-        $fecha_hora = date('Y-m-d H:m:s');
-
-        $guardo_turno = pacientes_turno::create([
-            'id_turno' => $this->id_turno,
-            'id' => $id_num,
-            'letra' => $letra,
-            'fecha' => $this->fecha_nuevo_turno,
-            'id_horario' => $this->id_nuevo_horario,
-            'documento' => $this->documento,
-            'id_usuario' => $id_usuario,
-            'fecha_hora' => $fecha_hora,
-            'para' => $para,
-            'asistio' => 'no',
-            'comentarios' => ''
-        ]);
-
-        if ($guardo_turno) {
-            $elimino_anterior = pacientes_turno::where('documento', $this->documento)->where('id_horario', $this->id_horario_viejo)
-            ->where('fecha', $this->fecha)->delete();
-            if ($elimino_anterior) {
-                return redirect('/comprobante_turno'.'/'.$this->fecha_nuevo_turno.'/'.$this->id_nuevo_horario.'/'.$this->documento.'/'.$this->paciente);               
-            }
-        }       
     }
 
     //Eliminamos el turno seleccionado

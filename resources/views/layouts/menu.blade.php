@@ -50,7 +50,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                <a href="/dengue?f=<?php echo $fecha = date('Y-m-d'); ?>" class="nav-link">
+                <a href="/dengue" class="nav-link">
                   <i class="far fa-circle nav-icon" style = "color:black;"></i>
                   <p>Dengue | SARS</p>
                 </a>
@@ -59,7 +59,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                <a href="/exudado?f=<?php echo $fecha = date('Y-m-d'); ?>" class="nav-link">
+                <a href="/exudado" class="nav-link">
                   <i class="far fa-circle nav-icon" style = "color:white;"></i>
                   <p>Exudado</p>
                 </a>
@@ -68,7 +68,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                <a href="/espermograma?f=<?php echo $fecha = date('Y-m-d'); ?>" class="nav-link">
+                <a href="/espermograma" class="nav-link">
                   <i class="far fa-circle nav-icon" style = "color:yellow;"></i>
                   <p>Espermograma</p>
                 </a>
@@ -77,7 +77,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                <a href="/general?f=<?php echo $fecha = date('Y-m-d'); ?>" class="nav-link">
+                <a href="/general" class="nav-link">
                   <i class="far fa-circle nav-icon" style = "color:cyan;"></i>
                   <p>General</p>
                 </a>
@@ -86,9 +86,9 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                <a href="/citogenetica?f=<?php echo $fecha = date('Y-m-d'); ?>" class="nav-link">
+                <a href="/citogenetica" class="nav-link">
                   <i class="far fa-circle nav-icon" style = "color:blue;"></i>
-                  <p>Citogenetíca</p>
+                  <p>Citogenética</p>
                 </a>
                 </li>
             </ul>
@@ -192,8 +192,3 @@
     </div>    
 </div>
 <!-- ./wrapper -->
-<script type = "text/javascript" src = "js/dengue.js"></script>
-<script type = "text/javascript" src = "js/exudado.js"></script>
-<script type = "text/javascript" src = "js/espermograma.js"></script>
-<script type = "text/javascript" src = "js/generales.js"></script>
-<script type = "text/javascript" src = "js/citogenetica.js"></script>

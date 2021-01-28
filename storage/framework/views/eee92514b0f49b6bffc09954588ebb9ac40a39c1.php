@@ -3,6 +3,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 ?>
+
 <title>Comprobante <?php echo e($paciente); ?></title>
 <style>
 #logo{
@@ -32,7 +33,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 }
 #turno{
     font-size:80px;
-    margin-left: 85%;
+    margin-left: 80%;
     margin-top:-125px;
 }
 #solicito{
@@ -59,13 +60,10 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 <?php echo '<img src="data:image/png;base64,' . DNS2D::getBarcodePNG($id_turno, 'QRCODE') . '" style = "margin-top:-25px;margin-left:20px;"/>'; ?>
 </center>
 
-<?php
-    $letra = App\Models\horario::where('id_horario', $id_horario)->get()->pluck('letra')->first();
-    $id = App\Models\pacientes_turno::where('fecha', $fecha)->where('documento', $documento)->get()->pluck('id')->first();
-?>
+
 <center>
 
-<p id = "turno"><?php echo $letra. '' .$id; ?></p>
+<p id = "turno"><?php echo e($letra); ?><?php echo e($id); ?></p>
 <?php
  $horario = App\Models\horario::where('id_horario', $id_horario)->get()->pluck('horario')->first();
 ?>
@@ -134,10 +132,15 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 <p id = "paciente">Paciente: <?php echo e($paciente); ?></p>
 </center>
 
-
 <?php
+    //$id_obra_social = App\Models\turnos_practica::where('id_turno', $id_turno)->get()->pluck('id_obra_social')->first();
+    
+    //$nomenclador = App\Models\obras_socials::where('id', $id_obra_social)->get()
+    //->pluck('nomenclador')->first();
+    
     //$practicas = App\Models\turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
-    //->select('practicas.practica')->where('turnos_practicas.id_turno', $id_turno)->get();
+    //->select('practicas.practica')->where('turnos_practicas.id_turno', $id_turno)
+    //->where('practicas.nomenclador', $nomenclador)->get();
 
     //foreach ($practicas as $practica) {
     //    echo "<ul>

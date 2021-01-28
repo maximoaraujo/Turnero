@@ -16,10 +16,10 @@
 <div class = "col-sm-9" style = "margin-top:10px;">
 <?php
 $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
+->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
 ->where('pacientes_turnos.fecha', $fecha)
 ->where('pacientes_turnos.para', 'dengue')
-->where('pacientes.obra_social', 'IOSCOR')
-->whereOr('pacientes.obra_social', 'ioscor')->get()->count();
+->where('obras_socials.obra_social', 'IOSCOR')->get()->count();
 ?>
 <?php if($cantidad_ioscor == $ioscor): ?>
 <center>
@@ -98,7 +98,13 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
         </div>
         <div class = "row" style = "margin-top:5px;">
             <div class = "col-sm-12">
-                <input type = "text" class = "form-control" id = "obra_social<?php echo e($horario->id_horario); ?>" placeholder="Obra social" required>
+                <input type = "number" id = "nomenclador_dengue" hidden>
+                <select class="browser-default custom-select" id = "obra_social<?php echo e($horario->id_horario); ?>">
+                    <option value = "nada" selected disabled>--Obra social--</option>
+                    <?php $__currentLoopData = $obras_sociales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $obra_social): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <option value = "<?php echo e($obra_social->id); ?>"><?php echo e($obra_social->obra_social); ?></option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </select>
             </div>
         </div>
         <div class = "row" style = "margin-top:5px;">
@@ -107,7 +113,7 @@ $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.docume
             </div>
         </div>
         <center>
-            <button class = "btn btn-primary mt-2" id = "practicas<?php echo e($horario->id_horario); ?>" disabled>Prácticas</button>
+            <button class = "btn btn-primary mt-2" id = "practicas<?php echo e($horario->id_horario); ?>">Prácticas</button>
             <button class = "btn btn-success" id = "guardar<?php echo e($horario->id_horario); ?>" style = "margin-top:5px;">Guardar</button>
         </center>
         </div>

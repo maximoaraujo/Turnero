@@ -53,7 +53,6 @@ $(document).ready(function(){
                 $("#fecha_nacimiento"+index).val(datos.split(";")[1]);
                 $("#domicilio"+index).val(datos.split(";")[2]);
                 $("#telefono"+index).val(datos.split(";")[3]);
-                $("#obra_social"+index).val(datos.split(";")[4]);
                 genero_id_turno();
                 $('#practicas'+index).attr("disabled", false);
                 document.getElementById('loader'+index).style.display = "none";
@@ -74,10 +73,32 @@ $(document).ready(function(){
         });  
       }
 
+      $("#obra_social"+index).on('change', function(){
+        var obra_social_id = $("#obra_social"+index).val();
+        $.ajax({
+          type: 'POST',
+          url: '/busco_nomenclador',
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          data:{
+            obra_social_id: obra_social_id
+          },
+          success:function(datos){
+            $("#nomenclador_general").val(datos);
+          }
+        });
+      });
+
       $("#practicas"+index).on('click', function(){
         var id_turno = $("#id_turno"+index).val();
+        var id_obra_social = $("#obra_social"+index).val();
+        var nomenclador = $("#nomenclador_general").val();
         $("#modal_practicas").modal('show');
+        $("#tabla_busqueda").empty();
         $("#id_turno_practicas").val(id_turno);
+        $("#id_obra_social").val(id_obra_social);
+        $("#nomenclador_practicas").val(nomenclador);
       });
 
       //Buscamos la práctica al presionar enter en el campo código
@@ -85,8 +106,9 @@ $(document).ready(function(){
           var keycode = e.keyCode || e.which;
           e.preventDefault();
           e.stopImmediatePropagation();
+          var codigo = $("#codigo_practica").val();
+          var nomenclador = $("#nomenclador_practicas").val();
           if (keycode == 13) {
-              var codigo = $("#codigo_practica").val();
               $.ajax({
                 type: 'POST',
                 url: '/practica_por_codigo',
@@ -94,10 +116,12 @@ $(document).ready(function(){
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data:{
+                  nomenclador:nomenclador,
                   codigo:codigo
                 },
                 success:function(datos){
                   if (datos != '') {
+                    $("#id_practica").val(datos);
                     guardo_turno_practica();
                     cargo_practicas();
                     document.getElementById('codigo_practica').value = "";
@@ -111,7 +135,8 @@ $(document).ready(function(){
 
       function guardo_turno_practica(){
         var id_turno = $("#id_turno_practicas").val();
-        var id_practica = $("#codigo_practica").val();
+        var id_obra_social = $("#id_obra_social").val();
+        var id_practica = $("#id_practica").val();
         $.ajax({
           type: 'POST',
           url: '/turno_practicas',
@@ -120,18 +145,20 @@ $(document).ready(function(){
           },
           data:{
             id_turno:id_turno,
+            id_obra_social: id_obra_social,
             id_practica:id_practica
           }
         });
       }
 
-      //Buscamos la práctica al presionar enter en el campo práctica
+      //Buscamos la práctica al tipearla en el campo "practica"
       $("#practica").on('keyup', function (e) {
           var keycode = e.keyCode || e.which;
           e.preventDefault();
           e.stopImmediatePropagation();
           if (keycode == 13) {
               var practica = $("#practica").val();
+              var nomenclador = $("#nomenclador_practicas").val();
               $.ajax({
                 type: 'POST',
                 url: '/busco_practica',
@@ -139,6 +166,7 @@ $(document).ready(function(){
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data:{
+                  nomenclador:nomenclador,
                   practica:practica
                 },
                 success:function(datos){
@@ -148,7 +176,8 @@ $(document).ready(function(){
                     $("#tabla_busqueda").empty();
                     var arreglo = JSON.parse(datos);
                     for (var x = 0; x < arreglo.length; x++){
-                        var fila = "<tr><td>"+arreglo[x].id_practica+"</td>";
+                        var fila = "<tr><td hidden>"+arreglo[x].id_practica+"</td>";
+                        fila+= "<td>"+arreglo[x].codigo+"</td>";
                         fila+= "<td>"+arreglo[x].practica+"</td>";
                         fila+= "<td><button class = 'sel_practica' style = 'border:none;background-color:transparent;'><i class='fas fa-file-import'></i></button></td>";
                         $("#tabla_busqueda").append(fila);
@@ -165,6 +194,7 @@ $(document).ready(function(){
 
                   function guardo_turno_practica(){
                     var id_turno = $("#id_turno_practicas").val();
+                    var id_obra_social = $("#id_obra_social").val();
                     $.ajax({
                       type: 'POST',
                       url: '/turno_practicas',
@@ -173,10 +203,11 @@ $(document).ready(function(){
                       },
                       data:{
                         id_turno:id_turno,
+                        id_obra_social:id_obra_social,
                         id_practica:id_practica
                       },
-                      success:function(datos){
-                        console.log(datos);
+                      success:function(){
+                        
                       }
                     });
                   }
@@ -198,6 +229,7 @@ $(document).ready(function(){
 
       function cargo_practicas(){
         var id_turno = $("#id_turno_practicas").val();
+        var nomenclador = $("#nomenclador_practicas").val();
         $.ajax({
           type: 'POST',
           url: '/muestro_practicas',
@@ -205,13 +237,15 @@ $(document).ready(function(){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           data:{
+            nomenclador: nomenclador,
             id_turno:id_turno
           },
           success:function(datos){
             $("#tabla_agregado").empty();
             var arreglo = JSON.parse(datos);
             for (var x = 0; x < arreglo.length; x++){
-              var fila = "<tr><td>"+arreglo[x].id_practica+"</td>";
+              var fila = "<tr><td hidden>"+arreglo[x].id_practica+"</td>";
+              fila+= "<td>"+arreglo[x].codigo+"</td>";
               fila+= "<td>"+arreglo[x].practica+"</td>";
               fila+= "<td><button class = 'elimino_sel' style = 'border:none;background-color:transparent;'><i class='fas fa-trash'></i></button></td>";
               $("#tabla_agregado").append(fila);
@@ -224,6 +258,7 @@ $(document).ready(function(){
 
             function elimino_practica(){
               var id_turno = $("#id_turno_practicas").val();
+              var id_obra_social = $("#id_obra_social").val();
               $.ajax({
                 type: 'POST',
                 url:'/elimino_practica',
@@ -232,6 +267,7 @@ $(document).ready(function(){
                 },
                 data:{
                   id_turno:id_turno,
+                  id_obra_social:id_obra_social,
                   id_practica:id_practica
                 },
                 success:function(){
@@ -243,7 +279,6 @@ $(document).ready(function(){
             $(".elimino_sel").on('dblclick', function(){
               elimino_practica();
             });
-
           }
         });
       }
@@ -288,7 +323,7 @@ $(document).ready(function(){
             fecha_nacimiento: fecha_nacimiento,
             domicilio: domicilio,
             telefono: telefono,
-            obra_social: obra_social,
+            obra_social_id: obra_social,
             comentarios: comentarios,
             para: para
           },
