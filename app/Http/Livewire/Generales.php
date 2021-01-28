@@ -251,6 +251,8 @@ class Generales extends Component
 
     public function guardo_turno()
     {
+		//Validamos los campos obligatorios
+		$this->validate(['documento'=>'required', 'paciente'=>'required', 'obrasocial'=>'required']);
         //Array con la cantidad de turnos disponibles
         $cons_turnos = config::get()->pluck('cant_turnos_gen')->first();
 

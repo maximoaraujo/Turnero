@@ -94,6 +94,7 @@
           <div class="row">
             <div class = "col-sm-4">
                 <input type = "number" class = "form-control" wire:model='documento' wire:keydown.enter='buscoPaciente' placeholder="Documento">
+				@error('documento') <span class ="badge badge-danger">{{ $message }}</span> @enderror
             </div> 
             <div class = "col-sm-2">
               <div wire:loading wire:target="buscoPaciente">
@@ -106,6 +107,7 @@
           <div class = "row mt-2">
             <div class = "col-sm-12">
                 <input type = "text" class = "form-control" wire:model='paciente' placeholder="Paciente">
+				@error('paciente') <span class ="badge badge-danger">{{ $message }}</span> @enderror
             </div>
         </div>
         <div class = "row mt-2">
@@ -140,7 +142,8 @@
           <div class = "row">
             <div class = "col-sm-12">
             <input wire:model.debounce.500ms="obrasocial" 
-            wire:keydown="buscarObrasocial" type="text" class="form-control" placeholder="Obra social" autocomplete="off"> 
+            wire:keydown="buscarObrasocial" type="text" class="form-control" placeholder="Obra social" autocomplete="off">
+			@error('obrasocial') <span class ="badge badge-danger">{{ $message }}</span> @enderror			
               @if(count($obras_sociales)>0)
                 @if(!$picked)
                   <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
