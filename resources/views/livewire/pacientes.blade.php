@@ -73,7 +73,7 @@
             Comentarios: {{$movimiento->comentarios}}
             </div>
             <div class="timeline-footer">
-                <a class="btn btn-primary btn-sm" href = "/comprobante_turno/{{$movimiento->fecha}}/{{$movimiento->id_horario}}/{{$documento}}/{{$paciente}}/{{$movimiento->id_turno}}" target = "_blank">Re-imprimir</a>
+                <a class="btn btn-primary btn-sm" href = "/comprobante_turno/{{$movimiento->id_turno}}" target = "_blank">Re-imprimir</a>
                 @if($movimiento->asistio == 'no')
                 <a class="btn btn-danger btn-sm" wire:click='editar_turno("{{$movimiento->fecha}}", "{{$movimiento->horario}}", "{{$movimiento->id_horario}}", "{{$movimiento->para}}")'>Re-programar</a>
                 @endif
