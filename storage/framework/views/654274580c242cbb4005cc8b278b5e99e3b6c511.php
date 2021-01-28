@@ -103,7 +103,7 @@
           <div class="row">
             <div class = "col-sm-4">
                 <input type = "number" class = "form-control" wire:model='documento' wire:keydown.enter='buscoPaciente' placeholder="Documento">
-				        <?php $__errorArgs = ['documento'];
+				<?php $__errorArgs = ['documento'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -112,15 +112,19 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
             </div> 
+			<div class = "col-sm-2">
+                <button class = "btn btn-primary" wire:click='buscoPaciente'>Buscar</button>
+            </div>
             <div class = "col-sm-2">
               <div wire:loading wire:target="buscoPaciente">
                   <div class="spinner-grow text-success" role="status">
                     <span class="sr-only">Buscando paciente...</span>
                   </div>
               </div> 
-            </div>    
+            </div>  
+			<div class = "col-sm-12 ml-1"><p class = "small" style = "font-size:12px;color:red;">Para buscar presione el botón o ENTER</p></div>
           </div>
-          <div class = "row mt-2">
+          <div class = "row">
             <div class = "col-sm-12">
                 <input type = "text" class = "form-control" wire:model='paciente' placeholder="Paciente">
 				        <?php $__errorArgs = ['paciente'];

@@ -7,15 +7,15 @@
 <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('exudado', [])->html();
-} elseif ($_instance->childHasBeenRendered('r84D3Rj')) {
-    $componentId = $_instance->getRenderedChildComponentId('r84D3Rj');
-    $componentTag = $_instance->getRenderedChildComponentTagName('r84D3Rj');
+} elseif ($_instance->childHasBeenRendered('ZEmW0BB')) {
+    $componentId = $_instance->getRenderedChildComponentId('ZEmW0BB');
+    $componentTag = $_instance->getRenderedChildComponentTagName('ZEmW0BB');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('r84D3Rj');
+    $_instance->preserveRenderedChild('ZEmW0BB');
 } else {
     $response = \Livewire\Livewire::mount('exudado', []);
     $html = $response->html();
-    $_instance->logRenderedChild('r84D3Rj', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('ZEmW0BB', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
