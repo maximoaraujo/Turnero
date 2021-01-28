@@ -193,11 +193,11 @@ unset($__errorArgs, $__bag); ?>
           </div>
           <div class = "row mt-2">
             <div class = "col-sm-3">
-              <input type = "number" class = "form-control" wire:model='codigo_practica' wire:keydown.enter='buscar_x_codigo' placeholder = 'Cod.'>
+              <input type = "number" class = "form-control" wire:model='codigo_practica' wire:keydown.enter='buscar_x_codigo' placeholder = 'Cod.' disabled>
             </div>
             <div class = "col-sm-9">
             <input wire:model.debounce.500ms="practica" 
-            wire:keydown="buscarPractica" type="text" class="form-control" placeholder="Práctica" autocomplete="off"> 
+            wire:keydown="buscarPractica" type="text" class="form-control" placeholder="Práctica" autocomplete="off" disabled> 
               <?php if(count($practicas)>0): ?>
                 <?php if(!$picked_): ?>
                   <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">

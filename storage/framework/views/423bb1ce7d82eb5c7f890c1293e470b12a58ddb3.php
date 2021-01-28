@@ -46,7 +46,7 @@
         <td><button wire:click='editar_datos("<?php echo e($turno_general->documento); ?>")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
         <!--<td><button wire:click='editar_turno_general("<?php echo e($turno_general->documento); ?>", "<?php echo e($turno_general->horario); ?>", "<?php echo e($turno_general->paciente); ?>", "<?php echo e($turno_general->id_horario); ?>")' style = "border:none;background-color:transparent;"><i class="far fa-calendar-alt"></i></button></td>-->
         <td><button wire:click='eliminar_turno("<?php echo e($turno_general->documento); ?>", "<?php echo e($turno_general->id_horario); ?>", "<?php echo e($fecha); ?>")' style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>  
-        <td><a href = "/comprobante_turno/<?php echo e($fecha); ?>/<?php echo e($turno_general->id_horario); ?>/<?php echo e($turno_general->documento); ?>/<?php echo e($turno_general->paciente); ?>/<?php echo e($turno_general->id_turno); ?>" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
+        <td><a href = "/comprobante_turno/<?php echo e($turno_general->id_turno); ?>" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
         <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
         <td nowrap><?php echo e($turno_general->name); ?>-<?php echo e(date('d-m-Y H:m:s', strtotime($turno_general->fecha_hora))); ?></td>
         <?php endif; ?>
