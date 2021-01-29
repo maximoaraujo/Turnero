@@ -22,7 +22,23 @@
         </div>
         <div class="col-2">
             <p>Obra social</p>
-            <input type="text" class="form-control" wire:model='obra_social'>
+            <input wire:model.debounce.500ms="obra_social" 
+            wire:keydown="buscarObrasocial" type="text" class="form-control" placeholder="Obra social" autocomplete="off"> 
+            <?php if(count($obras_sociales)>0): ?>
+                <?php if(!$picked): ?>
+                    <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
+                        <?php $__currentLoopData = $obras_sociales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $obra_social): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div style="cursor: pointer;color:black;">
+                            <a wire:click="asignarObrasocial('<?php echo e($obra_social->obra_social); ?>')">
+                                <?php echo e($obra_social->obra_social); ?>
+
+                            </a>
+                        </div>
+                        <hr>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>  
         </div>
     </div>
     <center>

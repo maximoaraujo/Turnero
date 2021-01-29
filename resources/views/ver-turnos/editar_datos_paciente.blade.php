@@ -22,7 +22,22 @@
         </div>
         <div class="col-2">
             <p>Obra social</p>
-            <input type="text" class="form-control" wire:model='obra_social'>
+            <input wire:model.debounce.500ms="obra_social" 
+            wire:keydown="buscarObrasocial" type="text" class="form-control" placeholder="Obra social" autocomplete="off"> 
+            @if(count($obras_sociales)>0)
+                @if(!$picked)
+                    <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
+                        @foreach($obras_sociales as $obra_social)
+                        <div style="cursor: pointer;color:black;">
+                            <a wire:click="asignarObrasocial('{{ $obra_social->obra_social }}')">
+                                {{ $obra_social->obra_social }}
+                            </a>
+                        </div>
+                        <hr>
+                        @endforeach
+                    </div>
+                @endif
+            @endif  
         </div>
     </div>
     <center>

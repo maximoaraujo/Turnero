@@ -13,12 +13,12 @@ class Estadisticas extends Component
     public $fecha_desde, $fecha_hasta;
     public $select_informe, $informe;
     //Cantidades de turnos emitidos
-    public $generales_6, $generales_1, $generales_2, $generales_3, $generales_4, $generales_5;
+    public $generales_6, $generales_1, $generales_2, $generales_3, $generales_4, $generales_5, $generales_7, $generales_8, $generales_9;
     public $generales_10, $generales_11, $generales_12, $generales_13, $generales_14, $generales_15, $generales_16, $generales_17, $generales_18;
     public $exudado_12, $exudado_13, $exudado_14, $exudado_15, $exudado_16, $exudado_17;
     public $expermograma_22, $expermograma_23, $expermograma_24, $expermograma_25;
     //Asistencia a turnos generados
-    public $asistidos_6, $asistidos_1, $asistidos_2, $asistidos_3, $asistidos_4, $asistidos_5;
+    public $asistidos_6, $asistidos_1, $asistidos_2, $asistidos_3, $asistidos_4, $asistidos_5, $asistidos_7, $asistidos_8, $asistidos_9;
 
     //Asistencia
     public $total, $asistidos, $no_asistidos;
@@ -82,6 +82,33 @@ class Estadisticas extends Component
         ->get()->count();
 
         $this->asistidos_5 = pacientes_turno::where('id_horario', 5)
+        ->where('asistio', 'si')
+        ->whereBetween('fecha', [$this->fecha_desde, $this->fecha_hasta])
+        ->get()->count();
+
+        $this->generales_7 = pacientes_turno::where('id_horario', 7)
+        ->whereBetween('fecha', [$this->fecha_desde, $this->fecha_hasta])
+        ->get()->count();
+
+        $this->asistidos_7 = pacientes_turno::where('id_horario', 7)
+        ->where('asistio', 'si')
+        ->whereBetween('fecha', [$this->fecha_desde, $this->fecha_hasta])
+        ->get()->count();
+
+        $this->generales_8 = pacientes_turno::where('id_horario', 8)
+        ->whereBetween('fecha', [$this->fecha_desde, $this->fecha_hasta])
+        ->get()->count();
+
+        $this->asistidos_8 = pacientes_turno::where('id_horario', 8)
+        ->where('asistio', 'si')
+        ->whereBetween('fecha', [$this->fecha_desde, $this->fecha_hasta])
+        ->get()->count();
+
+        $this->generales_9 = pacientes_turno::where('id_horario', 9)
+        ->whereBetween('fecha', [$this->fecha_desde, $this->fecha_hasta])
+        ->get()->count();
+
+        $this->asistidos_9 = pacientes_turno::where('id_horario', 9)
         ->where('asistio', 'si')
         ->whereBetween('fecha', [$this->fecha_desde, $this->fecha_hasta])
         ->get()->count();
