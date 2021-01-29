@@ -9,7 +9,8 @@
     ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
     ->where('pacientes_turnos.fecha', $fecha)
     ->where('pacientes_turnos.para', 'general')
-    ->where('obras_socials.obra_social', 'IOSCOR')->get()->count();
+    ->where('obras_socials.obra_social', 'IOSCOR')->Orwhere('obras_socials.obra_social',  'IOSCOR PRESUPUESTO')
+	->get()->count();
     ?>
     <!--Si la cantida de turnos de IOSCOR iguala o excede la cantidad permitida mostramos el mensaje-->
     <?php if($cantidad_ioscor <= $ioscor): ?>
@@ -94,18 +95,38 @@
           <div class="row">
             <div class = "col-sm-4">
                 <input type = "number" class = "form-control" wire:model='documento' wire:keydown.enter='buscoPaciente' placeholder="Documento">
+				<?php $__errorArgs = ['documento'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class ="badge badge-danger"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
             </div> 
+			<div class = "col-sm-2">
+                <button class = "btn btn-primary" wire:click='buscoPaciente'>Buscar</button>
+            </div>
             <div class = "col-sm-2">
               <div wire:loading wire:target="buscoPaciente">
                   <div class="spinner-grow text-success" role="status">
                     <span class="sr-only">Buscando paciente...</span>
                   </div>
               </div> 
-            </div>    
+            </div>  
+			<div class = "col-sm-12 ml-1"><p class = "small" style = "font-size:12px;color:red;">Para buscar presione el botón o ENTER</p></div>
           </div>
-          <div class = "row mt-2">
+          <div class = "row">
             <div class = "col-sm-12">
                 <input type = "text" class = "form-control" wire:model='paciente' placeholder="Paciente">
+				<?php $__errorArgs = ['paciente'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class ="badge badge-danger"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
             </div>
         </div>
         <div class = "row mt-2">
@@ -140,7 +161,15 @@
           <div class = "row">
             <div class = "col-sm-12">
             <input wire:model.debounce.500ms="obrasocial" 
-            wire:keydown="buscarObrasocial" type="text" class="form-control" placeholder="Obra social" autocomplete="off"> 
+            wire:keydown="buscarObrasocial" type="text" class="form-control" placeholder="Obra social" autocomplete="off">
+			<?php $__errorArgs = ['obrasocial'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class ="badge badge-danger"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>			
               <?php if(count($obras_sociales)>0): ?>
                 <?php if(!$picked): ?>
                   <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
@@ -160,11 +189,11 @@
           </div>
           <div class = "row mt-2">
             <div class = "col-sm-3">
-              <input type = "number" class = "form-control" wire:model='codigo_practica' wire:keydown.enter='buscar_x_codigo' placeholder = 'Cod.'>
+              <input type = "number" class = "form-control" wire:model='codigo_practica' wire:keydown.enter='buscar_x_codigo' placeholder = 'Cod.' disabled>
             </div>
             <div class = "col-sm-9">
             <input wire:model.debounce.500ms="practica" 
-            wire:keydown="buscarPractica" type="text" class="form-control" placeholder="Práctica" autocomplete="off"> 
+            wire:keydown="buscarPractica" type="text" class="form-control" placeholder="Práctica" autocomplete="off" disabled> 
               <?php if(count($practicas)>0): ?>
                 <?php if(!$picked_): ?>
                   <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">

@@ -78,7 +78,7 @@ $fecha = $_GET['f'];
 <?php
 $servidor = "localhost";
 $bd= "turnos_laboratorio";
-$usu = "root";
+$usu = "laboratorio";
 $contraseña = "pmartinez1044";
 //Creamos la conexión
 $conn = mysqli_connect($servidor, $usu, $contraseña, $bd);

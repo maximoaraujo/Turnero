@@ -7,15 +7,15 @@
 <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('citogenetica', [])->html();
-} elseif ($_instance->childHasBeenRendered('H1RDHVv')) {
-    $componentId = $_instance->getRenderedChildComponentId('H1RDHVv');
-    $componentTag = $_instance->getRenderedChildComponentTagName('H1RDHVv');
+} elseif ($_instance->childHasBeenRendered('Gz7wlUU')) {
+    $componentId = $_instance->getRenderedChildComponentId('Gz7wlUU');
+    $componentTag = $_instance->getRenderedChildComponentTagName('Gz7wlUU');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('H1RDHVv');
+    $_instance->preserveRenderedChild('Gz7wlUU');
 } else {
     $response = \Livewire\Livewire::mount('citogenetica', []);
     $html = $response->html();
-    $_instance->logRenderedChild('H1RDHVv', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('Gz7wlUU', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
