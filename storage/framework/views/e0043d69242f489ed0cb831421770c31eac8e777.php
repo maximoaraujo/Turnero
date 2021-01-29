@@ -95,7 +95,7 @@
           <div class="row">
             <div class = "col-sm-4">
                 <input type = "number" class = "form-control" wire:model='documento' wire:keydown.enter='buscoPaciente' placeholder="Documento">
-				<?php $__errorArgs = ['documento'];
+				        <?php $__errorArgs = ['documento'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -104,7 +104,7 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
             </div> 
-			<div class = "col-sm-2">
+			      <div class = "col-sm-2">
                 <button class = "btn btn-primary" wire:click='buscoPaciente'>Buscar</button>
             </div>
             <div class = "col-sm-2">
@@ -114,12 +114,17 @@ unset($__errorArgs, $__bag); ?>
                   </div>
               </div> 
             </div>  
-			<div class = "col-sm-12 ml-1"><p class = "small" style = "font-size:12px;color:red;">Para buscar presione el botón o ENTER</p></div>
+			      <div class = "col-sm-12 ml-1"><p class = "small" style = "font-size:12px;color:red;">Para buscar presione el botón o ENTER</p></div>
+            <?php if($encontrado == 'No'): ?>
+            <div class = "col-sm-12">
+              <p style = "color:red;">No hay paciente registrado con el documento <?php echo e($documento); ?></p>
+            </div>  
+            <?php endif; ?>
           </div>
           <div class = "row">
             <div class = "col-sm-12">
                 <input type = "text" class = "form-control" wire:model='paciente' placeholder="Paciente">
-				<?php $__errorArgs = ['paciente'];
+				        <?php $__errorArgs = ['paciente'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -162,7 +167,7 @@ unset($__errorArgs, $__bag); ?>
             <div class = "col-sm-12">
             <input wire:model.debounce.500ms="obrasocial" 
             wire:keydown="buscarObrasocial" type="text" class="form-control" placeholder="Obra social" autocomplete="off"> 
-			<?php $__errorArgs = ['obrasocial'];
+			      <?php $__errorArgs = ['obrasocial'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }

@@ -27,6 +27,7 @@ class Exudado extends Component
     public $horario;
     public $no_laboral;
     public $id_turno, $id_practica, $codigo_practica;
+    public $encontrado;
     //Parametros para la busqueda
     public $picked, $picked_;
     public $obras_sociales = [];
@@ -50,6 +51,7 @@ class Exudado extends Component
         $this->picked_1 = true;
         $this->horarios();
         $this->para = 'exudado'; 
+        $this->encontrado = "";
     }
 
     public function usuario_fecha()
@@ -108,7 +110,15 @@ class Exudado extends Component
         $this->domicilio = paciente::where('documento', $this->documento)->get()->pluck('domicilio')->first();
         $this->telefono = paciente::where('documento', $this->documento)->get()->pluck('telefono')->first();
         $this->fecha_nacimiento = paciente::where('documento', $this->documento)->get()->pluck('fecha_nac')->first();
+        $this->obra_social_id = paciente::where('documento', $this->documento)->get()->pluck('obra_social_id')->first();
+        $this->obrasocial = obras_socials::where('id', $this->obra_social_id)->get()->pluck('obra_social')->first();
         $this->genero_id_turno();
+
+        if (empty($this->paciente)) {
+            $this->encontrado = "No";
+        } else {
+            $this->encontrado = "Si";
+        }
     }
 
     public function genero_id_turno()

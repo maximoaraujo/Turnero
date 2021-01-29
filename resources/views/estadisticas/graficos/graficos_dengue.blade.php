@@ -1,5 +1,5 @@
 <center>
-<p>Turnos dengue</p>
+<p>Turnos dengue | SARS</p>
 </center>
 <section>
   <div class="card">

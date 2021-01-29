@@ -103,47 +103,51 @@
           <div class="row">
             <div class = "col-sm-4">
                 <input type = "number" class = "form-control" wire:model='documento' wire:keydown.enter='buscoPaciente' placeholder="Documento">
-				@error('documento') <span class ="badge badge-danger">{{ $message }}</span> @enderror
+				        @error('documento') <span class ="badge badge-danger">{{ $message }}</span> @enderror
             </div> 
-			<div class = "col-sm-2">
+			      <div class = "col-sm-2">
                 <button class = "btn btn-primary" wire:click='buscoPaciente'>Buscar</button>
             </div>
-            <div class = "col-sm-2">
+            <div class = "col-sm-2 ml-2">
               <div wire:loading wire:target="buscoPaciente">
                   <div class="spinner-grow text-success" role="status">
                     <span class="sr-only">Buscando paciente...</span>
                   </div>
               </div> 
             </div>  
-			<div class = "col-sm-12 ml-1"><p class = "small" style = "font-size:12px;color:red;">Para buscar presione el botón o ENTER</p></div>
+            <div class = "col-sm-12 ml-1"><p class = "small" style = "font-size:12px;color:red;">Para buscar presione el botón o ENTER</p></div>
+            @if($encontrado == 'No')
+            <div class = "col-sm-12">
+              <p style = "color:red;">No hay paciente registrado con el documento {{$documento}}</p>
+            </div>  
+            @endif
+              </div>
+              <div class = "row">
+                <div class = "col-sm-12">
+                    <input type = "text" class = "form-control" wire:model='paciente' placeholder="Paciente">
+                    @error('paciente') <span class ="badge badge-danger">{{ $message }}</span> @enderror
+                </div>
+            </div>
+            <div class = "row mt-2">
+                <div class = "col-sm-12">
+                    <input type = "text" class = "form-control" wire:model='domicilio' placeholder="Domicilio">
+                </div>
+            </div>
+            <div class = "row mt-2">
+                <div class = "col-sm-6">
+                    <input type = "text" class = "form-control" wire:model='telefono' placeholder="Teléfono">
+                </div>
+                <div class = "col-sm-6">
+                    <input type = "date" class = "form-control" wire:model='fecha_nacimiento' placeholder="Fecha">
+                </div>
+            </div>
+            <div class = "row mt-2">
+                <div class = "col-sm-12">
+                    <input type = "text" class = "form-control" wire:model='comentarios' placeholder="Comentarios">
+                </div>
+            </div>
           </div>
-          <div class = "row">
-            <div class = "col-sm-12">
-                <input type = "text" class = "form-control" wire:model='paciente' placeholder="Paciente">
-				        @error('paciente') <span class ="badge badge-danger">{{ $message }}</span> @enderror
-            </div>
         </div>
-        <div class = "row mt-2">
-            <div class = "col-sm-12">
-                <input type = "text" class = "form-control" wire:model='domicilio' placeholder="Domicilio">
-            </div>
-        </div>
-        <div class = "row mt-2">
-            <div class = "col-sm-6">
-                <input type = "text" class = "form-control" wire:model='telefono' placeholder="Teléfono">
-            </div>
-            <div class = "col-sm-6">
-                <input type = "date" class = "form-control" wire:model='fecha_nacimiento' placeholder="Fecha">
-            </div>
-        </div>
-        <div class = "row mt-2">
-            <div class = "col-sm-12">
-                <input type = "text" class = "form-control" wire:model='comentarios' placeholder="Comentarios">
-            </div>
-        </div>
-        
-        </div>
-      </div>
       </div>
       <!--Prácticas-->
       <div class = "col-sm-6 mt-2 ml-2">
@@ -154,7 +158,6 @@
         <div class="card-body">
           <div class = "row">
             <div class = "col-sm-12">
-            
             <input wire:model.debounce.500ms="obrasocial" 
             wire:keydown="buscarObrasocial" type="text" class="form-control" placeholder="Obra social" autocomplete="off"> 
 			      @error('obrasocial') <span class ="badge badge-danger">{{ $message }}</span> @enderror

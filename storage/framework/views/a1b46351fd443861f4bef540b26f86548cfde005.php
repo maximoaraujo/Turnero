@@ -7,15 +7,15 @@
 <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('estadisticas', [])->html();
-} elseif ($_instance->childHasBeenRendered('Py9cITY')) {
-    $componentId = $_instance->getRenderedChildComponentId('Py9cITY');
-    $componentTag = $_instance->getRenderedChildComponentTagName('Py9cITY');
+} elseif ($_instance->childHasBeenRendered('Iqa3Zwk')) {
+    $componentId = $_instance->getRenderedChildComponentId('Iqa3Zwk');
+    $componentTag = $_instance->getRenderedChildComponentTagName('Iqa3Zwk');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('Py9cITY');
+    $_instance->preserveRenderedChild('Iqa3Zwk');
 } else {
     $response = \Livewire\Livewire::mount('estadisticas', []);
     $html = $response->html();
-    $_instance->logRenderedChild('Py9cITY', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('Iqa3Zwk', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>    

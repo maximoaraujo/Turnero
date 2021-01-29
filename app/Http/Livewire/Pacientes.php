@@ -13,10 +13,11 @@ use Illuminate\Support\Facades\Auth;
 
 class Pacientes extends Component
 {
-    public $paciente, $documento, $domicilio, $telefono, $obra_social;
+    public $paciente, $documento, $domicilio, $telefono, $obra_social, $obra_social_id;
     public $pacientes = [];
-    public $picked;
+    public $picked, $picked_;
     public $movimientos_paciente = [];
+    public $obras_sociales = [];
     public $accion;
     //Para editar el turno
     public $id_turno;
@@ -32,6 +33,7 @@ class Pacientes extends Component
         $this->paciente = "";
         $this->pacientes = [];
         $this->picked = true;
+        $this->picked_ = true;
     }
 
     //Mostramos los resultados 
@@ -58,13 +60,36 @@ class Pacientes extends Component
         $this->documento = Paciente::where('paciente', $this->paciente)->get()->pluck('documento')->first();
         $this->domicilio = Paciente::where('paciente', $this->paciente)->get()->pluck('domicilio')->first();
         $this->telefono = Paciente::where('paciente', $this->paciente)->get()->pluck('telefono')->first();
-        $obra_social_id = Paciente::where('paciente', $this->paciente)->get()->pluck('obra_social_id')->first();
-        $this->obra_social = obras_socials::where('id', $obra_social_id)->get()->pluck('obra_social')->first();
+        $this->obra_social_id = Paciente::where('paciente', $this->paciente)->get()->pluck('obra_social_id')->first();
+        $this->obra_social = obras_socials::where('id', $this->obra_social_id)->get()->pluck('obra_social')->first();
             
         //Si encontramos al paciente mostramos sus movimientos
         if ($this->documento != "") {
             $this->movimientos_paciente();
         } 
+    }
+
+    //Mostramos los resultados 
+    public function buscarObrasocial()
+    {
+        $this->picked_ = false;
+    
+        $this->obras_sociales = obras_socials::where("obra_social", 'LIKE', '%' .$this->obra_social. '%')
+        ->take(3)
+        ->get();      
+    }
+    
+    //Asignamos la obra social a la que se le hizo click
+    public function asignarObrasocial($obra_social)
+    {        
+        $this->obra_social = $obra_social;        
+        $this->picked_ = true;
+        $this->asigno_id_obrasocial();
+    }
+
+    public function asigno_id_obrasocial()
+    {
+        $this->obra_social_id = obras_socials::where('obra_social', $this->obra_social)->get()->pluck('id')->first();
     }
 
     public function actualizar_datos()
@@ -73,7 +98,7 @@ class Pacientes extends Component
             'paciente' => $this->paciente,
             'domicilio' => $this->domicilio,
             'telefono' => $this->telefono,
-            'obra_social' => $this->obra_social
+            'obra_social_id' => $this->obra_social_id
         ]);
     }
 

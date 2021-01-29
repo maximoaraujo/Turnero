@@ -29,6 +29,8 @@ class VerTurnos extends Component
     public $horario_turno, $id_horario_viejo;
     //ID del nuevo horario al editar un turno
     public $id_nuevo_horario;
+    //ID de la obra social
+    public $obra_social_id;
     //Cantidad de turnos por tipo de estudio
     public $cantidad_turnos;
     //Turnos por tipo de estudio
@@ -37,6 +39,7 @@ class VerTurnos extends Component
     public $turnos_generales = [];
     public $turnos_citogenetica = [];
     public $turnos_p75 = [];
+    public $obras_sociales = [];
     //Horarios por tipo de estudio
     public $horarios = [];
     public $horarios_dengue = [];
@@ -51,6 +54,7 @@ class VerTurnos extends Component
     public $documento, $paciente, $fecha_nacimiento, $domicilio, $telefono, $obra_social;
     //Parametros para ver quien asigno el turno
     public $usuario, $fecha_hora;
+    public $picked;
 
     public function mount()
     {   
@@ -63,6 +67,7 @@ class VerTurnos extends Component
         $this->cargo_generales();
         $this->cargo_p75();
         $this->cargo_citogenetica();
+        $this->picked = true;
     }
 
     //Cargamos los horarios por estudio
@@ -195,8 +200,31 @@ class VerTurnos extends Component
         $this->fecha_nacimiento = paciente::where('documento', $this->documento)->get()->pluck('fecha_nac')->first();
         $this->domicilio = paciente::where('documento', $this->documento)->get()->pluck('domicilio')->first();
         $this->telefono = paciente::where('documento', $this->documento)->get()->pluck('telefono')->first();
-        $id_obra_social = paciente::where('documento', $this->documento)->get()->pluck('obra_social_id')->first();
-        $this->obra_social = obras_socials::where('id', $id_obra_social)->get()->pluck('obra_social')->first();
+        $this->obra_social_id = paciente::where('documento', $this->documento)->get()->pluck('obra_social_id')->first();
+        $this->obra_social = obras_socials::where('id', $this->obra_social_id)->get()->pluck('obra_social')->first();
+    }
+
+    //Mostramos los resultados 
+    public function buscarObrasocial()
+    {
+        $this->picked = false;
+    
+        $this->obras_sociales = obras_socials::where("obra_social", 'LIKE', '%' .$this->obra_social. '%')
+        ->take(3)
+        ->get();      
+    }
+    
+    //Asignamos la obra social a la que se le hizo click
+    public function asignarObrasocial($obra_social)
+    {        
+        $this->obra_social = $obra_social;        
+        $this->picked = true;
+        $this->asigno_id_obrasocial();
+    }
+
+    public function asigno_id_obrasocial()
+    {
+        $this->obra_social_id = obras_socials::where('obra_social', $this->obra_social)->get()->pluck('id')->first();
     }
 
     //Guardamos la actualización de datos del paciente
@@ -207,7 +235,7 @@ class VerTurnos extends Component
             'fecha_nac' => $this->fecha_nacimiento,
             'domicilio' => $this->domicilio,
             'telefono' => $this->telefono,
-            'obra_social' => $this->obra_social
+            'obra_social_id' => $this->obra_social_id
         ]);
 
         if ($actualizo_datos) {

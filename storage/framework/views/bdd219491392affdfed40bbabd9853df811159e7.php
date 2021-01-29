@@ -58,6 +58,43 @@
           <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_5 / $generales_5)*100; ?>%" aria-valuenow="100"
               aria-valuemin="0" aria-valuemax="100"></div>
           </div>
+          <div class="d-flex justify-content-between">
+          <small class="text-muted">08:30</small>
+          <small><span><strong><?php echo e($asistidos_7); ?></strong></span>/<span></span><?php echo e($generales_7); ?></small>
+          </div>
+          <div class="progress md-progress">
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_7 / $generales_7)*100; ?>%" aria-valuenow="100"
+              aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="d-flex justify-content-between">
+          <small class="text-muted">08:50</small>
+          <small><span><strong><?php echo e($asistidos_8); ?></strong></span>/<span></span><?php echo e($generales_8); ?></small>
+          </div>
+          <div class="progress md-progress">
+          <?php if($generales_9 == ''): ?>
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_8 / 1)*100; ?>%" aria-valuenow="100"
+              aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <?php else: ?>
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_8 / $generales_8)*100; ?>%" aria-valuenow="100"
+              aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <?php endif; ?>
+          <div class="d-flex justify-content-between">
+          <small class="text-muted">09:10</small>
+          <small><span><strong><?php echo e($asistidos_9); ?></strong></span>/<span></span><?php echo e($generales_9); ?></small>
+          </div>
+          <div class="progress md-progress">
+          <?php if($generales_9 == ''): ?>
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_9 / 1)*100; ?>%" aria-valuenow="100"
+              aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <?php else: ?>
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_9 / $generales_9)*100; ?>%" aria-valuenow="100"
+              aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <?php endif; ?>
+          
         </div>
       </div>
     </div>
@@ -70,17 +107,20 @@ $(document).ready(function(){
     var myBarChart = new Chart(ctxB, {
       type: 'bar',
       data: {
-        labels: ["06:30", "06:50", "07:10", "07:30", "07:50", "08:10"],
+        labels: ["06:30", "06:50", "07:10", "07:30", "07:50", "08:10", "08:30", "08:50", "09:10"],
         datasets: [{
           label: 'Turnos asignados',
-          data: [<?php echo e($generales_6); ?>, <?php echo e($generales_1); ?>, <?php echo e($generales_2); ?>, <?php echo e($generales_3); ?>, <?php echo e($generales_4); ?>, <?php echo e($generales_5); ?>],
+          data: [<?php echo e($generales_6); ?>, <?php echo e($generales_1); ?>, <?php echo e($generales_2); ?>, <?php echo e($generales_3); ?>, <?php echo e($generales_4); ?>, <?php echo e($generales_5); ?>, <?php echo e($generales_7); ?>, <?php echo e($generales_8); ?>, <?php echo e($generales_9); ?>],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
             'rgba(255, 206, 86, 0.2)',
             'rgba(75, 192, 192, 0.2)',
             'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
           ],
           borderColor: [
             'rgba(255,99,132,1)',
@@ -88,7 +128,10 @@ $(document).ready(function(){
             'rgba(255, 206, 86, 1)',
             'rgba(75, 192, 192, 1)',
             'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
+            'rgba(255, 159, 64, 1)',
+            'rgba(255,99,132,1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(153, 102, 255, 1)'
           ],
           borderWidth: 1
         }]
