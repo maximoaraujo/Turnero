@@ -111,6 +111,7 @@ class Generales extends Component
         $this->fecha_nacimiento = paciente::where('documento', $this->documento)->get()->pluck('fecha_nac')->first();
         $this->obra_social_id = paciente::where('documento', $this->documento)->get()->pluck('obra_social_id')->first();
         $this->obrasocial = obras_socials::where('id', $this->obra_social_id)->get()->pluck('obra_social')->first();
+        $this->nomenclador = obras_socials::where('id', $this->obra_social_id)->get()->pluck('nomenclador')->first();
         $this->genero_id_turno();
 
         if (empty($this->paciente)) {

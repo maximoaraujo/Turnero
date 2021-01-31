@@ -11,7 +11,7 @@ class turnos_practica extends Model
 
     protected $fillable = [
         'id_turno',
-        'id_obra_social',
+        'obra_social_id',
         'id_practica',
         'cantidad'
     ];
