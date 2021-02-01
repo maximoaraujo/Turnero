@@ -257,7 +257,7 @@ class Espermograma extends Component
 
     public function eliminarPractica($id_practica)
     {
-        $eliminar = turnos_practica::where('id', $id_practica)->delete();
+        $eliminar = turnos_practica::where('id', $id_practica)->where('id_turno', $this->id_turno)->delete();
         $this->muestro_practicas();
     }
 

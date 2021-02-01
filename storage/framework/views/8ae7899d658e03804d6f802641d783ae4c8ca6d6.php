@@ -2,6 +2,9 @@
     <?php if($accion == 'editar turno'): ?>
         <?php echo $__env->make('pacientes.editar_turno', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <?php endif; ?>
+    <?php if($accion == 'practicas'): ?>
+        <?php echo $__env->make('pacientes.practicas', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php endif; ?>
     <?php if($accion == 'paciente'): ?>
     <div class = "row" style = "margin-top:20px;">
         <div class = "col-sm-12">
@@ -94,13 +97,13 @@
                 <a class="btn btn-primary btn-sm" href = "/comprobante_turno/<?php echo e($movimiento->id_turno); ?>" target = "_blank">Re-imprimir</a>
                 <?php if($movimiento->asistio == 'no'): ?>
                 <a class="btn btn-danger btn-sm" wire:click='editar_turno("<?php echo e($movimiento->fecha); ?>", "<?php echo e($movimiento->horario); ?>", "<?php echo e($movimiento->id_horario); ?>", "<?php echo e($movimiento->para); ?>")'>Re-programar</a>
+                <a class="btn btn-info btn-sm" wire:click='ver_practicas("<?php echo e($movimiento->id_turno); ?>", "<?php echo e($movimiento->fecha); ?>", "<?php echo e($movimiento->horario); ?>", "<?php echo e($paciente); ?>")'>Prácticas asociadas</a>
                 <?php endif; ?>
             </div>
         </div>
     </div>
     </div>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-    </div>
     <?php endif; ?>
 </div>
 <?php /**PATH C:\laragon\www\Turnero\resources\views/livewire/pacientes.blade.php ENDPATH**/ ?>

@@ -46,7 +46,7 @@ hr{
    font-weight: bold;
 }
 #lista{
-    font-size:12px;
+    font-size:10px;
     margin-left:-30px;
 }
 #info{
@@ -160,7 +160,7 @@ $dompdf->setPaper('A5');
 
 $dompdf->render();
  
-//$dompdf->stream('TURNO_'.$paciente.'.pdf');
+$dompdf->stream('TURNO_'.$paciente.'.pdf');
 $dompdf->stream('TURNO_'.$paciente.'.pdf', array("Attachment" => false));
 
 ?><?php /**PATH C:\laragon\www\Turnero\resources\views/impresiones/comprobante_turno.blade.php ENDPATH**/ ?>

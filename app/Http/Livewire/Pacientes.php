@@ -8,6 +8,8 @@ use App\Models\config;
 use App\Models\Paciente;
 use App\Models\obras_socials;
 use App\Models\Pacientes_turno;
+use App\Models\practica;
+use App\Models\turnos_practica;
 use App\Models\valores_turno;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,6 +27,9 @@ class Pacientes extends Component
     public $horarios = [];
     public $cantidad_turnos;
     public $para;
+    //Para editar/eliminar las prácticas asociadas
+    public $practicas_asociadas = [];
+    public $nomenclador;
 
     //Inicio del componente
     public function mount()
@@ -271,5 +276,31 @@ class Pacientes extends Component
     {
         $this->accion = "paciente";
         $this->movimientos_paciente();
+    }
+
+    public function ver_practicas($id_turno, $fecha, $horario, $paciente)
+    {
+        $this->accion = 'practicas';
+        $this->id_turno = $id_turno;
+        $this->fecha_turno = $fecha;
+        $this->horario_turno = $horario;
+        $this->paciente = $paciente;
+        $this->nomenclador = obras_socials::where('id', $this->obra_social_id)->get()->pluck('nomenclador')->first();
+        $this->practicas_asociadas();
+    }
+
+    public function practicas_asociadas()
+    {
+        $this->practicas_asociadas = turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
+        ->select('turnos_practicas.id', 'practicas.codigo', 'practicas.practica')
+        ->where('turnos_practicas.id_turno', $this->id_turno)
+        ->where('practicas.nomenclador', $this->nomenclador)->orderBy('practicas.codigo')
+        ->get();
+    }
+
+    public function eliminarPractica($id_practica)
+    {
+        $eliminar = turnos_practica::where('id', $id_practica)->where('id_turno', $this->id_turno)->delete();
+        $this->practicas_asociadas();
     }
 }
