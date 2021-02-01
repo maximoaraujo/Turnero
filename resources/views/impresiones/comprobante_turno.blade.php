@@ -160,7 +160,7 @@ $dompdf->setPaper('A5');
 
 $dompdf->render();
  
-//$dompdf->stream('TURNO_'.$paciente.'.pdf');
+$dompdf->stream('TURNO_'.$paciente.'.pdf');
 $dompdf->stream('TURNO_'.$paciente.'.pdf', array("Attachment" => false));
 
 ?>
