@@ -82,7 +82,7 @@ class Generales extends Component
         }
         
         $this->fecha = usuario_fechs::where('id_usuario', $this->id_usuario)->get()->pluck('fecha')->first();
-        $this->no_laborales();    
+        $this->no_laborales();   
     }
 
     public function horarios()
@@ -111,6 +111,7 @@ class Generales extends Component
         $this->fecha_nacimiento = paciente::where('documento', $this->documento)->get()->pluck('fecha_nac')->first();
         $this->obra_social_id = paciente::where('documento', $this->documento)->get()->pluck('obra_social_id')->first();
         $this->obrasocial = obras_socials::where('id', $this->obra_social_id)->get()->pluck('obra_social')->first();
+        $this->nomenclador = obras_socials::where('id', $this->obra_social_id)->get()->pluck('nomenclador')->first();
         $this->genero_id_turno();
 
         if (empty($this->paciente)) {
@@ -327,11 +328,11 @@ class Generales extends Component
             $this->para = 'P75';
         }
 
-        //Verificamos si es para p75
+        //Verificamos si es para ley
         if (empty($this->ley)) {
-            $this->comentarios = '';
+            $this->comentarios = $this->comentarios;
         } else {
-            $this->comentarios = 'Ley 26743';
+            $this->comentarios = $this->comentarios. '- Ley 26743';
         }
 
         $fecha_hora = date('Y-m-d H:m:s');

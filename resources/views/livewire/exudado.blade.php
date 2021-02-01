@@ -85,17 +85,10 @@
           <h3 class="card-title">Paciente</h3>
         </div>
         <div class="card-body">
-          @if(date('l', strtotime($fecha)) == 'Tuesday')
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" wire:model='ley' id = "ley">
-                <label class="custom-control-label" for = "ley">Ley 26743</label>
-              </div>
-          @endif
- 
           <div class="row">
             <div class = "col-sm-4">
                 <input type = "number" class = "form-control" wire:model='documento' wire:keydown.enter='buscoPaciente' placeholder="Documento">
-				@error('documento') <span class ="badge badge-danger">{{ $message }}</span> @enderror
+				        @error('documento') <span class ="badge badge-danger">{{ $message }}</span> @enderror
             </div> 
 			      <div class = "col-sm-2">
                 <button class = "btn btn-primary" wire:click='buscoPaciente'>Buscar</button>
@@ -172,11 +165,11 @@
           </div>
           <div class = "row mt-2">
             <div class = "col-sm-3">
-              <input type = "number" class = "form-control" wire:model='codigo_practica' wire:keydown.enter='buscar_x_codigo' placeholder = 'Cod.' disabled>
+              <input type = "number" class = "form-control" wire:model='codigo_practica' wire:keydown.enter='buscar_x_codigo' placeholder = 'Cod.'>
             </div>
             <div class = "col-sm-9">
             <input wire:model.debounce.500ms="practica" 
-            wire:keydown="buscarPractica" type="text" class="form-control" placeholder="Práctica" autocomplete="off" disabled> 
+            wire:keydown="buscarPractica" type="text" class="form-control" placeholder="Práctica" autocomplete="off"> 
               @if(count($practicas)>0)
                 @if(!$picked_)
                   <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
