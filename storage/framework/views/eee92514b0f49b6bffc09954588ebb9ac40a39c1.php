@@ -35,7 +35,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 }
 #paciente_turno{
     margin-left:20%;
-    margin-top:-75px;
+    margin-top:-105px;
 }
 hr{
     color: #D9D7D7;
