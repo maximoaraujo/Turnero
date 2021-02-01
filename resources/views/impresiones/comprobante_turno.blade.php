@@ -35,7 +35,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 }
 #paciente_turno{
     margin-left:20%;
-    margin-top:-75px;
+    margin-top:-105px;
 }
 hr{
     color: #D9D7D7;
@@ -160,7 +160,7 @@ $dompdf->setPaper('A5');
 
 $dompdf->render();
  
-$dompdf->stream('TURNO_'.$paciente.'.pdf');
+//$dompdf->stream('TURNO_'.$paciente.'.pdf');
 $dompdf->stream('TURNO_'.$paciente.'.pdf', array("Attachment" => false));
 
 ?>
