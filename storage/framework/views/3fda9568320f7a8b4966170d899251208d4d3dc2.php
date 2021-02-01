@@ -85,17 +85,10 @@
           <h3 class="card-title">Paciente</h3>
         </div>
         <div class="card-body">
-          <?php if(date('l', strtotime($fecha)) == 'Tuesday'): ?>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" wire:model='ley' id = "ley">
-                <label class="custom-control-label" for = "ley">Ley 26743</label>
-              </div>
-          <?php endif; ?>
- 
           <div class="row">
             <div class = "col-sm-4">
                 <input type = "number" class = "form-control" wire:model='documento' wire:keydown.enter='buscoPaciente' placeholder="Documento">
-				<?php $__errorArgs = ['documento'];
+				        <?php $__errorArgs = ['documento'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -194,11 +187,11 @@ unset($__errorArgs, $__bag); ?>
           </div>
           <div class = "row mt-2">
             <div class = "col-sm-3">
-              <input type = "number" class = "form-control" wire:model='codigo_practica' wire:keydown.enter='buscar_x_codigo' placeholder = 'Cod.' disabled>
+              <input type = "number" class = "form-control" wire:model='codigo_practica' wire:keydown.enter='buscar_x_codigo' placeholder = 'Cod.'>
             </div>
             <div class = "col-sm-9">
             <input wire:model.debounce.500ms="practica" 
-            wire:keydown="buscarPractica" type="text" class="form-control" placeholder="Práctica" autocomplete="off" disabled> 
+            wire:keydown="buscarPractica" type="text" class="form-control" placeholder="Práctica" autocomplete="off"> 
               <?php if(count($practicas)>0): ?>
                 <?php if(!$picked_): ?>
                   <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
