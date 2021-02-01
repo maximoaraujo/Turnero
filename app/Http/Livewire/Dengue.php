@@ -51,6 +51,7 @@ class Dengue extends Component
         $this->horarios();
         $this->para = 'dengue'; 
         $this->encontrado = "";
+        $this->ley = '';
     }
 
     public function usuario_fecha()
@@ -111,6 +112,7 @@ class Dengue extends Component
         $this->fecha_nacimiento = paciente::where('documento', $this->documento)->get()->pluck('fecha_nac')->first();
         $this->obra_social_id = paciente::where('documento', $this->documento)->get()->pluck('obra_social_id')->first();
         $this->obrasocial = obras_socials::where('id', $this->obra_social_id)->get()->pluck('obra_social')->first();
+        $this->nomenclador = obras_socials::where('id', $this->obra_social_id)->get()->pluck('nomenclador')->first();
         $this->genero_id_turno();
 
         if (empty($this->paciente)) {
@@ -320,11 +322,11 @@ class Dengue extends Component
             $fecha_de_nacimiento = $this->fecha_nacimiento;
         }
 
-        //Verificamos si es por la ley
+        //Verificamos si es para ley
         if (empty($this->ley)) {
-            $this->comentarios = '';
+            $this->comentarios = $this->comentarios;
         } else {
-            $this->comentarios = 'Ley 26743';
+            $this->comentarios = $this->comentarios. '- Ley 26743';
         }
 
         $fecha_hora = date('Y-m-d H:m:s');
