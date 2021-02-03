@@ -22,7 +22,7 @@ class Pacientes extends Component
     public $obras_sociales = [];
     public $accion;
     //Para editar el turno
-    public $id_turno;
+    public $id_turno, $id_turno_viejo;
     public $fecha_turno, $horario_turno, $fecha_nuevo_turno, $id_nuevo_horario, $id_horario_viejo;
     public $horarios = [];
     public $cantidad_turnos;
@@ -118,8 +118,9 @@ class Pacientes extends Component
         ->where('documento', $this->documento)->orderBy('fecha', 'DESC')->take(10)->get();
     }
 
-    public function editar_turno($fecha, $horario, $id_horario, $para)
+    public function editar_turno($id_turno, $fecha, $horario, $id_horario, $para)
     {
+        $this->id_turno_viejo = $id_turno;
         $this->accion = "editar turno";
         $this->fecha_turno = $fecha;
         $this->horario_turno = $horario;
@@ -266,6 +267,12 @@ class Pacientes extends Component
         ]);
  
         if ($guardo_turno) {
+            $ids = pacientes_turno::where('id_turno', $this->id_turno_viejo)->get();
+            foreach($ids as $id){
+                $actualizo_id_turno = turnos_practica::where('id', $id->id)->update([
+                    'id_turno' => $this->id_turno
+                ]);
+            }
             $elimino_anterior = pacientes_turno::where('documento', $this->documento)->where('id_horario', $this->id_horario_viejo)
             ->where('fecha', $this->fecha_turno)->delete();
             if ($elimino_anterior) {
