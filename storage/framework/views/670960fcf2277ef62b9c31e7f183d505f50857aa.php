@@ -8,7 +8,31 @@
     <p>Horario del turno: <?php echo e($horario_turno); ?></p>
 </div>
 <hr>
-<div class = "col-sm-5">
+<div class = "row mt-2">
+    <div class = "col-sm-1">
+        <input type = "number" class = "form-control" wire:model='codigo_practica' wire:keydown.enter='buscar_x_codigo' placeholder = 'Cod.'>
+    </div>
+    <div class = "col-sm-4">
+        <input wire:model.debounce.500ms="practica" 
+        wire:keydown="buscarPractica" type="text" class="form-control" placeholder="Práctica" autocomplete="off"> 
+        <?php if(count($practicas)>0): ?>
+            <?php if(!$picked_): ?>
+                <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
+                    <?php $__currentLoopData = $practicas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $practica): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div style="cursor: pointer;color:black;">
+                        <a wire:click="asignarPractica('<?php echo e($practica->practica); ?>')">
+                            <?php echo e($practica->practica); ?>
+
+                        </a>
+                    </div>
+                    <hr>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>  
+    </div>
+</div>
+<div class = "col-sm-5 mt-2">
 <div class = "table-responsive">
     <table class = "table">
         <thead>
@@ -31,4 +55,5 @@
 </div>
 </div>
 <button class = "btn btn-danger" wire:click='cancelar_edicion'>Cancelar</button>
+<button class = "btn btn-success" wire:click='finalizar_carga'>Finalizar</button>
 <?php /**PATH C:\laragon\www\Turnero\resources\views/pacientes/practicas.blade.php ENDPATH**/ ?>

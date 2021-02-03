@@ -5,6 +5,15 @@
     <?php if($accion == 'practicas'): ?>
         <?php echo $__env->make('pacientes.practicas', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <?php endif; ?>
+    <?php if(session()->has('message')): ?>
+    <input type = "text" value = "<?php echo e(session('message')); ?>" id = "id_turno" hidden>
+       <script>
+          var id_turno = $("#id_turno").val();
+          $(document).ready(function(){
+              window.open('/comprobante_turno/'+id_turno, '_blank');
+          }); 
+       </script>
+    <?php endif; ?>
     <?php if($accion == 'paciente'): ?>
     <div class = "row" style = "margin-top:20px;">
         <div class = "col-sm-12">

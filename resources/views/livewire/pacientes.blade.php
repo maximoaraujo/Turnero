@@ -5,6 +5,15 @@
     @if($accion == 'practicas')
         @include('pacientes.practicas')
     @endif
+    @if (session()->has('message'))
+    <input type = "text" value = "{{ session('message') }}" id = "id_turno" hidden>
+       <script>
+          var id_turno = $("#id_turno").val();
+          $(document).ready(function(){
+              window.open('/comprobante_turno/'+id_turno, '_blank');
+          }); 
+       </script>
+    @endif
     @if($accion == 'paciente')
     <div class = "row" style = "margin-top:20px;">
         <div class = "col-sm-12">

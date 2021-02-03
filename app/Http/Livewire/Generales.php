@@ -177,6 +177,7 @@ class Generales extends Component
     public function cancelar()
     {
         $this->vista = 'turnos';
+        $this->reset('documento','paciente','domicilio','telefono','fecha_nacimiento','obra_social_id','obrasocial','nomenclador');
     }
     
     public function buscar_x_codigo()
@@ -250,7 +251,7 @@ class Generales extends Component
         $this->practicas_agregadas = turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
         ->select('turnos_practicas.id', 'practicas.codigo', 'practicas.practica')
         ->where('turnos_practicas.id_turno', $this->id_turno)
-        ->where('practicas.nomenclador', $this->nomenclador)->orderBy('practicas.codigo')
+        ->where('practicas.nomenclador', $this->nomenclador)->orderBy('turnos_practicas.created_at', 'DESC')
         ->get();
     }
 
