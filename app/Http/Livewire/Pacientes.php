@@ -8,6 +8,8 @@ use App\Models\config;
 use App\Models\Paciente;
 use App\Models\obras_socials;
 use App\Models\Pacientes_turno;
+use App\Models\practica;
+use App\Models\turnos_practica;
 use App\Models\valores_turno;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,6 +27,11 @@ class Pacientes extends Component
     public $horarios = [];
     public $cantidad_turnos;
     public $para;
+    //Para editar/eliminar las prácticas asociadas
+    public $practicas_asociadas = [];
+    public $nomenclador;
+    public $practicas = [];
+    public $id_practica, $codigo_practica, $practica;
 
     //Inicio del componente
     public function mount()
@@ -271,5 +278,109 @@ class Pacientes extends Component
     {
         $this->accion = "paciente";
         $this->movimientos_paciente();
+    }
+
+    public function ver_practicas($id_turno, $fecha, $horario, $paciente)
+    {
+        $this->accion = 'practicas';
+        $this->id_turno = $id_turno;
+        $this->fecha_turno = $fecha;
+        $this->horario_turno = $horario;
+        $this->paciente = $paciente;
+        $this->nomenclador = obras_socials::where('id', $this->obra_social_id)->get()->pluck('nomenclador')->first();
+        $this->practicas_asociadas();
+    }
+
+    public function practicas_asociadas()
+    {
+        $this->practicas_asociadas = turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
+        ->select('turnos_practicas.id', 'practicas.codigo', 'practicas.practica')
+        ->where('turnos_practicas.id_turno', $this->id_turno)
+        ->where('practicas.nomenclador', $this->nomenclador)->orderBy('practicas.codigo')
+        ->get();
+    }
+
+    public function buscar_x_codigo()
+    {
+        $this->practicas_asociadas();
+
+        $this->id_practica = practica::where('codigo', $this->codigo_practica)->where('nomenclador', $this->nomenclador)
+        ->get()->pluck('id_practica')->first();
+        $this->practica = practica::where('codigo', $this->codigo_practica)->where('nomenclador', $this->nomenclador)
+        ->get()->pluck('practica')->first();
+
+        if (($this->id_practica != '')&&($this->practica != '')) {
+            $this->guardoPractica();
+            $this->reset('id_practica', 'codigo_practica', 'practica');
+        }
+    }
+
+    //Mostramos los resultados al tipear la práctica
+    public function buscarPractica()
+    {
+        $this->picked_ = false;
+    
+        $this->practicas_asociadas();  
+
+        $this->practicas = practica::where("practica", 'LIKE', '%' .$this->practica. '%')
+        ->where('nomenclador', $this->nomenclador)
+        ->take(3)
+        ->get();    
+    }
+    
+    //Asignamos la práctica a la que se le hizo click
+    public function asignarPractica($practica)
+    {        
+        $this->practica = $practica;        
+        $this->picked_ = true;
+        $this->asignoCodigo();
+    }
+
+    public function asignoCodigo()
+    {
+        $this->id_practica = practica::where('practica', $this->practica)->get()->pluck('id_practica')->first();
+        $this->codigo_practica = practica::where('practica', $this->practica)->get()->pluck('codigo')->first();
+        
+        if (($this->id_practica != '')&&($this->practica != '')) {
+            $this->guardoPractica();
+            $this->reset('id_practica', 'codigo_practica', 'practica');
+        }
+    }
+
+    //Guardamos las prácticas
+    public function guardoPractica()
+    {
+        $this->validate([
+            'codigo_practica'=>'required', 'practica'=>'required'
+        ]);
+
+        $guardoPractica = turnos_practica::create([
+            'id_turno' => $this->id_turno,
+            'obra_social_id' => $this->obra_social_id,
+            'id_practica' => $this->id_practica,
+            'cantidad' => 1
+        ]);
+
+        if ($guardoPractica) {
+            $this->practicas_asociadas();
+        }
+    }
+
+    public function eliminarPractica($id_practica)
+    {
+        $eliminar = turnos_practica::where('id', $id_practica)->where('id_turno', $this->id_turno)->delete();
+        $this->practicas_asociadas();
+    }
+
+    public function finalizar_carga()
+    {
+        $this->comprobante_turno($this->id_turno);
+    }
+
+    public function comprobante_turno($id_turno)
+    {
+        $id_turno = $id_turno;
+        session()->flash('message', $id_turno);
+        return redirect()->to('/pacientes');
     }
 }

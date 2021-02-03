@@ -2,6 +2,18 @@
     @if($accion == 'editar turno')
         @include('pacientes.editar_turno')
     @endif
+    @if($accion == 'practicas')
+        @include('pacientes.practicas')
+    @endif
+    @if (session()->has('message'))
+    <input type = "text" value = "{{ session('message') }}" id = "id_turno" hidden>
+       <script>
+          var id_turno = $("#id_turno").val();
+          $(document).ready(function(){
+              window.open('/comprobante_turno/'+id_turno, '_blank');
+          }); 
+       </script>
+    @endif
     @if($accion == 'paciente')
     <div class = "row" style = "margin-top:20px;">
         <div class = "col-sm-12">
@@ -91,12 +103,12 @@
                 <a class="btn btn-primary btn-sm" href = "/comprobante_turno/{{$movimiento->id_turno}}" target = "_blank">Re-imprimir</a>
                 @if($movimiento->asistio == 'no')
                 <a class="btn btn-danger btn-sm" wire:click='editar_turno("{{$movimiento->fecha}}", "{{$movimiento->horario}}", "{{$movimiento->id_horario}}", "{{$movimiento->para}}")'>Re-programar</a>
+                <a class="btn btn-info btn-sm" wire:click='ver_practicas("{{$movimiento->id_turno}}", "{{$movimiento->fecha}}", "{{$movimiento->horario}}", "{{$paciente}}")'>Prácticas asociadas</a>
                 @endif
             </div>
         </div>
     </div>
     </div>
     @endforeach
-    </div>
     @endif
 </div>

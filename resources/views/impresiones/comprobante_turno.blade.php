@@ -46,7 +46,7 @@ hr{
    font-weight: bold;
 }
 #lista{
-    font-size:12px;
+    font-size:10px;
     margin-left:-30px;
 }
 #info{
