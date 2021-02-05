@@ -267,7 +267,7 @@ class Pacientes extends Component
         ]);
  
         if ($guardo_turno) {
-            $ids = pacientes_turno::where('id_turno', $this->id_turno_viejo)->get();
+            $ids = turnos_practica::where('id_turno', $this->id_turno_viejo)->get();
             foreach($ids as $id){
                 $actualizo_id_turno = turnos_practica::where('id', $id->id)->update([
                     'id_turno' => $this->id_turno

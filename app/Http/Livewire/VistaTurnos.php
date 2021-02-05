@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\horario;
 use App\Models\pacientes_turno;
+use App\Models\cantidad_turno;
 use DB;
 
 class VistaTurnos extends Component
@@ -52,10 +53,22 @@ class VistaTurnos extends Component
 
     public function ordeno($letra, $id, $id_horario, $documento)
     {
-        $orden = pacientes_turno::where('fecha', $this->fecha)->where('id_horario', $id_horario)
-        ->orderBy('orden', 'DESC')->get()->pluck('orden')->first();
+        $cantidades = cantidad_turno::get()->pluck('cantidad_generales')->first();
+ 
+        for ($i=1; $i < $cantidades + 1; $i++) { 
+            $array_cantidades[] = $i;
+        }  
 
-        $this->orden = $orden + 1;
+        $cons_ocupados = pacientes_turno::where('fecha', $this->fecha)->where('id_horario', $id_horario)
+       ->get();
+
+        foreach ($cons_ocupados as $ocupados) {
+            $array_ocupados[] = $ocupados['orden'];
+        }
+
+        $array_libres = array_diff($array_cantidades, $array_ocupados);
+
+        $this->orden = reset($array_libres);
 
         $actualizo = pacientes_turno::where('fecha', $this->fecha)->where('id_horario', $id_horario)
         ->where('letra', $letra)->where('id', $id)->where('documento', $documento)->update([
