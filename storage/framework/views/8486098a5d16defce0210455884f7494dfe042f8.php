@@ -6,9 +6,16 @@
         <div class="card card-primary card-outline">
             <div class="card-body box-profile">
                 <div class="text-center">
-                    <img class="profile-user-img img-fluid img-circle" src="dist/img/<?php echo e(Auth::user()->name); ?>.png" alt="User profile picture">
+                    <?php if(Auth::user()->img == ''): ?>
+                        <?php if(Auth::user()->sexo == 'F'): ?>
+                        <img class="profile-user-img img-fluid img-circle" src="dist/img/avatar2.png" width='30' height='30'>   
+                        <?php else: ?>
+                        <img class="profile-user-img img-fluid img-circle" src="dist/img/avatar.png" width='30' height='30'>   
+                        <?php endif; ?>
+                    <?php else: ?>
+                    <img class="profile-user-img img-fluid img-circle" src="dist/img/<?php echo e(Auth::user()->img); ?>.png" width='30' height='30'>   
+                    <?php endif; ?>           
                 </div>
-
                 <h3 class="profile-username text-center"><?php echo e(Auth::user()->name); ?></h3>
 
                 <p class="text-muted text-center"><?php echo e(Auth::user()->email); ?></p>
