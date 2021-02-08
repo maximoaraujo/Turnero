@@ -23,6 +23,9 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+//Usuarios
+Route::get('/mi-perfil', [HomeController::class, 'mi_perfil']);
+
 //Turnos
 Route::get('/dengue', [ControladorTurnos::class, 'dengue']);
 Route::get('/exudado', [ControladorTurnos::class, 'exudado']);

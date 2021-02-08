@@ -26,6 +26,11 @@ class HomeController extends Controller
         return view('home');
     }
 
+    public function mi_perfil()
+    {
+        return view('usuarios.mi-perfil');
+    }
+
     public function planilla()
     {
         return view('impresiones.planilla');

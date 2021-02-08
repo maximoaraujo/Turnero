@@ -8,12 +8,20 @@
         </li>
         </ul> 
         <ul class="navbar-nav ml-auto">
+            <div class="image mt-1 ml-3">
+              @if(Auth::user()->sexo == 'F')
+              <img src="dist/img/avatar2.png" class="img-circle elevation-2" width='30' height='30'>
+              @else
+              <img src="dist/img/avatar5.png" class="img-circle elevation-2" width='30' height='30'>
+              @endif
+            </div>
             <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                 {{ Auth::user()->name }}
             </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/mi-perfil">Mi perfil</a>
             <a class="dropdown-item" href="{{ route('logout') }}"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">

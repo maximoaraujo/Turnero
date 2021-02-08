@@ -8,6 +8,13 @@
         </li>
         </ul> 
         <ul class="navbar-nav ml-auto">
+            <div class="image mt-1 ml-3">
+              <?php if(Auth::user()->sexo == 'F'): ?>
+              <img src="dist/img/avatar2.png" class="img-circle elevation-2" width='30' height='30'>
+              <?php else: ?>
+              <img src="dist/img/avatar5.png" class="img-circle elevation-2" width='30' height='30'>
+              <?php endif; ?>
+            </div>
             <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                 <?php echo e(Auth::user()->name); ?>
@@ -15,6 +22,7 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/mi-perfil">Mi perfil</a>
             <a class="dropdown-item" href="<?php echo e(route('logout')); ?>"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
