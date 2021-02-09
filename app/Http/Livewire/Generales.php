@@ -322,6 +322,10 @@ class Generales extends Component
             $fecha_de_nacimiento = $this->fecha_nacimiento;
         }
 
+        if (empty($this->obra_social_id)) {
+           $this->obra_social_id = 0;
+        }
+
         //Verificamos si es para p75
         if (empty($this->p75)) {
             $this->para = $this->para;

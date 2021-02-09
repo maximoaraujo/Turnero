@@ -93,7 +93,7 @@
     <div>
         <i class="fas fa-info bg-blue"></i>
         <div class="timeline-item">
-            <span class="time"><i class="far fa-calendar"></i> {{date('d-m-Y H:m:s', strtotime($movimiento->fecha_hora))}}</span>
+            <span class="time"><i class="far fa-calendar"></i> {{date('d-m-Y H:m:s', strtotime($movimiento->created_at))}}</span>
             <h3 class="timeline-header">Turno otorgado por {{$movimiento->name}}</h3>
             <div class="timeline-body" style = "width:100%;">
             Horario asignado para turno: <span class = "text-danger">{{$movimiento->horario}}</span> | Turno: <span class = "text-danger">{{$movimiento->letra}}{{$movimiento->id}}</span> | Turno para: <span class = "text-danger">{{$movimiento->para}}</span> | Asistió: <span class = "text-danger">{{$movimiento->asistio}}</span><br>

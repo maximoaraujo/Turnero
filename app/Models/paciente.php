@@ -16,6 +16,6 @@ class paciente extends Model
         'domicilio',
         'telefono',
         'correo',
-        'obra_social'
+        'obra_social_id'
     ];
 }

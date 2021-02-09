@@ -35,7 +35,7 @@
         @endif    
         <td><a href = "/comprobante_turno/{{$turno_citogenetica->id_turno}}" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
-        <td nowrap>{{$turno_citogenetica->name}}-{{ date('d-m-Y H:m:s', strtotime($turno_citogenetica->fecha_hora)) }}</td>
+        <td nowrap>{{$turno_citogenetica->name}}-{{ date('d-m-Y H:m:s', strtotime($turno_citogenetica->created_at)) }}</td>
         @endif
     </tr>
     @endforeach

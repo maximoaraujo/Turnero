@@ -38,7 +38,7 @@
         <td><button wire:click='eliminar_turno("{{$turno_dengue->documento}}", "{{$turno_dengue->id_horario}}", "{{$fecha}}")' style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>
         <td><a href = "/comprobante_turno/{{$turno_dengue->id_turno}}" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
-        <td nowrap>{{$turno_dengue->name}}-{{ date('d-m-Y H:m:s', strtotime($turno_dengue->fecha_hora)) }}</td>
+        <td nowrap>{{$turno_dengue->name}}-{{ date('d-m-Y H:m:s', strtotime($turno_dengue->created_at)) }}</td>
         @endif
     </tr>
     @endforeach

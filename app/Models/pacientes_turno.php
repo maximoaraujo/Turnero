@@ -17,7 +17,6 @@ class pacientes_turno extends Model
         'id_horario',
         'documento',
         'id_usuario',
-        'fecha_hora',
         'para',
         'asistio',
         'comentarios',

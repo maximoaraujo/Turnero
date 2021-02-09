@@ -325,7 +325,9 @@ class Citogenetica extends Component
             $fecha_de_nacimiento = $this->fecha_nacimiento;
         }
 
-        $fecha_hora = date('Y-m-d H:m:s');
+        if (empty($this->obra_social_id)) {
+            $this->obra_social_id = 0;
+        }
 
         $cantidad = paciente::where('documento', $this->documento)->get()->count();
 
@@ -348,7 +350,6 @@ class Citogenetica extends Component
                 'id_horario' => $this->id_horario,
                 'documento' => $this->documento,
                 'id_usuario' => $this->id_usuario,
-                'fecha_hora' => $fecha_hora,
                 'para' => $this->para,
                 'asistio' => 'no',
                 'comentarios' => $this->comentarios
@@ -377,7 +378,6 @@ class Citogenetica extends Component
                 'id_horario' => $this->id_horario,
                 'documento' => $this->documento,
                 'id_usuario' => $this->id_usuario,
-                'fecha_hora' => $fecha_hora,
                 'para' => $this->para,
                 'asistio' => 'no',
                 'comentarios' => $this->comentarios
