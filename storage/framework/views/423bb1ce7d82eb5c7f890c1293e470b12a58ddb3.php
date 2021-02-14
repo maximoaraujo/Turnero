@@ -25,6 +25,7 @@
         <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
         <th scope="col"></th>
         <?php endif; ?>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -49,6 +50,7 @@
         <td><a href = "/comprobante_turno/<?php echo e($turno_general->id_turno); ?>" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
         <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
         <td nowrap><?php echo e($turno_general->name); ?>-<?php echo e(date('d-m-Y H:m:s', strtotime($turno_general->created_at))); ?></td>
+        <td><a href = "<?php echo e($turno_general->orden_url); ?>" target="_blank">Orden</a><td>
         <?php endif; ?>
     </tr>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

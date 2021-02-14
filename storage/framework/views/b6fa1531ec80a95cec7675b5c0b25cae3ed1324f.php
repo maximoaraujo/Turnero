@@ -35,11 +35,12 @@
   <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- Select2 -->
   <script src="../../plugins/select2/js/select2.full.min.js"></script>
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css">
   <?php echo \Livewire\Livewire::styles(); ?>
 
   </head>
   <body>
+  <script src = "https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
   <?php echo \Livewire\Livewire::scripts(); ?>
 
   </body>

@@ -221,6 +221,24 @@
               </tbody>
             </table>
           </div>
+          <div class="card card-body">
+          <div class = "form-group">
+          <form wire:submit="guardo_orden">
+          <div class="custom-input-file col-md-12 col-sm-12 col-xs-12">
+            <input type="file" id="orden_medica" class="input-file" wire:model='orden'>
+            Orden médica
+          </div>
+          </form>
+          <hr>
+          @if ($orden)
+          <center>
+          <div class = "col-sm-6">
+              <a href = "{{ $orden->temporaryUrl() }}" target="_blank"><img src="{{ $orden->temporaryUrl() }}" width="200" height="300"></a>
+          <div>
+          </center>
+          @endif
+          </div>
+          </div>
         </div>
       </div>
       <button class = "btn btn-success" wire:click='guardo_turno'>Guardar</button>
