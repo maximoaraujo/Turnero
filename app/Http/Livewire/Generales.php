@@ -358,10 +358,12 @@ class Generales extends Component
             $this->comentarios = $this->comentarios. '- Ley 26743';
         }
 
-        $fecha_hora = date('Y-m-d H:m:s');
-
-        $url = $this->orden->temporaryUrl();
-
+        if (!empty($this->orden)) {
+            $url = $this->orden->temporaryUrl();
+        } else {
+            $url = '';
+        }
+       
         $cantidad = paciente::where('documento', $this->documento)->get()->count();
 
         if (empty($cantidad)) {
@@ -383,7 +385,6 @@ class Generales extends Component
                 'id_horario' => $this->id_horario,
                 'documento' => $this->documento,
                 'id_usuario' => $this->id_usuario,
-                'fecha_hora' => $fecha_hora,
                 'para' => $this->para,
                 'asistio' => 'no',
                 'comentarios' => $this->comentarios,
@@ -413,7 +414,6 @@ class Generales extends Component
                 'id_horario' => $this->id_horario,
                 'documento' => $this->documento,
                 'id_usuario' => $this->id_usuario,
-                'fecha_hora' => $fecha_hora,
                 'para' => $this->para,
                 'asistio' => 'no',
                 'comentarios' => $this->comentarios,

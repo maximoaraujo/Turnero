@@ -15,9 +15,12 @@ use App\Models\practica;
 use App\Models\turnos_practica;
 use App\Models\usuario_fechs;
 use Illuminate\Support\Facades\Auth;
+use Livewire\WithFileUploads;
 
 class Dengue extends Component
 {
+    use WithFileUploads;
+    
     public $fecha;
     public $vista;
     public $id_usuario;
@@ -36,6 +39,8 @@ class Dengue extends Component
     //Buscadores
     public $obrasocial, $practica;
     public $cantidad_turnos, $cantidad_ioscor;
+    //Orden
+    public $orden;
     //Horarios
     public $id_horario;
     //Datos del paciente
@@ -261,6 +266,17 @@ class Dengue extends Component
         $this->muestro_practicas();
     }
 
+    public function guardo_orden()
+    {
+        $this->validate([
+            'orden' => 'image|max:2048', // 2MB Max
+        ]);
+
+        $this->orden->store('ordenes', 'public');
+
+        $this->muestro_practicas();
+    }
+
     public function guardo_turno()
     {	
 		//Validamos los campos obligatorios
@@ -329,7 +345,11 @@ class Dengue extends Component
             $this->comentarios = $this->comentarios. '- Ley 26743';
         }
 
-        $fecha_hora = date('Y-m-d H:m:s');
+        if (!empty($this->orden)) {
+            $url = $this->orden->temporaryUrl();
+        } else {
+            $url = '';
+        }
 
         $cantidad = paciente::where('documento', $this->documento)->get()->count();
 
@@ -352,10 +372,10 @@ class Dengue extends Component
                 'id_horario' => $this->id_horario,
                 'documento' => $this->documento,
                 'id_usuario' => $this->id_usuario,
-                'fecha_hora' => $fecha_hora,
                 'para' => $this->para,
                 'asistio' => 'no',
-                'comentarios' => $this->comentarios
+                'comentarios' => $this->comentarios,
+                'orden_url' => $url
             ]);
 
             if (($guardo_paciente)&&($guardo_turno)) {
@@ -381,10 +401,10 @@ class Dengue extends Component
                 'id_horario' => $this->id_horario,
                 'documento' => $this->documento,
                 'id_usuario' => $this->id_usuario,
-                'fecha_hora' => $fecha_hora,
                 'para' => $this->para,
                 'asistio' => 'no',
-                'comentarios' => $this->comentarios
+                'comentarios' => $this->comentarios,
+                'orden_url' => $url
             ]);
 
             if (($actualizo_paciente)&&($guardo_turno)) {

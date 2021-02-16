@@ -324,8 +324,6 @@ class Espermograma extends Component
             $fecha_de_nacimiento = $this->fecha_nacimiento;
         }
 
-        $fecha_hora = date('Y-m-d H:m:s');
-
         $cantidad = paciente::where('documento', $this->documento)->get()->count();
 
         if (empty($cantidad)) {
@@ -347,7 +345,6 @@ class Espermograma extends Component
                 'id_horario' => $this->id_horario,
                 'documento' => $this->documento,
                 'id_usuario' => $this->id_usuario,
-                'fecha_hora' => $fecha_hora,
                 'para' => $this->para,
                 'asistio' => 'no',
                 'comentarios' => $this->comentarios
@@ -376,7 +373,6 @@ class Espermograma extends Component
                 'id_horario' => $this->id_horario,
                 'documento' => $this->documento,
                 'id_usuario' => $this->id_usuario,
-                'fecha_hora' => $fecha_hora,
                 'para' => $this->para,
                 'asistio' => 'no',
                 'comentarios' => $this->comentarios

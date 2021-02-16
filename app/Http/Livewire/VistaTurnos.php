@@ -28,7 +28,8 @@ class VistaTurnos extends Component
     public function horarios()
     {
         $this->horarios = horario::join('horarios_estudios', 'horarios.id_horario', 'horarios_estudios.id_horario')
-        ->where('horarios_estudios.estudio', 'generales')->orderBy('horarios.horario')->get();
+        ->where('horarios_estudios.estudio', 'generales')->Orwhere('horarios_estudios.estudio', 'dengue')
+        ->orderBy('horarios.horario')->get();
     }
 
     public function updated($id_horario)
