@@ -28,7 +28,8 @@ class VistaTurnos extends Component
     public function horarios()
     {
         $this->horarios = horario::join('horarios_estudios', 'horarios.id_horario', 'horarios_estudios.id_horario')
-        ->where('horarios_estudios.estudio', 'generales')->orderBy('horarios.horario')->get();
+        ->where('horarios_estudios.estudio', 'generales')->Orwhere('horarios_estudios.estudio', 'dengue')
+        ->orderBy('horarios.horario')->get();
     }
 
     public function updated($id_horario)
@@ -45,7 +46,8 @@ class VistaTurnos extends Component
         'pacientes.paciente', 'pacientes.documento', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.situacion', 'pacientes_turnos.orden', 'pacientes_turnos.asistio')
         ->where('pacientes_turnos.fecha', $this->fecha)->where(function ($query) {
             $query->where('pacientes_turnos.para', '=', 'general')
-            ->orWhere('pacientes_turnos.para', '=', 'P75');
+            ->orWhere('pacientes_turnos.para', '=', 'P75')
+            ->orWhere('pacientes_turnos.para', '=', 'dengue');
         })
         ->where('pacientes_turnos.id_horario', $this->id_horario)
         ->orderBy('horarios.horario')->get();

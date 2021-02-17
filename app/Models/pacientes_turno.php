@@ -20,6 +20,7 @@ class pacientes_turno extends Model
         'para',
         'asistio',
         'comentarios',
-        'situacion'
+        'situacion',
+        'orden_url'
     ];
 }

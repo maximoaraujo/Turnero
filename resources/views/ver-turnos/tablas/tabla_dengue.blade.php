@@ -15,6 +15,7 @@
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
         <th scope="col"></th>
         @endif
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -39,6 +40,9 @@
         <td><a href = "/comprobante_turno/{{$turno_dengue->id_turno}}" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
         <td nowrap>{{$turno_dengue->name}}-{{ date('d-m-Y H:m:s', strtotime($turno_dengue->created_at)) }}</td>
+        @endif
+        @if($turno_dengue->orden_url != '')
+        <td><a href = "{{$turno_dengue->orden_url}}" target="_blank"><button style = "border:none;background-color:transparent;"><i class="fas fa-file-contract"></i></button></a></td>
         @endif
     </tr>
     @endforeach
