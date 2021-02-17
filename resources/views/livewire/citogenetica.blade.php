@@ -9,8 +9,11 @@
     ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
     ->where('pacientes_turnos.fecha', $fecha)
     ->where('pacientes_turnos.para', 'general')
-    ->where('obras_socials.obra_social', 'IOSCOR')->Orwhere('obras_socials.obra_social',  'IOSCOR PRESUPUESTO')
-	->get()->count();
+    ->where(function ($query) {
+      $query->where('obras_socials.obra_social', '=', 'IOSCOR')
+      ->orWhere('obras_socials.obra_social', '=', 'IOSCOR PRESUPUESTO');
+    })
+	  ->get()->count();
     ?>
     <!--Si la cantida de turnos de IOSCOR iguala o excede la cantidad permitida mostramos el mensaje-->
     @if($cantidad_ioscor <= $ioscor)
