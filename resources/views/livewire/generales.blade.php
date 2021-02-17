@@ -14,8 +14,6 @@
       ->orWhere('obras_socials.obra_social', '=', 'IOSCOR PRESUPUESTO');
     })
 	  ->get()->count();
-
-    echo $ioscor;
     ?>
     <!--Si la cantida de turnos de IOSCOR iguala o excede la cantidad permitida mostramos el mensaje-->
     @if($cantidad_ioscor <= $ioscor)
