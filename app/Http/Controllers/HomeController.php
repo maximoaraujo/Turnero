@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ordenes_turno;
+use App\Models\paciente;
+use App\Models\obras_socials;
+use App\Models\turnos_practica;
+use App\Models\pacientes_turno;
 
 class HomeController extends Controller
 {
@@ -39,6 +44,23 @@ class HomeController extends Controller
     public function ver_turnos()
     {
         return view('ver-turnos.ver_turnos');
+    }
+
+    public function orden_turno($id_turno)
+    {
+        $ordenes = ordenes_turno::where('id_turno', $id_turno)->get();
+        $documento = pacientes_turno::where('id_turno', $id_turno)->get()->pluck('documento')->first();
+        $paciente = paciente::where('documento', $documento)->get()->pluck('paciente')->first();
+        $obra_social_id = paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')->where('id_turno', $id_turno)->get()->pluck('obra_social_id')->first();
+        $obra_social = obras_socials::where('id', $obra_social_id)->get()->pluck('obra_social')->first();
+        $nomenclador = obras_socials::where('id', $obra_social_id)->get()->pluck('nomenclador')->first();
+        $practicas =  turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
+        ->select('practicas.codigo', 'practicas.practica')
+        ->where('turnos_practicas.id_turno', $id_turno)
+        ->where('practicas.nomenclador', $nomenclador)->orderBy('practicas.codigo')
+        ->get();
+
+        return view('ver-turnos.orden_turno', compact('ordenes', 'practicas', 'paciente', 'obra_social'));
     }
 
     public function vista_turnos()

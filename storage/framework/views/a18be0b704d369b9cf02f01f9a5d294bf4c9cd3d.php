@@ -35,7 +35,7 @@
         <?php endif; ?>    
         <td><a href = "/comprobante_turno/<?php echo e($turno_exudado->id_turno); ?>" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
         <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
-        <td nowrap><?php echo e($turno_exudado->name); ?>-<?php echo e(date('d-m-Y H:m:s', strtotime($turno_exudado->fecha_hora))); ?></td>
+        <td nowrap><?php echo e($turno_exudado->name); ?>-<?php echo e(date('d-m-Y H:m:s', strtotime($turno_exudado->created_at))); ?></td>
         <?php endif; ?>
     </tr>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

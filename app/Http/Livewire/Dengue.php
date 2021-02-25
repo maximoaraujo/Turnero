@@ -13,6 +13,7 @@ use App\Models\obras_socials;
 use App\Models\no_laborale;
 use App\Models\practica;
 use App\Models\turnos_practica;
+use App\Models\ordenes_turno;
 use App\Models\usuario_fechs;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
@@ -41,10 +42,13 @@ class Dengue extends Component
     public $cantidad_turnos, $cantidad_ioscor;
     //Orden
     public $orden;
+    public $ordenes = [];
     //Horarios
     public $id_horario;
     //Datos del paciente
     public $documento, $paciente, $domicilio, $telefono, $fecha_nacimiento, $comentarios, $obra_social_id;
+
+    protected $listeners = ['upload:finished' => 'guardar_orden'];
 
     public function mount()
     {
@@ -266,6 +270,35 @@ class Dengue extends Component
         $this->muestro_practicas();
     }
 
+    public function almacenar_orden_en_disco()
+    {
+        $this->validate([
+            'orden' => 'image|max:1048', // 1MB Max
+        ]);
+
+        $this->orden->store('public');
+    }
+
+    public function guardar_orden()
+    {
+        $url = $this->orden->temporaryUrl();
+        $guardo_orden = ordenes_turno::create([
+            'id_turno' => $this->id_turno,
+            'url' => $url
+        ]);
+
+        if ($guardo_orden) {
+            $this->muestro_practicas();
+            $this->ordenes = ordenes_turno::where('id_turno', $this->id_turno)->get(); 
+        } 
+    }
+
+    public function elimino_orden($id_turno, $url)
+    {
+        $elimino_orden = ordenes_turno::where('id_turno', $id_turno)->where('url', $url)->delete();
+        $this->ordenes = ordenes_turno::where('id_turno', $this->id_turno)->get();
+    }
+
     public function guardo_orden()
     {
         $this->validate([
@@ -345,12 +378,6 @@ class Dengue extends Component
             $this->comentarios = $this->comentarios. '- Ley 26743';
         }
 
-        if (!empty($this->orden)) {
-            $url = $this->orden->temporaryUrl();
-        } else {
-            $url = '';
-        }
-
         $cantidad = paciente::where('documento', $this->documento)->get()->count();
 
         if (empty($cantidad)) {
@@ -375,7 +402,6 @@ class Dengue extends Component
                 'para' => $this->para,
                 'asistio' => 'no',
                 'comentarios' => $this->comentarios,
-                'orden_url' => $url
             ]);
 
             if (($guardo_paciente)&&($guardo_turno)) {
@@ -404,7 +430,6 @@ class Dengue extends Component
                 'para' => $this->para,
                 'asistio' => 'no',
                 'comentarios' => $this->comentarios,
-                'orden_url' => $url
             ]);
 
             if (($actualizo_paciente)&&($guardo_turno)) {

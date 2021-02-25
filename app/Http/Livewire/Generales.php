@@ -277,7 +277,7 @@ class Generales extends Component
             'orden' => 'image|max:1048', // 1MB Max
         ]);
 
-        $this->orden->store('ordenes', 'public');
+        $this->orden->store('public');
     }
 
     public function guardar_orden()
@@ -292,6 +292,12 @@ class Generales extends Component
             $this->muestro_practicas();
             $this->ordenes = ordenes_turno::where('id_turno', $this->id_turno)->get(); 
         } 
+    }
+
+    public function elimino_orden($id_turno, $url)
+    {
+        $elimino_orden = ordenes_turno::where('id_turno', $id_turno)->where('url', $url)->delete();
+        $this->ordenes = ordenes_turno::where('id_turno', $this->id_turno)->get();
     }
 
     public function guardo_turno()

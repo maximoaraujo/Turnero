@@ -219,6 +219,29 @@
               </tbody>
             </table>
           </div>
+          <div class="card card-body">
+            <div class = "form-group">
+              <form wire:submit="almacenar_orden_en_disco">
+                <div class="custom-input-file col-md-12 col-sm-12 col-xs-12">
+                <input type="file" id="orden_medica" class="input-file" wire:model='orden'>
+                Orden médica
+                </div>
+              </form>
+              <hr>
+              <div class = "table-responsive">
+              <table border="0" cellpadding="2">
+                  <tr>
+                  @foreach($ordenes as $orden)
+                  <td>
+                    <img src="{{$orden->url}}" width="150px" height="200px"/><br>
+                    <button class = "btn btn-small btn-danger" wire:click='elimino_orden("{{$orden->id_turno}}", "{{$orden->url}}")'><i class="fas fa-trash-alt"></i></a></button>
+                  </td>
+                  @endforeach    
+                  </tr>
+              </table>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <button class = "btn btn-success" wire:click='guardo_turno'>Guardar</button>

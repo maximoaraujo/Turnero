@@ -50,11 +50,10 @@
        </script>
     @endif
     @if($vista == 'turnos')
-    <div class = "row">
-    <!--Horarios-->
-    <div class="row mt-2 ml-2">
+      <!--Horarios-->
+      <div class="row">
         @foreach($horarios as $horario)
-        <div class="col-lg-3 col-6">
+          <div class="col-lg-3 col-6 mt-2">
             <!---->
             <div class="small-box bg-info">
               <div class="inner">
@@ -76,11 +75,10 @@
             </div>
           </div>
         @endforeach
-    </div>
+      </div>
     @endif
     @if($vista == 'asignar')
     <div class = "row">
-
       <!--Paciente-->
       <div class = "col-sm-5 mt-2 ml-2">
       <div class="card card">
@@ -237,21 +235,22 @@
               <table border="0" cellpadding="2">
                   <tr>
                   @foreach($ordenes as $orden)
-                      <td>
-                          <img src="{{$orden->url}}" width="150px" height="200px"/>
-                      </td>
+                  <td>
+                    <img src="{{$orden->url}}" width="150px" height="200px"/><br>
+                    <button class = "btn btn-small btn-danger" wire:click='elimino_orden("{{$orden->id_turno}}", "{{$orden->url}}")'><i class="fas fa-trash-alt"></i></a></button>
+                  </td>
                   @endforeach    
                   </tr>
-              <table>
+              </table>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <button class = "btn btn-success" wire:click='guardo_turno'>Guardar</button>
+      <button class = "btn btn-danger ml-1" wire:click='cancelar'>Cancelar</button>
       </div>
     </div>
-    <button class = "btn btn-success mt-3" wire:click='guardo_turno'>Guardar</button>
-    <button class = "btn btn-danger mt-3 ml-2" wire:click='cancelar'>Cancelar</button>
     @endif
     <!---->
 </div>
