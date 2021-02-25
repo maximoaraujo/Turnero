@@ -12,13 +12,17 @@ use App\Models\obras_socials;
 use App\Models\no_laborale;
 use App\Models\practica;
 use App\Models\turnos_practica;
+use App\Models\ordenes_turno;
 use App\Models\usuario_fechs;
 use Illuminate\Support\Facades\Auth;
+use Livewire\WithFileUploads;
 
 use Livewire\Component;
 
 class Citogenetica extends Component
 {
+    use WithFileUploads;
+
     public $fecha;
     public $vista;
     public $id_usuario;
@@ -37,10 +41,15 @@ class Citogenetica extends Component
     //Buscadores
     public $obrasocial, $practica;
     public $cantidad_turnos, $cantidad_ioscor;
+    //Orden
+    public $orden;
+    public $ordenes = [];
     //Horarios
     public $id_horario;
     //Datos del paciente
     public $documento, $paciente, $domicilio, $telefono, $fecha_nacimiento, $comentarios, $obra_social_id;
+
+    protected $listeners = ['upload:finished' => 'guardar_orden'];
 
     public function mount()
     {
@@ -259,6 +268,35 @@ class Citogenetica extends Component
     {
         $eliminar = turnos_practica::where('id', $id_practica)->where('id_turno', $this->id_turno)->delete();
         $this->muestro_practicas();
+    }
+
+    public function almacenar_orden_en_disco()
+    {
+        $this->validate([
+            'orden' => 'image|max:1048', // 1MB Max
+        ]);
+
+        $this->orden->store('public');
+    }
+
+    public function guardar_orden()
+    {
+        $url = $this->orden->temporaryUrl();
+        $guardo_orden = ordenes_turno::create([
+            'id_turno' => $this->id_turno,
+            'url' => $url
+        ]);
+
+        if ($guardo_orden) {
+            $this->muestro_practicas();
+            $this->ordenes = ordenes_turno::where('id_turno', $this->id_turno)->get(); 
+        } 
+    }
+
+    public function elimino_orden($id_turno, $url)
+    {
+        $elimino_orden = ordenes_turno::where('id_turno', $id_turno)->where('url', $url)->delete();
+        $this->ordenes = ordenes_turno::where('id_turno', $this->id_turno)->get();
     }
 
     public function guardo_turno()

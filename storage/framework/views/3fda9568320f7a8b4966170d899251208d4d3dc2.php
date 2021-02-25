@@ -233,6 +233,29 @@ unset($__errorArgs, $__bag); ?>
               </tbody>
             </table>
           </div>
+          <div class="card card-body">
+            <div class = "form-group">
+              <form wire:submit="almacenar_orden_en_disco">
+                <div class="custom-input-file col-md-12 col-sm-12 col-xs-12">
+                <input type="file" id="orden_medica" class="input-file" wire:model='orden'>
+                Orden médica
+                </div>
+              </form>
+              <hr>
+              <div class = "table-responsive">
+              <table border="0" cellpadding="2">
+                  <tr>
+                  <?php $__currentLoopData = $ordenes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $orden): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <td>
+                    <img src="<?php echo e($orden->url); ?>" width="150px" height="200px"/><br>
+                    <button class = "btn btn-small btn-danger" wire:click='elimino_orden("<?php echo e($orden->id_turno); ?>", "<?php echo e($orden->url); ?>")'><i class="fas fa-trash-alt"></i></a></button>
+                  </td>
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>    
+                  </tr>
+              </table>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <button class = "btn btn-success" wire:click='guardo_turno'>Guardar</button>

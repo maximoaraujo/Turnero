@@ -50,9 +50,7 @@
         <td><a href = "/comprobante_turno/{{$turno_general->id_turno}}" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
         <td nowrap>{{$turno_general->name}}-{{ date('d-m-Y H:m:s', strtotime($turno_general->created_at)) }}</td>
-        @if($turno_general->orden_url != '')
-        <td><a href = "{{$turno_general->orden_url}}" target="_blank"><button style = "border:none;background-color:transparent;"><i class="fas fa-file-contract"></i></button></a></td>
-        @endif
+        <td><a href = "/orden_turno{{$turno_general->id_turno}}" target="_blank"><button style = "border:none;background-color:transparent;"><i class="fas fa-file-contract"></i></button></a></td>
         @endif
     </tr>
     @endforeach

@@ -43,10 +43,13 @@ class Generales extends Component
     public $cantidad_turnos, $cantidad_ioscor;
     //Orden
     public $orden;
+    public $ordenes = [];
     //Horarios
     public $id_horario;
     //Datos del paciente
     public $documento, $paciente, $domicilio, $telefono, $fecha_nacimiento, $comentarios, $obra_social_id;
+
+    protected $listeners = ['upload:finished' => 'guardar_orden'];
 
     public function mount()
     {
@@ -268,15 +271,33 @@ class Generales extends Component
         $this->muestro_practicas();
     }
 
-    public function guardo_orden()
+    public function almacenar_orden_en_disco()
     {
         $this->validate([
-            'orden' => 'image|max:2048', // 2MB Max
+            'orden' => 'image|max:1048', // 1MB Max
         ]);
 
-        $this->orden->store('ordenes', 'public');
+        $this->orden->store('public');
+    }
 
-        $this->muestro_practicas();
+    public function guardar_orden()
+    {
+        $url = $this->orden->temporaryUrl();
+        $guardo_orden = ordenes_turno::create([
+            'id_turno' => $this->id_turno,
+            'url' => $url
+        ]);
+
+        if ($guardo_orden) {
+            $this->muestro_practicas();
+            $this->ordenes = ordenes_turno::where('id_turno', $this->id_turno)->get(); 
+        } 
+    }
+
+    public function elimino_orden($id_turno, $url)
+    {
+        $elimino_orden = ordenes_turno::where('id_turno', $id_turno)->where('url', $url)->delete();
+        $this->ordenes = ordenes_turno::where('id_turno', $this->id_turno)->get();
     }
 
     public function guardo_turno()
@@ -357,12 +378,6 @@ class Generales extends Component
         } else {
             $this->comentarios = $this->comentarios. '- Ley 26743';
         }
-
-        if (!empty($this->orden)) {
-            $url = $this->orden->temporaryUrl();
-        } else {
-            $url = '';
-        }
        
         $cantidad = paciente::where('documento', $this->documento)->get()->count();
 
@@ -388,7 +403,6 @@ class Generales extends Component
                 'para' => $this->para,
                 'asistio' => 'no',
                 'comentarios' => $this->comentarios,
-                'orden_url' => $url
             ]);
 
             if (($guardo_paciente)&&($guardo_turno)) {
@@ -417,7 +431,6 @@ class Generales extends Component
                 'para' => $this->para,
                 'asistio' => 'no',
                 'comentarios' => $this->comentarios,
-                'orden_url' => $url
             ]);
 
             if (($actualizo_paciente)&&($guardo_turno)) {

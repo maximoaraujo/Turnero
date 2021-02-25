@@ -50,11 +50,10 @@
        </script>
     @endif
     @if($vista == 'turnos')
-    <div class = "row">
-    <!--Horarios-->
-    <div class="row mt-2 ml-2">
+      <!--Horarios-->
+      <div class="row">
         @foreach($horarios as $horario)
-        <div class="col-lg-3 col-6">
+          <div class="col-lg-3 col-6 mt-2">
             <!---->
             <div class="small-box bg-info">
               <div class="inner">
@@ -76,11 +75,10 @@
             </div>
           </div>
         @endforeach
-    </div>
+      </div>
     @endif
     @if($vista == 'asignar')
     <div class = "row">
-
       <!--Paciente-->
       <div class = "col-sm-5 mt-2 ml-2">
       <div class="card card">
@@ -226,26 +224,31 @@
           </div>
           <div class="card card-body">
             <div class = "form-group">
-              <form wire:submit="guardo_orden">
+              <form wire:submit="almacenar_orden_en_disco">
                 <div class="custom-input-file col-md-12 col-sm-12 col-xs-12">
                 <input type="file" id="orden_medica" class="input-file" wire:model='orden'>
                 Orden médica
                 </div>
               </form>
               <hr>
-              @if ($orden)
-              <center>
-              <div class = "col-sm-6">
-                  <a href = "{{ $orden->temporaryUrl() }}" target="_blank"><img src="{{ $orden->temporaryUrl() }}" width="200" height="300"></a>
-              <div>
-              </center>
-              @endif
-           </div>
+              <div class = "table-responsive">
+              <table border="0" cellpadding="2">
+                  <tr>
+                  @foreach($ordenes as $orden)
+                  <td>
+                    <img src="{{$orden->url}}" width="150px" height="200px"/><br>
+                    <button class = "btn btn-small btn-danger" wire:click='elimino_orden("{{$orden->id_turno}}", "{{$orden->url}}")'><i class="fas fa-trash-alt"></i></a></button>
+                  </td>
+                  @endforeach    
+                  </tr>
+              </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <button class = "btn btn-success" wire:click='guardo_turno'>Guardar</button>
-      <button class = "btn btn-danger" wire:click='cancelar'>Cancelar</button>
+      <button class = "btn btn-danger ml-1" wire:click='cancelar'>Cancelar</button>
       </div>
     </div>
     @endif
