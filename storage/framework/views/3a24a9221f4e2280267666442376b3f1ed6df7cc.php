@@ -40,12 +40,9 @@
         <td><a href = "/comprobante_turno/<?php echo e($turno_dengue->id_turno); ?>" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
         <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
         <td nowrap><?php echo e($turno_dengue->name); ?>-<?php echo e(date('d-m-Y H:m:s', strtotime($turno_dengue->created_at))); ?></td>
-<<<<<<< HEAD
-=======
         <?php endif; ?>
         <?php if($turno_dengue->orden_url != ''): ?>
         <td><a href = "<?php echo e($turno_dengue->orden_url); ?>" target="_blank"><button style = "border:none;background-color:transparent;"><i class="fas fa-file-contract"></i></button></a></td>
->>>>>>> cafaf21facad78573bb2639ca5fc164499fc929b
         <?php endif; ?>
     </tr>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
