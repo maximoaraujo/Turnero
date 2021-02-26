@@ -9,15 +9,15 @@
 <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('contar-turnos', [])->html();
-} elseif ($_instance->childHasBeenRendered('dCtFcSj')) {
-    $componentId = $_instance->getRenderedChildComponentId('dCtFcSj');
-    $componentTag = $_instance->getRenderedChildComponentTagName('dCtFcSj');
+} elseif ($_instance->childHasBeenRendered('SPYRw1K')) {
+    $componentId = $_instance->getRenderedChildComponentId('SPYRw1K');
+    $componentTag = $_instance->getRenderedChildComponentTagName('SPYRw1K');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('dCtFcSj');
+    $_instance->preserveRenderedChild('SPYRw1K');
 } else {
     $response = \Livewire\Livewire::mount('contar-turnos', []);
     $html = $response->html();
-    $_instance->logRenderedChild('dCtFcSj', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('SPYRw1K', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -27,15 +27,15 @@ echo $html;
 <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('espermogramas', [])->html();
-} elseif ($_instance->childHasBeenRendered('lx1aeY1')) {
-    $componentId = $_instance->getRenderedChildComponentId('lx1aeY1');
-    $componentTag = $_instance->getRenderedChildComponentTagName('lx1aeY1');
+} elseif ($_instance->childHasBeenRendered('Y0siCCF')) {
+    $componentId = $_instance->getRenderedChildComponentId('Y0siCCF');
+    $componentTag = $_instance->getRenderedChildComponentTagName('Y0siCCF');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('lx1aeY1');
+    $_instance->preserveRenderedChild('Y0siCCF');
 } else {
     $response = \Livewire\Livewire::mount('espermogramas', []);
     $html = $response->html();
-    $_instance->logRenderedChild('lx1aeY1', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('Y0siCCF', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
