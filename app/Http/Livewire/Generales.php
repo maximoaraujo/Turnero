@@ -91,7 +91,10 @@ class Generales extends Component
         $this->ioscor = paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
         ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
         ->where('pacientes_turnos.fecha', $this->fecha)
-        ->where('pacientes_turnos.para', 'general')
+        ->where(function ($query) {
+            $query->where('pacientes_turnos.para', '=', 'general')
+            ->orWhere('pacientes_turnos.para', '=', 'P75');
+            })
         ->where(function ($query) {
             $query->where('obras_socials.obra_social', '=', 'IOSCOR')
             ->orWhere('obras_socials.obra_social', '=', 'IOSCOR PRESUPUESTO');
@@ -101,7 +104,10 @@ class Generales extends Component
         $this->plan_sumar = paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
         ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
         ->where('pacientes_turnos.fecha', $this->fecha)
-        ->where('pacientes_turnos.para', 'general')
+        ->where(function ($query) {
+            $query->where('pacientes_turnos.para', '=', 'general')
+            ->orWhere('pacientes_turnos.para', '=', 'P75');
+            })
         ->where(function ($query) {
             $query->where('obras_socials.obra_social', '=', 'PLAN SUMAR')
             ->Orwhere('obras_socials.obra_social', '=', 'PLAN SUMAR EMBARAZADAS')
@@ -114,7 +120,10 @@ class Generales extends Component
         $this->profe = paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
         ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
         ->where('pacientes_turnos.fecha', $this->fecha)
-        ->where('pacientes_turnos.para', 'general')
+        ->where(function ($query) {
+            $query->where('pacientes_turnos.para', '=', 'general')
+            ->orWhere('pacientes_turnos.para', '=', 'P75');
+            })
         ->where(function ($query) {
             $query->where('obras_socials.obra_social', '=', 'PROFE');
             })
@@ -123,7 +132,10 @@ class Generales extends Component
         $this->sin_cargo = paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
         ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
         ->where('pacientes_turnos.fecha', $this->fecha)
-        ->where('pacientes_turnos.para', 'general')
+        ->where(function ($query) {
+            $query->where('pacientes_turnos.para', '=', 'general')
+            ->orWhere('pacientes_turnos.para', '=', 'P75');
+            })
         ->where(function ($query) {
             $query->where('obras_socials.obra_social', '=', 'SIN CARGO');
             })
