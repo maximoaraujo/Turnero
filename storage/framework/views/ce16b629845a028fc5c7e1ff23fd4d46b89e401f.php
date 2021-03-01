@@ -1,6 +1,6 @@
 <center>
 <p>Turnos espermograma</p>
-<p>Total turnos asignados: {{$total_espermograma}}</p>
+<p>Total turnos asignados: <?php echo e($total_espermograma); ?></p>
 </center>
 <section>
   <div class="card">
@@ -23,7 +23,7 @@ $(document).ready(function(){
         labels: ["10:30", "15:30", "16:00", "16:30", "17:00"],
         datasets: [{
           label: 'Turnos asignados',
-          data: [{{$espermograma_38}}, {{$espermograma_22}}, {{$espermograma_23}}, {{$espermograma_24}}, {{$espermograma_25}}],
+          data: [<?php echo e($espermograma_38); ?>, <?php echo e($espermograma_22); ?>, <?php echo e($espermograma_23); ?>, <?php echo e($espermograma_24); ?>, <?php echo e($espermograma_25); ?>],
           backgroundColor: [
             'rgba(255, 206, 86, 0.2)',
             'rgba(255, 99, 132, 0.2)',
@@ -52,4 +52,4 @@ $(document).ready(function(){
       }
     });
 });
-</script>
+</script><?php /**PATH C:\laragon\www\Turnero\resources\views/estadisticas/graficos/graficos_espermograma.blade.php ENDPATH**/ ?>

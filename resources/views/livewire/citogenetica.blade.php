@@ -1,7 +1,11 @@
 <div>
     <!--Fecha-->
+    <div class = "row">
     <div class = "col-sm-2 mt-2">
         <input type = "date" class = "form-control" wire:model='fecha'>
+    </div>
+    <div class = "col-sm-10 mt-3">IOSCOR: <span class = "text-danger">{{$ioscor}}</span> | 
+      PLAN SUMAR ({{$plan_sumar}}) - PROFE ({{$profe}}) - SIN CARGO ({{$sin_cargo}}): <span class = "text-danger">{{$resto}}</span> | Resto: <span class = "text-danger">{{$demanda}}</span></div>
     </div>
     <!--Verificamos cuantos turnos para IOSCOR hay asignados-->
     <?php

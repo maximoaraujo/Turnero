@@ -1,5 +1,6 @@
 <center>
 <p>Turnos exudado</p>
+<p>Total turnos asignados: {{$total_exudado}}</p>
 </center>
 <section>
   <div class="card">

@@ -125,10 +125,13 @@ class Pacientes extends Component
         $this->fecha_turno = $fecha;
         $this->horario_turno = $horario;
         $this->id_horario_viejo = $id_horario;
-        
+        $this->fecha_nuevo_turno = date('Y-m-d');
+
         $this->para = $para;
         if ($this->para == 'general') {
             $this->horarios();
+        } elseif ($this->para == 'P75') {
+            $this->horarios_p75();
         } elseif ($this->para == 'dengue') {
             $this->horarios_dengue();
         } elseif ($this->para == 'exudado'){
@@ -146,6 +149,14 @@ class Pacientes extends Component
         ->where('horarios_estudios.estudio', 'generales')
         ->orderBy('horarios.horario')->get();
         $this->cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
+    }
+
+    public function horarios_p75()
+    {
+        $this->horarios = horario::join('horarios_estudios', 'horarios_estudios.id_horario', 'horarios.id_horario')
+        ->where('horarios_estudios.estudio', 'P75')
+        ->orderBy('horarios.horario')->get();
+        $this->cantidad_turnos = config::get()->pluck('cant_turnos_p75')->first(); 
     }
 
     public function horarios_dengue()

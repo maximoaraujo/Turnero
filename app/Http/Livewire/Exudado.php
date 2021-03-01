@@ -41,6 +41,9 @@ class Exudado extends Component
     //Buscadores
     public $obrasocial, $practica;
     public $cantidad_turnos, $cantidad_ioscor;
+    public $total_turnos;
+    public $profe, $sin_cargo, $plan_sumar;
+    public $ioscor, $demanda, $resto;
     //Orden
     public $orden;
     public $ordenes = [];
@@ -61,6 +64,7 @@ class Exudado extends Component
         $this->horarios();
         $this->para = 'exudado'; 
         $this->encontrado = "";
+        $this->verifico_turnos();
     }
 
     public function usuario_fecha()
@@ -82,6 +86,56 @@ class Exudado extends Component
         $this->no_laboral = no_laborale::where('fecha', $this->fecha)->get()->count();
     }
 
+    public function verifico_turnos()
+    {
+        $this->ioscor = paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
+        ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
+        ->where('pacientes_turnos.fecha', $this->fecha)
+        ->where('pacientes_turnos.para', 'exudado')
+        ->where(function ($query) {
+            $query->where('obras_socials.obra_social', '=', 'IOSCOR')
+            ->orWhere('obras_socials.obra_social', '=', 'IOSCOR PRESUPUESTO');
+            })
+        ->get()->count();
+
+        $this->plan_sumar = paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
+        ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
+        ->where('pacientes_turnos.fecha', $this->fecha)
+        ->where('pacientes_turnos.para', 'exudado')
+        ->where(function ($query) {
+            $query->where('obras_socials.obra_social', '=', 'PLAN SUMAR')
+            ->Orwhere('obras_socials.obra_social', '=', 'PLAN SUMAR EMBARAZADAS')
+            ->Orwhere('obras_socials.obra_social', '=', 'PLAN SUMAR HOMBRES 20-64')
+            ->Orwhere('obras_socials.obra_social', '=', 'PLAN SUMAR MUJERES 20-64')
+            ->Orwhere('obras_socials.obra_social', '=', 'PLAN SUMAR SIN COBERTURA');
+            })
+        ->get()->count();
+
+        $this->profe = paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
+        ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
+        ->where('pacientes_turnos.fecha', $this->fecha)
+        ->where('pacientes_turnos.para', 'exudado')
+        ->where(function ($query) {
+            $query->where('obras_socials.obra_social', '=', 'PROFE');
+            })
+        ->get()->count();
+
+        $this->sin_cargo = paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
+        ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
+        ->where('pacientes_turnos.fecha', $this->fecha)
+        ->where('pacientes_turnos.para', 'exudado')
+        ->where(function ($query) {
+            $query->where('obras_socials.obra_social', '=', 'SIN CARGO');
+            })
+        ->get()->count();
+
+        $this->resto = $this->profe + $this->plan_sumar + $this->sin_cargo;
+
+        $this->total_turnos = pacientes_turno::where('fecha', $this->fecha)->where('para', 'exudado')->get()->count();   
+
+        $this->demanda = $this->total_turnos - $this->ioscor - $this->resto;
+    }
+
     public function updated($fecha)
     {   
         $fecha = date('Y-m-d');
@@ -92,7 +146,8 @@ class Exudado extends Component
         }
         
         $this->fecha = usuario_fechs::where('id_usuario', $this->id_usuario)->get()->pluck('fecha')->first();
-        $this->no_laborales();    
+        $this->no_laborales();   
+        $this->verifico_turnos();
     }
 
     public function horarios()

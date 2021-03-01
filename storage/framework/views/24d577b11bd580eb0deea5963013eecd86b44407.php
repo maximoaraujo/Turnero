@@ -1,6 +1,6 @@
 <center>
 <p>Turnos dengue | SARS</p>
-<p>Total turnos asignados: {{$total_dengue}}</p>
+<p>Total turnos asignados: <?php echo e($total_dengue); ?></p>
 </center>
 <section>
   <div class="card">
@@ -23,7 +23,7 @@ $(document).ready(function(){
         labels: ["10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "16:00", "16:30", "17:00"],
         datasets: [{
           label: 'Turnos asignados',
-          data: [{{$generales_12}}, {{$generales_13}}, {{$generales_14}}, {{$generales_15}}, {{$generales_16}}, {{$generales_17}}, {{$generales_18}}, {{$generales_23}}, {{$generales_24}}, {{$generales_25}}],
+          data: [<?php echo e($generales_12); ?>, <?php echo e($generales_13); ?>, <?php echo e($generales_14); ?>, <?php echo e($generales_15); ?>, <?php echo e($generales_16); ?>, <?php echo e($generales_17); ?>, <?php echo e($generales_18); ?>, <?php echo e($generales_23); ?>, <?php echo e($generales_24); ?>, <?php echo e($generales_25); ?>],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -62,4 +62,4 @@ $(document).ready(function(){
       }
     });
 });
-</script>
+</script><?php /**PATH C:\laragon\www\Turnero\resources\views/estadisticas/graficos/graficos_dengue.blade.php ENDPATH**/ ?>

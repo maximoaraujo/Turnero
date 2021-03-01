@@ -1,21 +1,12 @@
 <div>
     <!--Fecha-->
+    <div class = "row">
     <div class = "col-sm-2 mt-2">
         <input type = "date" class = "form-control" wire:model='fecha'>
     </div>
-    <!--Verificamos cuantos turnos para IOSCOR hay asignados-->
-    <?php
-    $ioscor = App\Models\paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
-    ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
-    ->where('pacientes_turnos.fecha', $fecha)
-    ->where('pacientes_turnos.para', 'general')
-    ->where(function ($query) {
-      $query->where('obras_socials.obra_social', '=', 'IOSCOR')
-      ->orWhere('obras_socials.obra_social', '=', 'IOSCOR PRESUPUESTO');
-    })
-	  ->get()->count();
-    ?>
-    <!--Si la cantida de turnos de IOSCOR iguala o excede la cantidad permitida mostramos el mensaje-->
+    <div class = "col-sm-10 mt-3">IOSCOR: <span class = "text-danger"><?php echo e($ioscor); ?></span> | 
+      PLAN SUMAR (<?php echo e($plan_sumar); ?>) - PROFE (<?php echo e($profe); ?>) - SIN CARGO (<?php echo e($sin_cargo); ?>): <span class = "text-danger"><?php echo e($resto); ?></span> | Resto: <span class = "text-danger"><?php echo e($demanda); ?></span></div>
+    </div>
     <?php if($cantidad_ioscor <= $ioscor): ?>
     <center>
     <div class = "col-sm-6">
@@ -27,12 +18,21 @@
     </div>
     </center>
     <?php endif; ?>
+    <?php if($cantidad_resto <= $resto): ?>
+    <center>
+    <div class = "col-sm-6">
+      <div class = "alert alert-danger alert-dismissible">
+        <h5><i class = "icon fas fa-ban"></i>Atención!</h5>
+        ¡No asignar más turnos a pacientes con PLAN SUMAR, PROFE Y/O SIN CARGO!
+      </div>
+    </div>
+    </center>
+    <?php endif; ?>  
     <!--Mensaje por día no laborable-->
     <?php if($no_laboral > 0): ?>
     <center>
     <div class = "col-sm-6">
     <div class="alert alert-warning alert-dismissible">
-        <button type="button" class="close">×</button>
         <h5><i class="icon fas fa-exclamation-triangle"></i> Atención!</h5>
         ¡El laboratorio permanecerá cerrado!
     </div>
@@ -90,7 +90,8 @@
             <?php if((date('l', strtotime($fecha)) == 'Wednesday') || (date('l', strtotime($fecha)) == 'Friday')): ?>
               <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" wire:model='p75' id = 'p75'>   
-                <label class="custom-control-label" for="p75">P75</label> 
+                <?php $cantidad_p75 = App\Models\pacientes_turno::where([['fecha', $fecha],['para', 'P75']])->get()->count(); ?>
+                <label class="custom-control-label" for="p75">P75 - (<?php echo $cantidad_p75; ?>)</label>
               </div>
             <?php endif; ?>
           <?php endif; ?>

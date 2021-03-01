@@ -1,0 +1,4 @@
+<?php echo $__env->make('estadisticas.graficos.graficos_generales', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php echo $__env->make('estadisticas.graficos.graficos_dengue', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php echo $__env->make('estadisticas.graficos.graficos_exudados', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php echo $__env->make('estadisticas.graficos.graficos_espermograma', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\Turnero\resources\views/estadisticas/grafico_generados.blade.php ENDPATH**/ ?>

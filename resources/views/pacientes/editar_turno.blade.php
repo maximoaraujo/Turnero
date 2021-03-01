@@ -15,6 +15,8 @@
 </center>
 @if($para == 'general')
     @include('pacientes.turnos_para.generales')
+@elseif($para == 'P75')
+    @include('pacientes.turnos_para.P75')
 @elseif($para == 'dengue')  
     @include('pacientes.turnos_para.dengue')
 @elseif($para == 'exudado')
