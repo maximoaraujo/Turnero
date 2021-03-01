@@ -143,7 +143,12 @@ class Generales extends Component
 
         $this->resto = $this->profe + $this->plan_sumar + $this->sin_cargo;
 
-        $this->total_turnos = pacientes_turno::where('fecha', $this->fecha)->where('para', 'general')->get()->count();   
+        $this->total_turnos = pacientes_turno::where('fecha', $this->fecha)
+        ->where(function ($query) {
+            $query->where('pacientes_turnos.para', '=', 'general')
+            ->orWhere('pacientes_turnos.para', '=', 'P75');
+            })
+        ->get()->count();   
 
         $this->demanda = $this->total_turnos - $this->ioscor - $this->resto;
     }
