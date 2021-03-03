@@ -14,7 +14,7 @@
         <div class="progress">
             <div class="progress-bar" style="width: <?php echo ($cantidad * 10); ?>%"></div>
         </div>
-        <?php if($cantidad < $cantidad_turnos): ?>
+        <?php if(($cantidad < $cantidad_turnos)||(Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
         <span class="progress-description">
             <button type="button" class="btn btn-block btn-default btn-sm" wire:click='nuevo_turno("<?php echo e($horario->id_horario); ?>", "<?php echo e(Auth::user()->id); ?>", "general")'>Asignar</button>
         </span>
