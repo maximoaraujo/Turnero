@@ -84,9 +84,9 @@
 
     @if($vista == 'asignar')
     <div class = "row">
-
       <!--Paciente-->
-      <div class = "col-sm-5 mt-2 ml-2">
+      <div class = "col-sm-5 mt-4 ml-2">
+      <h5><span class="text-bold" style = "color:blue;">Horario: {{$horario}}</span></h5>
       <div class="card card">
         <div class="card-header">
           <h3 class="card-title">Paciente</h3>
