@@ -2,7 +2,14 @@
 
 <center>
 <div class = "row">
-    <div class = "col-sm-3"></div>
+    <div class = "col-sm-3 mt-3">
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" wire:model='check_exudado'>
+        <label class="form-check-label">
+            Horarios exudado
+        </label>
+    </div>
+    </div>
     <div class = "col-sm-2" style = "margin-top:10px;">
     <select class="browser-default custom-select" wire:model='id_horario'>
     <?php $__currentLoopData = $horarios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $horario): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

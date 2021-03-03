@@ -16,6 +16,7 @@ class VistaTurnos extends Component
     public $turnos = [];
     public $orden;
     public $asistio;
+    public $check_exudado;
 
     public function mount()
     {
@@ -23,6 +24,7 @@ class VistaTurnos extends Component
         $this->horarios();
         $this->id_horario = 6;
         $this->cargo_turnos();
+        $this->check_exudado = false;
     }
 
     public function horarios()
@@ -32,10 +34,23 @@ class VistaTurnos extends Component
         ->orderBy('horarios.horario')->get();
     }
 
-    public function updated($id_horario)
+    public function horarios_exudado()
     {
-        $this->cargo_turnos();
-        $this->horarios();
+        $this->horarios = horario::join('horarios_estudios', 'horarios.id_horario', 'horarios_estudios.id_horario')
+        ->where('horarios_estudios.estudio', 'exudado')->orderBy('horarios.horario')->get();
+    }
+
+    public function updated($id_horario, $check_exudado)
+    {
+        if ($this->check_exudado == true) {
+            $this->id_horario = $this->id_horario;
+            $this->cargo_turnos_exudado();
+            $this->horarios_exudado();
+        } else {
+            $this->id_horario = $this->id_horario;
+            $this->cargo_turnos();
+            $this->horarios();
+        }
     }
 
     public function cargo_turnos()
@@ -48,6 +63,19 @@ class VistaTurnos extends Component
             $query->where('pacientes_turnos.para', '=', 'general')
             ->orWhere('pacientes_turnos.para', '=', 'P75')
             ->orWhere('pacientes_turnos.para', '=', 'dengue');
+        })
+        ->where('pacientes_turnos.id_horario', $this->id_horario)
+        ->orderBy('horarios.horario')->get();
+    }
+
+    public function cargo_turnos_exudado()
+    {
+        $this->turnos = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
+        ->join('pacientes', 'pacientes.documento', 'pacientes_turnos.documento')
+        ->select('pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.letra', 'pacientes_turnos.id', 
+        'pacientes.paciente', 'pacientes.documento', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.situacion', 'pacientes_turnos.orden', 'pacientes_turnos.asistio')
+        ->where('pacientes_turnos.fecha', $this->fecha)->where(function ($query) {
+            $query->where('pacientes_turnos.para', '=', 'exudado');
         })
         ->where('pacientes_turnos.id_horario', $this->id_horario)
         ->orderBy('horarios.horario')->get();
