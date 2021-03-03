@@ -7,15 +7,15 @@
 <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('espermograma', [])->html();
-} elseif ($_instance->childHasBeenRendered('tOGvG41')) {
-    $componentId = $_instance->getRenderedChildComponentId('tOGvG41');
-    $componentTag = $_instance->getRenderedChildComponentTagName('tOGvG41');
+} elseif ($_instance->childHasBeenRendered('PE0BEx4')) {
+    $componentId = $_instance->getRenderedChildComponentId('PE0BEx4');
+    $componentTag = $_instance->getRenderedChildComponentTagName('PE0BEx4');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('tOGvG41');
+    $_instance->preserveRenderedChild('PE0BEx4');
 } else {
     $response = \Livewire\Livewire::mount('espermograma', []);
     $html = $response->html();
-    $_instance->logRenderedChild('tOGvG41', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('PE0BEx4', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
