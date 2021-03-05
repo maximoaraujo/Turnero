@@ -351,7 +351,7 @@ class Generales extends Component
             'orden' => 'image|max:1048', // 1MB Max
         ]);
 
-        $this->orden->store('public');
+        $this->orden->store('local');
     }
 
     public function guardar_orden()

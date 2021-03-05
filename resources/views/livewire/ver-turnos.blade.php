@@ -10,6 +10,7 @@
         <div class = "col-sm-2" style = "margin-top:10px;">
             <select class = "form-control" wire:model='opcion_sel'>
                 <option>Dengue</option>
+                <option>Espermograma</option>
                 <option>Exudado</option>
                 <option>General</option>
                 <option>P75</option>
@@ -31,6 +32,8 @@
     <div class = "row" style = "margin-top:20px;">
         @if($opcion_sel == 'General')
             @include('ver-turnos.tablas.tabla_generales')
+        @elseif($opcion_sel == 'Espermograma')
+            @include('ver-turnos.tablas.tabla_espermograma')    
         @elseif($opcion_sel == 'Dengue')
             @include('ver-turnos.tablas.tabla_dengue')
         @elseif($opcion_sel == 'Exudado')

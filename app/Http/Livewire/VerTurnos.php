@@ -36,6 +36,7 @@ class VerTurnos extends Component
     //Turnos por tipo de estudio
     public $turnos_dengue = [];
     public $turnos_exudado = [];
+    public $turnos_espermograma = [];
     public $turnos_generales = [];
     public $turnos_citogenetica = [];
     public $turnos_p75 = [];
@@ -63,6 +64,7 @@ class VerTurnos extends Component
         $this->fecha = date('Y-m-d');
         $this->cargo_horarios();
         $this->cargo_dengue();
+        $this->cargo_espermograma();
         $this->cargo_exudado();
         $this->cargo_generales();
         $this->cargo_p75();
@@ -104,6 +106,20 @@ class VerTurnos extends Component
         ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
         ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
         ->where($condicion_exu)
+        ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
+        'users.name', 'pacientes.domicilio', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio', 'pacientes_turnos.created_at')
+        ->orderBy('horarios.horario')
+        ->get();
+    }
+
+    //Traemos los horarios para ESPERMOGRAMA
+    public function cargo_espermograma()
+    {
+        $condicion_esp = ['pacientes_turnos.fecha' => $this->fecha, 'pacientes_turnos.para' => 'espermograma'];
+        $this->turnos_espermograma = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
+        ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
+        ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
+        ->where($condicion_esp)
         ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
         'users.name', 'pacientes.domicilio', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio', 'pacientes_turnos.created_at')
         ->orderBy('horarios.horario')
@@ -170,6 +186,7 @@ class VerTurnos extends Component
     {
         $this->cargo_horarios();
         $this->cargo_dengue();
+        $this->cargo_espermograma();
         $this->cargo_exudado();
         $this->generales_x_horario();
         $this->cargo_p75();
@@ -187,6 +204,7 @@ class VerTurnos extends Component
         if ($asistencia) {
             $this->cargo_horarios();
             $this->cargo_dengue();
+            $this->cargo_espermograma();
             $this->cargo_exudado();
             $this->cargo_citogenetica();   
             $this->generales_x_horario();  
@@ -252,6 +270,7 @@ class VerTurnos extends Component
         $this->accion = "ver";
         $this->cargo_horarios();
         $this->cargo_dengue();
+        $this->cargo_espermograma();
         $this->cargo_exudado();
         $this->generales_x_horario();
         $this->cargo_p75();
@@ -269,6 +288,7 @@ class VerTurnos extends Component
            $this->cargo_generales();
            $this->generales_x_horario();
            $this->cargo_dengue();
+           $this->cargo_espermograma();
            $this->cargo_exudado();
            $this->cargo_citogenetica();
         }
