@@ -10,6 +10,7 @@
         <div class = "col-sm-2" style = "margin-top:10px;">
             <select class = "form-control" wire:model='opcion_sel'>
                 <option>Dengue</option>
+                <option>Espermograma</option>
                 <option>Exudado</option>
                 <option>General</option>
                 <option>P75</option>
@@ -31,6 +32,8 @@
     <div class = "row" style = "margin-top:20px;">
         <?php if($opcion_sel == 'General'): ?>
             <?php echo $__env->make('ver-turnos.tablas.tabla_generales', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        <?php elseif($opcion_sel == 'Espermograma'): ?>
+            <?php echo $__env->make('ver-turnos.tablas.tabla_espermograma', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>    
         <?php elseif($opcion_sel == 'Dengue'): ?>
             <?php echo $__env->make('ver-turnos.tablas.tabla_dengue', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <?php elseif($opcion_sel == 'Exudado'): ?>
