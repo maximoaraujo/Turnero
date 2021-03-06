@@ -88,7 +88,7 @@
         </div>
         <div class="card-body">
           @if($horario == '06:30')
-            @if((date('l', strtotime($fecha)) == 'Wednesday') || (date('l', strtotime($fecha)) == 'Friday'))
+            @if((date('l', strtotime($fecha)) == 'Monday') || (date('l', strtotime($fecha)) == 'Wednesday') || (date('l', strtotime($fecha)) == 'Friday'))
               <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" wire:model='p75' id = 'p75'>   
                 <?php $cantidad_p75 = App\Models\pacientes_turno::where([['fecha', $fecha],['para', 'P75']])->get()->count(); ?>

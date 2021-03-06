@@ -1,4 +1,4 @@
-@if((date('l', strtotime($fecha_nuevo_turno)) == 'Wednesday')||(date('l', strtotime($fecha_nuevo_turno)) == 'Friday'))
+@if((date('l', strtotime($fecha)) == 'Monday')||(date('l', strtotime($fecha_nuevo_turno)) == 'Wednesday')||(date('l', strtotime($fecha_nuevo_turno)) == 'Friday'))
 <div class = "row" style = "margin-top:20px;">
 @foreach($horarios as $horario)
 <div class="col-md-3 col-sm-4 col-12">
