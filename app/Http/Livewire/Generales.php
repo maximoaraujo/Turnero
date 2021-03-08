@@ -18,6 +18,7 @@ use App\Models\usuario_fechs;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
+use File;
 
 class Generales extends Component
 {
@@ -45,14 +46,14 @@ class Generales extends Component
     public $profe, $sin_cargo, $plan_sumar;
     public $ioscor, $demanda, $resto;
     //Orden
-    public $orden;
+    public $orden, $url;
     public $ordenes = [];
     //Horarios
     public $id_horario;
     //Datos del paciente
     public $documento, $paciente, $domicilio, $telefono, $fecha_nacimiento, $comentarios, $obra_social_id;
 
-    protected $listeners = ['upload:finished' => 'guardar_orden'];
+    protected $listeners = ['upload:finished' => 'almacenar_orden_en_disco'];
 
     public function mount()
     {
@@ -348,18 +349,14 @@ class Generales extends Component
     public function almacenar_orden_en_disco()
     {
         $this->validate([
-            'orden' => 'image|max:1048', // 1MB Max
+            'orden' => 'required',
         ]);
 
-        $this->orden->store('local');
-    }
+        $this->url = $this->orden->store('ordenes'); 
 
-    public function guardar_orden()
-    {
-        $url = $this->orden->temporaryUrl();
         $guardo_orden = ordenes_turno::create([
             'id_turno' => $this->id_turno,
-            'url' => $url
+            'url' => $this->url
         ]);
 
         if ($guardo_orden) {
@@ -370,6 +367,7 @@ class Generales extends Component
 
     public function elimino_orden($id_turno, $url)
     {
+        File::delete($url);
         $elimino_orden = ordenes_turno::where('id_turno', $id_turno)->where('url', $url)->delete();
         $this->ordenes = ordenes_turno::where('id_turno', $this->id_turno)->get();
     }

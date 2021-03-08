@@ -17,6 +17,7 @@ use App\Models\ordenes_turno;
 use App\Models\usuario_fechs;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
+use File;
 
 class Dengue extends Component
 {
@@ -44,14 +45,14 @@ class Dengue extends Component
     public $profe, $sin_cargo, $plan_sumar;
     public $ioscor, $demanda, $resto;
     //Orden
-    public $orden;
+    public $orden, $url;
     public $ordenes = [];
     //Horarios
     public $id_horario;
     //Datos del paciente
     public $documento, $paciente, $domicilio, $telefono, $fecha_nacimiento, $comentarios, $obra_social_id;
 
-    protected $listeners = ['upload:finished' => 'guardar_orden'];
+    protected $listeners = ['upload:finished' => 'almacenar_orden_en_disco'];
 
     public function mount()
     {
@@ -328,18 +329,14 @@ class Dengue extends Component
     public function almacenar_orden_en_disco()
     {
         $this->validate([
-            'orden' => 'image|max:1048', // 1MB Max
+            'orden' => 'required',
         ]);
 
-        $this->orden->store('public');
-    }
+        $this->url = $this->orden->store('ordenes'); 
 
-    public function guardar_orden()
-    {
-        $url = $this->orden->temporaryUrl();
         $guardo_orden = ordenes_turno::create([
             'id_turno' => $this->id_turno,
-            'url' => $url
+            'url' => $this->url
         ]);
 
         if ($guardo_orden) {
@@ -350,19 +347,9 @@ class Dengue extends Component
 
     public function elimino_orden($id_turno, $url)
     {
+        File::delete($url);
         $elimino_orden = ordenes_turno::where('id_turno', $id_turno)->where('url', $url)->delete();
         $this->ordenes = ordenes_turno::where('id_turno', $this->id_turno)->get();
-    }
-
-    public function guardo_orden()
-    {
-        $this->validate([
-            'orden' => 'image|max:2048', // 2MB Max
-        ]);
-
-        $this->orden->store('ordenes', 'public');
-
-        $this->muestro_practicas();
     }
 
     public function guardo_turno()

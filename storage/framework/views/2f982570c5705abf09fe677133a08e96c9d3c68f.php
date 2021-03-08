@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <!-- CSRF Token -->
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -37,10 +37,12 @@
   <script src="plugins/select2/js/select2.full.min.js"></script>
   <script src="plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
   <script src="plugins/filterizr/jquery.filterizr.min.js"></script>
-  @livewireStyles
+  <?php echo \Livewire\Livewire::styles(); ?>
+
   </head>
   <body>
   <script src = "https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
-  @livewireScripts
+  <?php echo \Livewire\Livewire::scripts(); ?>
+
   </body>
-</html>
+</html><?php /**PATH D:\Proyectos\Turnero\resources\views/plantilla.blade.php ENDPATH**/ ?>
