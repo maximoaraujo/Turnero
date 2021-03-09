@@ -5,6 +5,8 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\horario;
 use App\Models\pacientes_turno;
+use App\Models\turnos_practica;
+use App\Models\ordenes_turno;
 use App\Models\paciente;
 use App\Models\config;
 use App\Models\valores_turno;
@@ -278,12 +280,16 @@ class VerTurnos extends Component
     }
 
     //Eliminamos el turno seleccionado
-    public function eliminar_turno($documento, $id_horario, $fecha)
+    public function eliminar_turno($id_turno, $documento, $id_horario, $fecha)
     {
         $elimino_turno = pacientes_turno::where('documento', $documento)->where('id_horario', $id_horario)
         ->where('fecha', $fecha)->delete();
 
-        if($elimino_turno){
+        $elimino_practicas = turnos_practica::where('id_turno', $id_turno)->delete();
+
+        $elimino_ordenes = ordenes_turno::where('id_turno', $id_turno)->delete();
+
+        if(($elimino_turno)&&($elimino_practicas)&&($elimino_ordenes)){
            $this->cargo_horarios();
            $this->cargo_generales();
            $this->generales_x_horario();
