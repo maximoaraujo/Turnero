@@ -249,11 +249,19 @@ unset($__errorArgs, $__bag); ?>
           </div>
           <div class="card card-body">
             <div class = "form-group">
-              <form wire:submit="almacenar_orden_en_disco">
+              <form>
                 <div class="custom-input-file col-md-12 col-sm-12 col-xs-12">
                 <input type="file" id="orden_medica" class="input-file" wire:model='orden'>
                 Orden médica
                 </div>
+                <?php $__errorArgs = ['orden'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <span class="error"><?php echo e($message); ?></span> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
               </form>
               <hr>
               <div class = "table-responsive">

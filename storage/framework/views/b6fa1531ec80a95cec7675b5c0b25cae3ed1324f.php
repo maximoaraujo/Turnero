@@ -34,8 +34,9 @@
   <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- Select2 -->
-  <script src="../../plugins/select2/js/select2.full.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css">
+  <script src="plugins/select2/js/select2.full.min.js"></script>
+  <script src="plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+  <script src="plugins/filterizr/jquery.filterizr.min.js"></script>
   <?php echo \Livewire\Livewire::styles(); ?>
 
   </head>
