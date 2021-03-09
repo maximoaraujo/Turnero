@@ -42,6 +42,8 @@
     </tr>
     </thead>
     <tbody>
+    <?php echo e($asistio); ?>
+
     <?php $__currentLoopData = $turnos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $turno): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <tr>
             <?php if($turno->situacion == 'garage'): ?>
@@ -56,7 +58,7 @@
                 <?php elseif(($turno->asistio == 'no')&&($turno->orden != '')): ?>
                 <td style = 'text-align: center;'><button wire:click='asistencia("<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "outline:none;background-color:transparent;border:none;"><i class="far fa-square"></i></button></td>   
                 <?php elseif(($turno->asistio == 'si')&&($turno->orden != '')): ?>
-                <td style = 'text-align: center;'><input type='checkbox' checked></td>
+                <td style = 'text-align: center;'><input type='checkbox' wire:click='asistencia("<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' checked></td>
                 <?php endif; ?>
             <?php elseif($turno->situacion == 'paso'): ?>
                 <td hidden><?php echo e($turno->id_horario); ?></td>
@@ -70,7 +72,7 @@
                 <?php elseif(($turno->asistio == 'no')&&($turno->orden != '')): ?>
                 <td style = 'text-align: center;'><button wire:click='asistencia("<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "outline:none;background-color:transparent;border:none;"><i class="far fa-square"></i></button></td>   
                 <?php elseif(($turno->asistio == 'si')&&($turno->orden != '')): ?>
-                <td style = 'text-align: center;'><input type='checkbox' checked></td>
+                <td style = 'text-align: center;'><input type='checkbox' wire:click='asistencia("<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' checked></td>
                 <?php endif; ?>
                 <?php if($turno->situacion != 'garage'): ?>
                 <td style = "width:5px;"><button wire:click='garage("<?php echo e($turno->letra); ?>", "<?php echo e($turno->id); ?>", "<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "outline:none;text-align:center;background-color:transparent;border:none;"><img src = "iconos/silla-de-ruedas.png" /></button></td>
@@ -87,7 +89,7 @@
                 <?php elseif(($turno->asistio == 'no')&&($turno->orden != '')): ?>
                 <td style = 'text-align: center;'><button wire:click='asistencia("<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "outline:none;background-color:transparent;border:none;"><i class="far fa-square"></i></button></td>   
                 <?php elseif(($turno->asistio == 'si')&&($turno->orden != '')): ?>
-                <td style = 'text-align: center;'><input type='checkbox' checked></td>
+                <td style = 'text-align: center;'><input type='checkbox' wire:click='asistencia("<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' checked></td>
                 <?php endif; ?>
                 <?php if($turno->situacion != 'garage'): ?>
                 <td style = "width:5px;"><button wire:click='garage("<?php echo e($turno->letra); ?>", "<?php echo e($turno->id); ?>", "<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "outline:none;text-align:center;background-color:transparent;border:none;"><img src = "iconos/silla-de-ruedas.png" /></button></td>
