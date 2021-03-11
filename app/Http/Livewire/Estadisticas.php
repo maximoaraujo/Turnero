@@ -118,7 +118,7 @@ class Estadisticas extends Component
         $this->generales_11 = pacientes_turno::where('id_horario', 11)
         ->whereBetween('fecha', [$this->fecha_desde, $this->fecha_hasta])
         ->get()->count();
-
+ 
         $this->asistidos_11 = pacientes_turno::where('id_horario', 11)
         ->where('asistio', 'si')
         ->whereBetween('fecha', [$this->fecha_desde, $this->fecha_hasta])
