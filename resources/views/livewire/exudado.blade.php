@@ -94,7 +94,7 @@
         <div class="card-body">
           <div class="row">
             <div class = "col-sm-4">
-                <input type = "number" class = "form-control" wire:model='documento' wire:keydown.enter='buscoPaciente' placeholder="Documento">
+                <input type = "number" class = "form-control" wire:model.defer='documento' wire:keydown.enter='buscoPaciente' placeholder="Documento">
 				        @error('documento') <span class ="badge badge-danger">{{ $message }}</span> @enderror
             </div> 
 			      <div class = "col-sm-2">
@@ -116,26 +116,26 @@
           </div>
           <div class = "row">
             <div class = "col-sm-12">
-                <input type = "text" class = "form-control" wire:model='paciente' placeholder="Paciente">
+                <input type = "text" class = "form-control" wire:model.defer='paciente' placeholder="Paciente">
 			          @error('paciente') <span class ="badge badge-danger">{{ $message }}</span> @enderror
             </div>
         </div>
         <div class = "row mt-2">
             <div class = "col-sm-12">
-                <input type = "text" class = "form-control" wire:model='domicilio' placeholder="Domicilio">
+                <input type = "text" class = "form-control" wire:model.defer='domicilio' placeholder="Domicilio">
             </div>
         </div>
         <div class = "row mt-2">
             <div class = "col-sm-6">
-                <input type = "text" class = "form-control" wire:model='telefono' placeholder="Teléfono">
+                <input type = "text" class = "form-control" wire:model.defer='telefono' placeholder="Teléfono">
             </div>
             <div class = "col-sm-6">
-                <input type = "date" class = "form-control" wire:model='fecha_nacimiento' placeholder="Fecha">
+                <input type = "date" class = "form-control" wire:model.defer='fecha_nacimiento' placeholder="Fecha">
             </div>
         </div>
         <div class = "row mt-2">
             <div class = "col-sm-12">
-                <input type = "text" class = "form-control" wire:model='comentarios' placeholder="Comentarios">
+                <input type = "text" class = "form-control" wire:model.defer='comentarios' placeholder="Comentarios">
             </div>
         </div>
         

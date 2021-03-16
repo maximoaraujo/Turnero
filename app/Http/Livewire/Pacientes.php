@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Pacientes extends Component
 {
-    public $paciente, $documento, $domicilio, $telefono, $obra_social, $obra_social_id;
+    public $idPaciente, $paciente, $documento, $domicilio, $telefono, $obra_social, $obra_social_id;
     public $pacientes = [];
     public $picked, $picked_;
     public $movimientos_paciente = [];
@@ -43,6 +43,16 @@ class Pacientes extends Component
         $this->picked_ = true;
     }
 
+    public function buscarDNI()
+    {
+        $this->idPaciente = Paciente::where('documento', $this->documento)->get()->pluck('id')->first();
+        $this->paciente = Paciente::where('documento', $this->documento)->get()->pluck('paciente')->first();
+        $this->domicilio = Paciente::where('documento', $this->documento)->get()->pluck('domicilio')->first();
+        $this->telefono = Paciente::where('documento', $this->documento)->get()->pluck('telefono')->first();
+        $this->obra_social_id = Paciente::where('documento', $this->documento)->get()->pluck('obra_social_id')->first();
+        $this->obra_social = obras_socials::where('id', $this->obra_social_id)->get()->pluck('obra_social')->first();
+    }
+
     //Mostramos los resultados 
     public function buscarPaciente()
     {
@@ -64,6 +74,7 @@ class Pacientes extends Component
     //Buscamos al prestador en la BD
     public function buscar_paciente()
     {
+        $this->idPaciente = Paciente::where('paciente', $this->paciente)->get()->pluck('id')->first();
         $this->documento = Paciente::where('paciente', $this->paciente)->get()->pluck('documento')->first();
         $this->domicilio = Paciente::where('paciente', $this->paciente)->get()->pluck('domicilio')->first();
         $this->telefono = Paciente::where('paciente', $this->paciente)->get()->pluck('telefono')->first();
@@ -101,7 +112,8 @@ class Pacientes extends Component
 
     public function actualizar_datos()
     {
-        $actualizo = Paciente::where('documento', $this->documento)->update([
+        $actualizo = Paciente::where('id', $this->idPaciente)->update([
+            'documento' => $this->documento,
             'paciente' => $this->paciente,
             'domicilio' => $this->domicilio,
             'telefono' => $this->telefono,
