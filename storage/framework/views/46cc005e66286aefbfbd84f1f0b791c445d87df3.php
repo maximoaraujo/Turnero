@@ -139,6 +139,15 @@
                 Turnos del día
               </p>
             </a>
+            </li>
+            <li class="nav-item">
+              <a href="/turnos-restantes6" class="nav-link">
+              <i class="nav-icon far fa-clock"></i>
+              <p>
+                Turnos restantes
+              </p>
+            </a>
+            </li>
             <li class="nav-item">
               <a href="/planilla?f=<?php echo $fecha = date('Y-m-d'); ?>" class="nav-link" target="_blank">
               <i class="nav-icon far fa-file-alt"></i>
