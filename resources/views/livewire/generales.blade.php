@@ -127,26 +127,26 @@
               </div>
               <div class = "row">
                 <div class = "col-sm-12">
-                    <input type = "text" class = "form-control" wire:model='paciente' placeholder="Paciente">
+                    <input type = "text" class = "form-control" wire:model.defer='paciente' placeholder="Paciente">
                     @error('paciente') <span class ="badge badge-danger">{{ $message }}</span> @enderror
                 </div>
             </div>
             <div class = "row mt-2">
                 <div class = "col-sm-12">
-                    <input type = "text" class = "form-control" wire:model='domicilio' placeholder="Domicilio">
+                    <input type = "text" class = "form-control" wire:model.defer='domicilio' placeholder="Domicilio">
                 </div>
             </div>
             <div class = "row mt-2">
                 <div class = "col-sm-6">
-                    <input type = "text" class = "form-control" wire:model='telefono' placeholder="Teléfono">
+                    <input type = "text" class = "form-control" wire:model.defer='telefono' placeholder="Teléfono">
                 </div>
                 <div class = "col-sm-6">
-                    <input type = "date" class = "form-control" wire:model='fecha_nacimiento' placeholder="Fecha">
+                    <input type = "date" class = "form-control" wire:model.defer='fecha_nacimiento' placeholder="Fecha">
                 </div>
             </div>
             <div class = "row mt-2">
                 <div class = "col-sm-12">
-                    <input type = "text" class = "form-control" wire:model='comentarios' placeholder="Comentarios">
+                    <input type = "text" class = "form-control" wire:model.defer='comentarios' placeholder="Comentarios">
                 </div>
             </div>
           </div>

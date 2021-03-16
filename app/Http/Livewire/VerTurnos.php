@@ -289,15 +289,12 @@ class VerTurnos extends Component
 
         $elimino_ordenes = ordenes_turno::where('id_turno', $id_turno)->delete();
 
-        if(($elimino_turno)&&($elimino_practicas)&&($elimino_ordenes)){
-           $this->cargo_horarios();
-           $this->cargo_generales();
-           $this->generales_x_horario();
-           $this->cargo_dengue();
-           $this->cargo_espermograma();
-           $this->cargo_exudado();
-           $this->cargo_citogenetica();
-        }
+        $this->generales_x_horario();
+        $this->cargo_dengue();
+        $this->cargo_espermograma();
+        $this->cargo_exudado();
+        $this->cargo_citogenetica();
+
     }
 
 }
