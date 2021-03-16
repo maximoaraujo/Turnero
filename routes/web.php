@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TurnosRestantesController;
 use App\Http\Controllers\ControladorTurnos;
 
 /*
@@ -44,6 +45,7 @@ Route::get('/planilla', [HomeController::class, 'planilla']);
 //Ver turnos
 Route::get('/ver-turnos', [HomeController::class, 'ver_turnos']);
 Route::get('/vista-turnos', [HomeController::class, 'vista_turnos']);
+Route::get('/turnos-restantes{id_horario}', [TurnosRestantesController::class, 'index']);
 Route::get('/orden_turno{id_turno}', [HomeController::class, 'orden_turno']);
 
 //Pacientes
