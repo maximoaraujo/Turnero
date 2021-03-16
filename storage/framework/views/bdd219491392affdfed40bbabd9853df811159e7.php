@@ -16,63 +16,105 @@
           <small><span><strong><?php echo e($asistidos_6); ?></strong></span>/<span></span><?php echo e($generales_6); ?></small>
           </div>
           <div class="progress md-progress">
-          <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo ($asistidos_6 / $generales_6)*100; ?>%" aria-valuenow="55"
+          <?php if($generales_6 == ''): ?>
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_6 / 1)*100; ?>%" aria-valuenow="100"
               aria-valuemin="0" aria-valuemax="100"></div>
           </div>
+          <?php else: ?>
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_6 / $generales_6)*100; ?>%" aria-valuenow="100"
+              aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <?php endif; ?>
           <div class="d-flex justify-content-between">
           <small class="text-muted">06:50</small>
           <small><span><strong><?php echo e($asistidos_1); ?></strong></span>/<span></span><?php echo e($generales_1); ?></small>
           </div>
           <div class="progress md-progress">
-          <div class="progress-bar bg-info" role="progressbar" style="width: <?php echo ($asistidos_1 / $generales_1)*100; ?>%" aria-valuenow="80"
+          <?php if($generales_1 == ''): ?>
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_1 / 1)*100; ?>%" aria-valuenow="100"
               aria-valuemin="0" aria-valuemax="100"></div>
           </div>
+          <?php else: ?>
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_1 / $generales_1)*100; ?>%" aria-valuenow="100"
+              aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <?php endif; ?>
           <div class="d-flex justify-content-between">
           <small class="text-muted">07:10</small>
           <small><span><strong><?php echo e($asistidos_2); ?></strong></span>/<span></span><?php echo e($generales_2); ?></small>
           </div>
           <div class="progress md-progress">
-          <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo ($asistidos_2 / $generales_2)*100; ?>%" aria-valuenow="45"
+          <?php if($generales_2 == ''): ?>
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_2 / 1)*100; ?>%" aria-valuenow="100"
               aria-valuemin="0" aria-valuemax="100"></div>
           </div>
+          <?php else: ?>
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_2 / $generales_2)*100; ?>%" aria-valuenow="100"
+              aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <?php endif; ?>
           <div class="d-flex justify-content-between">
           <small class="text-muted">07:30</small>
           <small><span><strong><?php echo e($asistidos_3); ?></strong></span>/<span></span><?php echo e($generales_3); ?></small>
           </div>
           <div class="progress md-progress">
-          <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo ($asistidos_3 / $generales_3)*100; ?>%" aria-valuenow="100"
+          <?php if($generales_3 == ''): ?>
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_3 / 1)*100; ?>%" aria-valuenow="100"
               aria-valuemin="0" aria-valuemax="100"></div>
           </div>
+          <?php else: ?>
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_3 / $generales_3)*100; ?>%" aria-valuenow="100"
+              aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <?php endif; ?>
           <div class="d-flex justify-content-between">
           <small class="text-muted">07:50</small>
           <small><span><strong><?php echo e($asistidos_4); ?></strong></span>/<span></span><?php echo e($generales_4); ?></small>
           </div>
           <div class="progress md-progress">
-          <div class="progress-bar bg-purple" role="progressbar" style="width: <?php echo ($asistidos_4 / $generales_4)*100; ?>%" aria-valuenow="100"
+          <?php if($generales_4 == ''): ?>
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_4 / 1)*100; ?>%" aria-valuenow="100"
               aria-valuemin="0" aria-valuemax="100"></div>
-          </div> 
+          </div>
+          <?php else: ?>
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_4 / $generales_8)*100; ?>%" aria-valuenow="100"
+              aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <?php endif; ?>
           <div class="d-flex justify-content-between">
           <small class="text-muted">08:10</small>
           <small><span><strong><?php echo e($asistidos_5); ?></strong></span>/<span></span><?php echo e($generales_5); ?></small>
           </div>
           <div class="progress md-progress">
+          <?php if($generales_5 == ''): ?>
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_5 / 1)*100; ?>%" aria-valuenow="100"
+              aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <?php else: ?>
           <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_5 / $generales_5)*100; ?>%" aria-valuenow="100"
               aria-valuemin="0" aria-valuemax="100"></div>
           </div>
+          <?php endif; ?>
           <div class="d-flex justify-content-between">
           <small class="text-muted">08:30</small>
           <small><span><strong><?php echo e($asistidos_7); ?></strong></span>/<span></span><?php echo e($generales_7); ?></small>
           </div>
           <div class="progress md-progress">
+          <?php if($generales_7 == ''): ?>
+          <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_7 / 1)*100; ?>%" aria-valuenow="100"
+              aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <?php else: ?>
           <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_7 / $generales_7)*100; ?>%" aria-valuenow="100"
               aria-valuemin="0" aria-valuemax="100"></div>
           </div>
+          <?php endif; ?>
           <div class="d-flex justify-content-between">
           <small class="text-muted">08:50</small>
           <small><span><strong><?php echo e($asistidos_8); ?></strong></span>/<span></span><?php echo e($generales_8); ?></small>
           </div>
           <div class="progress md-progress">
-          <?php if($generales_9 == ''): ?>
+          <?php if($generales_8 == ''): ?>
           <div class="progress-bar bg-blue" role="progressbar" style="width: <?php echo ($asistidos_8 / 1)*100; ?>%" aria-valuenow="100"
               aria-valuemin="0" aria-valuemax="100"></div>
           </div>
