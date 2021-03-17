@@ -34,10 +34,10 @@
                 <span class="text">{{$paciente->paciente}}</span>
                 @if($paciente->asistio == 'si')
                 <?php $minutosDiff=$paciente->updated_at->diffInMinutes($fechaHora); ?>
-                <small class="badge badge-danger"><i class="far fa-clock"> <?php echo $minutosDiff; ?></i></small>
+                <small class="badge badge-danger"><i class="far fa-clock"></i></small>
                 @elseif((($paciente->situacion == 'paso')||($paciente->situacion == 'garage'))&&($paciente->asistio == 'no'))
                 <?php $minutosDiff=$paciente->updated_at->diffInMinutes($fechaHora); ?>
-                <small class="badge badge-success"><i class="far fa-clock"> <?php echo $minutosDiff; ?></i></small>
+                <small class="badge badge-success"><i class="far fa-clock"></i></small>
                 @endif
             </li>
         @endforeach    
