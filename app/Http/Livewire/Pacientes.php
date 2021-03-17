@@ -51,6 +51,10 @@ class Pacientes extends Component
         $this->telefono = Paciente::where('documento', $this->documento)->get()->pluck('telefono')->first();
         $this->obra_social_id = Paciente::where('documento', $this->documento)->get()->pluck('obra_social_id')->first();
         $this->obra_social = obras_socials::where('id', $this->obra_social_id)->get()->pluck('obra_social')->first();
+    
+        if ($this->idPaciente != "") {
+            $this->movimientos_paciente();
+        } 
     }
 
     //Mostramos los resultados 
@@ -82,7 +86,7 @@ class Pacientes extends Component
         $this->obra_social = obras_socials::where('id', $this->obra_social_id)->get()->pluck('obra_social')->first();
             
         //Si encontramos al paciente mostramos sus movimientos
-        if ($this->documento != "") {
+        if ($this->idPaciente != "") {
             $this->movimientos_paciente();
         } 
     }
