@@ -23,6 +23,10 @@
             </div>
             <div class="card-body">
             <div class="row">
+            <div class="col-2">
+                <input type="number" class="form-control" wire:model='documento'
+                wire:keydown.enter="buscarDNI" placeholder="Documento">
+            </div>
             <div class = "col-sm-3">
                 <input wire:model="paciente" 
                 wire:keydown.enter="buscarPaciente" type="text" class="form-control" placeholder="Paciente" autocomplete="off"> 
@@ -42,14 +46,11 @@
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
-            <div class="col-2">
-                <input type="text" class="form-control" wire:model='documento' readonly>
-            </div>
             <div class="col-3">
-                <input type="text" class="form-control" wire:model='domicilio'>
+                <input type="text" class="form-control" wire:model='domicilio' placeholder="Domicilio">
             </div>
             <div class="col-2">
-                <input type="text" class="form-control" wire:model='telefono'>
+                <input type="text" class="form-control" wire:model='telefono' placeholder="Teléfono">
             </div>
             <div class="col-2">
             <input wire:model.debounce.500ms="obra_social" 
