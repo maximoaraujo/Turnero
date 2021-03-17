@@ -24,6 +24,8 @@
         <ul class="todo-list ui-sortable" data-widget="todo-list">
         <?php $__currentLoopData = $pacientes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $paciente): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <li>
+            <?php echo e($fechaHora); ?>
+
                 <div class="icheck-primary d-inline ml-2">
                     <?php if($paciente->asistio == 'si'): ?>
                     <input type="checkbox" id="todoCheck<?php echo e($paciente->id_turno); ?>" checked disabled>

@@ -14,7 +14,7 @@ class TurnosRestantesController extends Controller
     {
         $fecha = date('Y-m-d');
 
-        $fechaHora = date('Y-m-d H:m:s');
+        $fechaHora = Carbon::now();
 
         $horarios = horario::join('horarios_estudios', 'horarios.id_horario', 'horarios_estudios.id_horario')
         ->select('horarios.id_horario', 'horarios.horario')
