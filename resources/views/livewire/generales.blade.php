@@ -174,7 +174,7 @@
                           </a>
                       </div>
                       <hr>
-                      @endforeach
+                      @endforeach    
                   </div>
                 @endif
               @endif  
@@ -190,6 +190,7 @@
               @if(count($practicas)>0)
                 @if(!$picked_)
                   <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
+                      <a href = "#" wire:click='cierroBusqueda' style = "float:right;"><i class="fas fa-times-circle"></i></a>
                       @foreach($practicas as $practica)
                       <div style="cursor: pointer;color:black;">
                           <a wire:click="asignarPractica('{{ $practica->practica }}')">
