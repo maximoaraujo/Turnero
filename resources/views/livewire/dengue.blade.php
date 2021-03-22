@@ -164,6 +164,7 @@
               @if(count($obras_sociales)>0)
                 @if(!$picked)
                   <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
+                  <a href = "#" wire:click='cierroBusqueda' style = "float:right;"><i class="fas fa-times-circle"></i></a>
                       @foreach($obras_sociales as $obra_social)
                       <div style="cursor: pointer;color:black;">
                           <a wire:click="asignarObrasocial('{{ $obra_social->obra_social }}')">

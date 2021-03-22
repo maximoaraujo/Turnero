@@ -297,7 +297,6 @@ class Generales extends Component
     public function asignarPractica($practica)
     {        
         $this->practica = $practica;        
-        $this->picked_ = true;
         $this->asignoCodigo();
     }
 
@@ -310,6 +309,12 @@ class Generales extends Component
             $this->guardoPractica();
             $this->reset('id_practica', 'codigo_practica', 'practica');
         }
+    }
+
+    public function cierroBusqueda()
+    {
+        $this->picked_ = true;
+        $this->muestro_practicas();
     }
 
     //Guardamos las prácticas
