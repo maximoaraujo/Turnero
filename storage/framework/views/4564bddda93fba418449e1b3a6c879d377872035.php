@@ -198,6 +198,7 @@ unset($__errorArgs, $__bag); ?>
               <?php if(count($practicas)>0): ?>
                 <?php if(!$picked_): ?>
                   <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
+                  <a href = "#" wire:click='cierroBusqueda' style = "float:right;"><i class="fas fa-times-circle"></i></a>
                       <?php $__currentLoopData = $practicas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $practica): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                       <div style="cursor: pointer;color:black;">
                           <a wire:click="asignarPractica('<?php echo e($practica->practica); ?>')">

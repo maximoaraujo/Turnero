@@ -185,6 +185,7 @@ unset($__errorArgs, $__bag); ?>
               <?php if(count($obras_sociales)>0): ?>
                 <?php if(!$picked): ?>
                   <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
+                  <a href = "#" wire:click='cierroBusqueda' style = "float:right;"><i class="fas fa-times-circle"></i></a>
                       <?php $__currentLoopData = $obras_sociales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $obra_social): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                       <div style="cursor: pointer;color:black;">
                           <a wire:click="asignarObrasocial('<?php echo e($obra_social->obra_social); ?>')">

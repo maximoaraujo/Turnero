@@ -1,4 +1,4 @@
-<?php if((date('l', strtotime($fecha_nuevo_turno)) == 'Wednesday')||(date('l', strtotime($fecha_nuevo_turno)) == 'Friday')): ?>
+<?php if((date('l', strtotime($fecha)) == 'Tuesday') || (date('l', strtotime($fecha)) == 'Wednesday') || (date('l', strtotime($fecha)) == 'Thursday') || (date('l', strtotime($fecha)) == 'Friday')): ?>
 <div class = "row" style = "margin-top:20px;">
 <?php $__currentLoopData = $horarios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $horario): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 <div class="col-md-3 col-sm-4 col-12">
@@ -15,7 +15,7 @@
         <div class="progress">
             <div class="progress-bar" style="width: <?php echo ($cantidad * 10); ?>%"></div>
         </div>
-        <?php if($cantidad < $cantidad_turnos): ?>
+        <?php if(($cantidad < $cantidad_turnos)||(Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
         <span class="progress-description">
             <button type="button" class="btn btn-block btn-default btn-sm" wire:click='nuevo_turno("<?php echo e($horario->id_horario); ?>", "<?php echo e(Auth::user()->id); ?>", "P75")'>Asignar</button>
         </span>
