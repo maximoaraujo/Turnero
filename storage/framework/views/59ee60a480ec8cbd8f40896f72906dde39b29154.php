@@ -318,7 +318,4 @@ unset($__errorArgs, $__bag); ?>
     </div>
     <?php endif; ?>
     <!---->
-</div>
-
-
-<?php /**PATH D:\Proyectos\Turnero\resources\views/livewire/generales.blade.php ENDPATH**/ ?>
+</div><?php /**PATH D:\Proyectos\Turnero\resources\views/livewire/generales.blade.php ENDPATH**/ ?>
