@@ -134,7 +134,11 @@
                 <input type = "text" class = "form-control" wire:model='comentarios' placeholder="Comentarios">
             </div>
         </div>
-        
+        <div class = "row mt-2">
+          <div class = "col-sm-12">
+              <p style = "color:red;">Último turno: {{date('d-m-Y', strtotime($ultimo_turno))}}</p>
+          </div>
+        </div>
         </div>
       </div>
       </div>

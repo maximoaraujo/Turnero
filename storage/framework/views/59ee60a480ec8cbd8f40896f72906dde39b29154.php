@@ -100,7 +100,7 @@
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" wire:model='ley' id = "ley">
                 <label class="custom-control-label" for = "ley">Ley 26743</label>
-              </div>
+            </div>
           <?php endif; ?>
  
           <div class="row">
@@ -162,6 +162,37 @@ unset($__errorArgs, $__bag); ?>
                 <div class = "col-sm-12">
                     <input type = "text" class = "form-control" wire:model.defer='comentarios' placeholder="Comentarios">
                 </div>
+            </div>
+            <div class = "row mt-2">
+                <div class = "col-sm-12">
+                    <p style = "color:red;">Último turno: <?php echo e(date('d-m-Y', strtotime($ultimo_turno))); ?></p>
+                </div>
+            </div>
+            <div class = "row mt-2">
+              <div class = "row">
+              
+                <div class = "col-sm-4">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" wire:model='wtp' id = "wtp">
+                    <label class="custom-control-label" for = "wtp">WhatsApp</label>
+                  </div>
+                </div>
+
+                <div class = "col-sm-4">  
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" wire:model='correo' id = "correo">
+                    <label class="custom-control-label" for = "correo">Correo</label>
+                  </div>
+                </div>
+
+                <div class = "col-sm-4">  
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" wire:model='presencial' id = "presencial">
+                    <label class="custom-control-label" for = "presencial">Presencial</label>
+                  </div>
+                </div> 
+
+              </div>
             </div>
           </div>
         </div>
