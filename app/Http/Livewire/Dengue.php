@@ -39,6 +39,7 @@ class Dengue extends Component
     public $practicas = [];
     public $horarios = [];
     public $practicas_agregadas = [];
+    public $turnos_desde = [];
     //Buscadores
     public $obrasocial, $practica;
     public $cantidad_turnos, $cantidad_ioscor;
