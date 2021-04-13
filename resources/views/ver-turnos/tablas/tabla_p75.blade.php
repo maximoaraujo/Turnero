@@ -7,6 +7,7 @@
         <th scope="col" nowrap>Paciente</th>
         <th scope="col" nowrap>Documento</th>
         <th scope="col" nowrap>Domicilio</th>
+        <th scope="col" nowrap>Teléfono</th>
         <th scope="col" nowrap>O.S.</th>
         <th scope="col" nowrap>Asistió</th>
         <th scope="col"></th>
@@ -25,6 +26,7 @@
         <td nowrap>{{$turno_p75->paciente}}</td>
         <td nowrap>{{$turno_p75->documento}}</td>
         <td nowrap>{{$turno_p75->domicilio}}</td>
+        <td nowrap>{{$turno_p75->telefono}}</td>
         <td nowrap>{{$turno_p75->obra_social}}</td>
         @if ($turno_p75->asistio == 'si')
         <td style = 'text-align: center;'><input type='checkbox' checked></td>

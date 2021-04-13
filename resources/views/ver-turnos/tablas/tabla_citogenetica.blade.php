@@ -7,6 +7,7 @@
         <th scope="col" nowrap>Paciente</th>
         <th scope="col" nowrap>Documento</th>
         <th scope="col" nowrap>Domicilio</th>
+        <th scope="col" nowrap>Teléfono</th>
         <th scope="col" nowrap>O.S.</th>
         <th scope="col"></th>
         <th scope="col"></th>
@@ -28,6 +29,7 @@
         <td nowrap>{{$turno_citogenetica->paciente}}</td>
         <td nowrap>{{$turno_citogenetica->documento}}</td>
         <td nowrap>{{$turno_citogenetica->domicilio}}</td>
+        <td nowrap>{{$turno_citogenetica->telefono}}</td>
         <td nowrap>{{$turno_citogenetica->obra_social}}</td>
         <td><button wire:click='editar_datos("{{$turno_citogenetica->documento}}")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))

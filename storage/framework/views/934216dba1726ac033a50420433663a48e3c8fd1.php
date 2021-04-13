@@ -105,10 +105,8 @@
             </div>
             <div class="timeline-footer">
                 <a class="btn btn-primary btn-sm" href = "/comprobante_turno/<?php echo e($movimiento->id_turno); ?>" target = "_blank">Re-imprimir</a>
-                <?php if($movimiento->asistio == 'no'): ?>
                 <a class="btn btn-danger btn-sm" wire:click='editar_turno("<?php echo e($movimiento->id_turno); ?>", "<?php echo e($movimiento->fecha); ?>", "<?php echo e($movimiento->horario); ?>", "<?php echo e($movimiento->id_horario); ?>", "<?php echo e($movimiento->para); ?>")'>Re-programar</a>
                 <a class="btn btn-info btn-sm" wire:click='ver_practicas("<?php echo e($movimiento->id_turno); ?>", "<?php echo e($movimiento->fecha); ?>", "<?php echo e($movimiento->horario); ?>", "<?php echo e($paciente); ?>")'>Prácticas asociadas</a>
-                <?php endif; ?>
             </div>
         </div>
     </div>

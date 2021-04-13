@@ -14,6 +14,7 @@ use App\Models\practica;
 use App\Models\turnos_practica;
 use App\Models\ordenes_turno;
 use App\Models\usuario_fechs;
+use App\Models\Turnodesds;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use File;
@@ -49,6 +50,7 @@ class Espermograma extends Component
     public $id_horario;
     //Datos del paciente
     public $documento, $paciente, $domicilio, $telefono, $fecha_nacimiento, $comentarios, $obra_social_id, $ultimo_turno;
+    public $desde_id;
 
     protected $listeners = ['upload:finished' => 'almacenar_orden_en_disco'];
 
@@ -62,6 +64,8 @@ class Espermograma extends Component
         $this->horarios();
         $this->para = 'espermograma'; 
         $this->encontrado = "";
+        $this->turnos_desde = Turnodesds::get();
+        $this->desde_id = 1;
     }
 
     public function usuario_fecha()

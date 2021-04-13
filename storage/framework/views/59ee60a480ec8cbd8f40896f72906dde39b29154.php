@@ -170,28 +170,17 @@ unset($__errorArgs, $__bag); ?>
             </div>
             <div class = "row mt-2">
               <div class = "row">
-              
+                <?php $__currentLoopData = $turnos_desde; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $turno_desde): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class = "col-sm-4">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" wire:model='wtp' id = "wtp">
-                    <label class="custom-control-label" for = "wtp">WhatsApp</label>
-                  </div>
+                <div class="form-check">
+                  <input class="form-check-input" value = "<?php echo e($turno_desde->id); ?>" wire:model='desde_id' type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    <?php echo e($turno_desde->desde); ?>
+
+                  </label>
                 </div>
-
-                <div class = "col-sm-4">  
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" wire:model='correo' id = "correo">
-                    <label class="custom-control-label" for = "correo">Correo</label>
-                  </div>
                 </div>
-
-                <div class = "col-sm-4">  
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" wire:model='presencial' id = "presencial">
-                    <label class="custom-control-label" for = "presencial">Presencial</label>
-                  </div>
-                </div> 
-
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </div>
             </div>
           </div>
@@ -208,7 +197,7 @@ unset($__errorArgs, $__bag); ?>
             <div class = "col-sm-12">
             <input wire:model.debounce.500ms="obrasocial" 
             wire:keydown="buscarObrasocial" type="text" class="form-control" placeholder="Obra social" autocomplete="off"> 
-			      <?php $__errorArgs = ['obrasocial'];
+			<?php $__errorArgs = ['obrasocial'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -216,21 +205,21 @@ $message = $__bag->first($__errorArgs[0]); ?> <span class ="badge badge-danger">
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-              <?php if(count($obras_sociales)>0): ?>
-                <?php if(!$picked): ?>
-                  <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
-                      <?php $__currentLoopData = $obras_sociales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $obra_social): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                      <div style="cursor: pointer;color:black;">
-                          <a wire:click="asignarObrasocial('<?php echo e($obra_social->obra_social); ?>')">
-                              <?php echo e($obra_social->obra_social); ?>
+            <?php if(count($obras_sociales)>0): ?>
+            <?php if(!$picked): ?>
+                <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
+                    <?php $__currentLoopData = $obras_sociales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $obra_social): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div style="cursor: pointer;color:black;">
+                        <a wire:click="asignarObrasocial('<?php echo e($obra_social->obra_social); ?>')">
+                            <?php echo e($obra_social->obra_social); ?>
 
-                          </a>
-                      </div>
-                      <hr>
-                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>    
-                  </div>
-                <?php endif; ?>
-              <?php endif; ?>  
+                        </a>
+                    </div>
+                    <hr>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>    
+                </div>
+            <?php endif; ?>
+            <?php endif; ?>  
             </div>
           </div>
           <div class = "row mt-2">

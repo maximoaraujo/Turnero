@@ -33,11 +33,11 @@
                 </div>
                 <span class="text">{{$paciente->paciente}}</span>
                 @if($paciente->asistio == 'si')
-                <?php $minutosDiff=$paciente->updated_at->diffInMinutes($fechaHora); ?>
-                <small class="badge badge-danger"><i class="far fa-clock"></i></small>
+                <?php $minutosDiff=$paciente->updated_at->diffInMinutes($paciente->entry_at); ?>
+                <small class="badge badge-danger"><i class="far fa-clock"></i> {{$minutosDiff}}</small>
                 @elseif((($paciente->situacion == 'paso')||($paciente->situacion == 'garage'))&&($paciente->asistio == 'no'))
-                <?php $minutosDiff=$paciente->updated_at->diffInMinutes($fechaHora); ?>
-                <small class="badge badge-success"><i class="far fa-clock"></i></small>
+                <?php $minutosDiff=$fechaHora->diffInMinutes($paciente->entry_at); ?>
+                <small class="badge badge-success"><i class="far fa-clock"></i> {{$minutosDiff}}</small>
                 @endif
             </li>
         @endforeach    

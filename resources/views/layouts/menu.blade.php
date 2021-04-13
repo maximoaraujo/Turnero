@@ -6,6 +6,12 @@
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/rechazo">{{ __('Rechazo turno') }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/consultas">{{ __('Consultas') }}</a>
+        </li>
         </ul> 
         <ul class="navbar-nav ml-auto">
             <div class="image mt-1 ml-3">
@@ -63,7 +69,7 @@
             <ul class="nav nav-treeview">
                 <li class="nav-item">
                 <a href="/dengue" class="nav-link">
-                  <i class="far fa-circle nav-icon" style = "color:black;"></i>
+                  <i class="far fa-circle nav-icon" style = "color:red;"></i>
                   <p>Dengue | SARS</p>
                 </a>
                 </li>
@@ -104,7 +110,7 @@
                 </a>
                 </li>
             </ul>
-            <ul class="nav nav-treeview">
+            <!--<ul class="nav nav-treeview">
                 <li class="nav-item">
                 <a href="/rechazo" class="nav-link">
                   <i class="far fa-circle nav-icon" style = "color:red;"></i>
@@ -112,23 +118,23 @@
                 </a>
                 </li>
             </ul>
-            </li>  
-            <li class="nav-item has-treeview menu-open">
+            </li>-->
+            <!--<li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-line"></i>
               <p>
                 Demanda
                 <i class="right fas fa-angle-left"></i>
               </p>
-            </a>
-            <ul class="nav nav-treeview">
+            </a>-->
+            <!--<ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="/consultas" class="nav-link">
                   <i class="far fa-circle nav-icon" style = "color:brown;"></i>
                   <p>Consulta general</p>
                 </a>
               </li>
-            </ul>
+            </ul>-->
             </li>
             <li class="nav-item">
               <a href="/vista-turnos" class="nav-link">
@@ -142,7 +148,7 @@
               <a href="/turnos-restantes6" class="nav-link">
               <i class="nav-icon far fa-clock"></i>
               <p>
-                Turnos restantes
+                Tiempos de espera
               </p>
             </a>
             </li>
