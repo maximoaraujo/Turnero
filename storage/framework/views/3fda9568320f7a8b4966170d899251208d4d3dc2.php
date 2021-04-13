@@ -152,6 +152,26 @@ unset($__errorArgs, $__bag); ?>
                 <input type = "text" class = "form-control" wire:model.defer='comentarios' placeholder="Comentarios">
             </div>
         </div>
+        <div class = "row mt-2">
+          <div class = "col-sm-12">
+              <p style = "color:red;">Último turno: <?php echo e(date('d-m-Y', strtotime($ultimo_turno))); ?></p>
+          </div>
+        </div>
+        <div class = "row mt-2">
+          <div class = "row">
+            <?php $__currentLoopData = $turnos_desde; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $turno_desde): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div class = "col-sm-4">
+            <div class="form-check">
+              <input class="form-check-input" value = "<?php echo e($turno_desde->id); ?>" wire:model='desde_id' type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+              <label class="form-check-label" for="flexRadioDefault1">
+                <?php echo e($turno_desde->desde); ?>
+
+              </label>
+            </div>
+            </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          </div>
+        </div>
         
         </div>
       </div>
