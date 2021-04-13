@@ -22,7 +22,7 @@ class TurnosRestantesController extends Controller
 
         $pacientes = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
         ->join('pacientes', 'pacientes.documento', 'pacientes_turnos.documento')
-        ->select('pacientes_turnos.id_horario', 'pacientes_turnos.id', 'pacientes.paciente', 'pacientes_turnos.situacion', 'pacientes_turnos.asistio', 'pacientes_turnos.updated_at')
+        ->select('pacientes_turnos.id_horario', 'pacientes_turnos.id', 'pacientes.paciente', 'pacientes_turnos.situacion', 'pacientes_turnos.asistio', 'pacientes_turnos.entry_at', 'pacientes_turnos.updated_at')
         ->where('pacientes_turnos.fecha', $fecha)->where(function ($query) {
             $query->where('pacientes_turnos.para', '=', 'general')
             ->orWhere('pacientes_turnos.para', '=', 'P75')
@@ -33,7 +33,7 @@ class TurnosRestantesController extends Controller
 
         $esperando = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
         ->join('pacientes', 'pacientes.documento', 'pacientes_turnos.documento')
-        ->select('pacientes_turnos.id_horario', 'pacientes_turnos.id', 'pacientes.paciente', 'pacientes_turnos.situacion', 'pacientes_turnos.asistio', 'pacientes_turnos.updated_at')
+        ->select('pacientes_turnos.id_horario', 'pacientes_turnos.id', 'pacientes.paciente', 'pacientes_turnos.situacion', 'pacientes_turnos.asistio', 'pacientes_turnos.entry_at', 'pacientes_turnos.updated_at')
         ->where('pacientes_turnos.fecha', $fecha)->where(function ($query) {
             $query->where('pacientes_turnos.para', '=', 'general')
             ->orWhere('pacientes_turnos.para', '=', 'P75')
@@ -49,7 +49,7 @@ class TurnosRestantesController extends Controller
 
         $atendidos = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
         ->join('pacientes', 'pacientes.documento', 'pacientes_turnos.documento')
-        ->select('pacientes_turnos.id_horario', 'pacientes_turnos.id', 'pacientes.paciente', 'pacientes_turnos.situacion', 'pacientes_turnos.asistio', 'pacientes_turnos.updated_at')
+        ->select('pacientes_turnos.id_horario', 'pacientes_turnos.id', 'pacientes.paciente', 'pacientes_turnos.situacion', 'pacientes_turnos.asistio', 'pacientes_turnos.entry_at', 'pacientes_turnos.updated_at')
         ->where('pacientes_turnos.fecha', $fecha)->where(function ($query) {
             $query->where('pacientes_turnos.para', '=', 'general')
             ->orWhere('pacientes_turnos.para', '=', 'P75')

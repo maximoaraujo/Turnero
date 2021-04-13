@@ -138,6 +138,25 @@
                 <input type = "text" class = "form-control" wire:model.defer='comentarios' placeholder="Comentarios">
             </div>
         </div>
+        <div class = "row mt-2">
+          <div class = "col-sm-12">
+              <p style = "color:red;">Último turno: {{date('d-m-Y', strtotime($ultimo_turno))}}</p>
+          </div>
+        </div>
+        <div class = "row mt-2">
+          <div class = "row">
+            @foreach($turnos_desde as $turno_desde)
+            <div class = "col-sm-4">
+            <div class="form-check">
+              <input class="form-check-input" value = "{{$turno_desde->id}}" wire:model='desde_id' type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+              <label class="form-check-label" for="flexRadioDefault1">
+                {{$turno_desde->desde}}
+              </label>
+            </div>
+            </div>
+            @endforeach
+          </div>
+        </div>
         
         </div>
       </div>

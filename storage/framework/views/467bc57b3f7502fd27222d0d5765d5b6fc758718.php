@@ -24,8 +24,6 @@
         <ul class="todo-list ui-sortable" data-widget="todo-list">
         <?php $__currentLoopData = $pacientes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $paciente): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <li>
-            <?php echo e($fechaHora); ?>
-
                 <div class="icheck-primary d-inline ml-2">
                     <?php if($paciente->asistio == 'si'): ?>
                     <input type="checkbox" id="todoCheck<?php echo e($paciente->id_turno); ?>" checked disabled>
@@ -35,11 +33,11 @@
                 </div>
                 <span class="text"><?php echo e($paciente->paciente); ?></span>
                 <?php if($paciente->asistio == 'si'): ?>
-                <?php $minutosDiff=$paciente->updated_at->diffInMinutes($fechaHora); ?>
-                <small class="badge badge-danger"><i class="far fa-clock"> <?php echo $minutosDiff; ?></i></small>
+                <?php $minutosDiff=$paciente->updated_at->diffInMinutes($paciente->entry_at); ?>
+                <small class="badge badge-danger"><i class="far fa-clock"></i> <?php echo e($minutosDiff); ?></small>
                 <?php elseif((($paciente->situacion == 'paso')||($paciente->situacion == 'garage'))&&($paciente->asistio == 'no')): ?>
-                <?php $minutosDiff=$paciente->updated_at->diffInMinutes($fechaHora); ?>
-                <small class="badge badge-success"><i class="far fa-clock"> <?php echo $minutosDiff; ?></i></small>
+                <?php $minutosDiff=$fechaHora->diffInMinutes($paciente->entry_at); ?>
+                <small class="badge badge-success"><i class="far fa-clock"></i> <?php echo e($minutosDiff); ?></small>
                 <?php endif; ?>
             </li>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>    

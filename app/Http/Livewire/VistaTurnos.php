@@ -7,6 +7,7 @@ use App\Models\horario;
 use App\Models\pacientes_turno;
 use App\Models\cantidad_turno;
 use DB;
+use Carbon\Carbon;
 
 class VistaTurnos extends Component
 {
@@ -83,6 +84,8 @@ class VistaTurnos extends Component
 
     public function ordeno($letra, $id, $id_horario, $documento)
     {
+        $fechaHora = Carbon::now();
+
         $cantidades = cantidad_turno::get()->pluck('cantidad_generales')->first();
  
         for ($i=1; $i < $cantidades + 1; $i++) { 
@@ -103,7 +106,8 @@ class VistaTurnos extends Component
         $actualizo = pacientes_turno::where('fecha', $this->fecha)->where('id_horario', $id_horario)
         ->where('letra', $letra)->where('id', $id)->where('documento', $documento)->update([
             'orden' => $this->orden,
-            'situacion' => 'paso'
+            'situacion' => 'paso',
+            'entry_at' => $fechaHora,
         ]);
 
         if ($actualizo) {

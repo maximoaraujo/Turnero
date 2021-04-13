@@ -15,6 +15,7 @@ use App\Models\practica;
 use App\Models\turnos_practica;
 use App\Models\ordenes_turno;
 use App\Models\usuario_fechs;
+use App\Models\Turnodesds;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use File;
@@ -50,7 +51,8 @@ class Dengue extends Component
     //Horarios
     public $id_horario;
     //Datos del paciente
-    public $documento, $paciente, $domicilio, $telefono, $fecha_nacimiento, $comentarios, $obra_social_id;
+    public $documento, $paciente, $domicilio, $telefono, $fecha_nacimiento, $comentarios, $obra_social_id, $ultimo_turno;
+    public $desde_id;
 
     protected $listeners = ['upload:finished' => 'almacenar_orden_en_disco'];
 
@@ -66,6 +68,8 @@ class Dengue extends Component
         $this->encontrado = "";
         $this->ley = '';
         $this->verifico_turnos();  
+        $this->turnos_desde = Turnodesds::get();
+        $this->desde_id = 1;
     }
 
     public function usuario_fecha()
@@ -178,6 +182,7 @@ class Dengue extends Component
         $this->obra_social_id = paciente::where('documento', $this->documento)->get()->pluck('obra_social_id')->first();
         $this->obrasocial = obras_socials::where('id', $this->obra_social_id)->get()->pluck('obra_social')->first();
         $this->nomenclador = obras_socials::where('id', $this->obra_social_id)->get()->pluck('nomenclador')->first();
+        $this->ultimo_turno = pacientes_turno::where('documento', $this->documento)->orderBy('fecha', 'DESC')->get()->pluck('fecha')->first();
         $this->genero_id_turno();
 
         if (empty($this->paciente)) {

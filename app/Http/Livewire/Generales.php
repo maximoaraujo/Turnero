@@ -15,6 +15,7 @@ use App\Models\practica;
 use App\Models\turnos_practica;
 use App\Models\ordenes_turno;
 use App\Models\usuario_fechs;
+use App\Models\Turnodesds;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
@@ -39,6 +40,7 @@ class Generales extends Component
     public $practicas = [];
     public $horarios = [];
     public $practicas_agregadas = [];
+    public $turnos_desde = [];
     //Buscadores
     public $obrasocial, $practica;
     public $cantidad_turnos, $cantidad_ioscor, $cantidad_resto, $cantidad_demanda;
@@ -51,7 +53,8 @@ class Generales extends Component
     //Horarios
     public $id_horario;
     //Datos del paciente
-    public $documento, $paciente, $domicilio, $telefono, $fecha_nacimiento, $comentarios, $obra_social_id;
+    public $documento, $paciente, $domicilio, $telefono, $fecha_nacimiento, $comentarios, $obra_social_id, $ultimo_turno;
+    public $desde_id;
 
     protected $listeners = ['upload:finished' => 'almacenar_orden_en_disco'];
 
@@ -66,6 +69,8 @@ class Generales extends Component
         $this->para = 'general';
         $this->encontrado = ""; 
         $this->verifico_turnos();  
+        $this->turnos_desde = Turnodesds::get();
+        $this->desde_id = 1;
     }
 
     public function usuario_fecha()
@@ -197,6 +202,7 @@ class Generales extends Component
         $this->obra_social_id = paciente::where('documento', $this->documento)->get()->pluck('obra_social_id')->first();
         $this->obrasocial = obras_socials::where('id', $this->obra_social_id)->get()->pluck('obra_social')->first();
         $this->nomenclador = obras_socials::where('id', $this->obra_social_id)->get()->pluck('nomenclador')->first();
+        $this->ultimo_turno = pacientes_turno::where('documento', $this->documento)->orderBy('fecha', 'DESC')->get()->pluck('fecha')->first();
         $this->genero_id_turno();
 
         if (empty($this->paciente)) {
@@ -455,7 +461,7 @@ class Generales extends Component
         } else {
             $this->comentarios = $this->comentarios. '- Ley 26743';
         }
-       
+
         $cantidad = paciente::where('documento', $this->documento)->get()->count();
 
         if (empty($cantidad)) {
@@ -480,6 +486,7 @@ class Generales extends Component
                 'para' => $this->para,
                 'asistio' => 'no',
                 'comentarios' => $this->comentarios,
+                'desde_id' => $this->desde_id
             ]);
 
             if (($guardo_paciente)&&($guardo_turno)) {
@@ -508,6 +515,7 @@ class Generales extends Component
                 'para' => $this->para,
                 'asistio' => 'no',
                 'comentarios' => $this->comentarios,
+                'desde_id' => $this->desde_id
             ]);
 
             if (($actualizo_paciente)&&($guardo_turno)) {
@@ -524,3 +532,4 @@ class Generales extends Component
     }
 
 }
+

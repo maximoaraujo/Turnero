@@ -100,7 +100,7 @@
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" wire:model='ley' id = "ley">
                 <label class="custom-control-label" for = "ley">Ley 26743</label>
-              </div>
+            </div>
           @endif
  
           <div class="row">
@@ -149,6 +149,25 @@
                     <input type = "text" class = "form-control" wire:model.defer='comentarios' placeholder="Comentarios">
                 </div>
             </div>
+            <div class = "row mt-2">
+                <div class = "col-sm-12">
+                    <p style = "color:red;">Último turno: {{date('d-m-Y', strtotime($ultimo_turno))}}</p>
+                </div>
+            </div>
+            <div class = "row mt-2">
+              <div class = "row">
+                @foreach($turnos_desde as $turno_desde)
+                <div class = "col-sm-4">
+                <div class="form-check">
+                  <input class="form-check-input" value = "{{$turno_desde->id}}" wire:model='desde_id' type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    {{$turno_desde->desde}}
+                  </label>
+                </div>
+                </div>
+                @endforeach
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -163,21 +182,21 @@
             <div class = "col-sm-12">
             <input wire:model.debounce.500ms="obrasocial" 
             wire:keydown="buscarObrasocial" type="text" class="form-control" placeholder="Obra social" autocomplete="off"> 
-			      @error('obrasocial') <span class ="badge badge-danger">{{ $message }}</span> @enderror
-              @if(count($obras_sociales)>0)
-                @if(!$picked)
-                  <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
-                      @foreach($obras_sociales as $obra_social)
-                      <div style="cursor: pointer;color:black;">
-                          <a wire:click="asignarObrasocial('{{ $obra_social->obra_social }}')">
-                              {{ $obra_social->obra_social }}
-                          </a>
-                      </div>
-                      <hr>
-                      @endforeach    
-                  </div>
-                @endif
-              @endif  
+			@error('obrasocial') <span class ="badge badge-danger">{{ $message }}</span> @enderror
+            @if(count($obras_sociales)>0)
+            @if(!$picked)
+                <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
+                    @foreach($obras_sociales as $obra_social)
+                    <div style="cursor: pointer;color:black;">
+                        <a wire:click="asignarObrasocial('{{ $obra_social->obra_social }}')">
+                            {{ $obra_social->obra_social }}
+                        </a>
+                    </div>
+                    <hr>
+                    @endforeach    
+                </div>
+            @endif
+            @endif  
             </div>
           </div>
           <div class = "row mt-2">
@@ -258,5 +277,3 @@
     @endif
     <!---->
 </div>
-
-

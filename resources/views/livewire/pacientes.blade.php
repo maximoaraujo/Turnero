@@ -102,10 +102,8 @@
             </div>
             <div class="timeline-footer">
                 <a class="btn btn-primary btn-sm" href = "/comprobante_turno/{{$movimiento->id_turno}}" target = "_blank">Re-imprimir</a>
-                @if($movimiento->asistio == 'no')
                 <a class="btn btn-danger btn-sm" wire:click='editar_turno("{{$movimiento->id_turno}}", "{{$movimiento->fecha}}", "{{$movimiento->horario}}", "{{$movimiento->id_horario}}", "{{$movimiento->para}}")'>Re-programar</a>
                 <a class="btn btn-info btn-sm" wire:click='ver_practicas("{{$movimiento->id_turno}}", "{{$movimiento->fecha}}", "{{$movimiento->horario}}", "{{$paciente}}")'>Prácticas asociadas</a>
-                @endif
             </div>
         </div>
     </div>

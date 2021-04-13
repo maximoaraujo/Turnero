@@ -51,9 +51,14 @@ hr{
     font-size:10px;
     margin-left:-30px;
 }
+#pagina{
+    font-size:12px;
+    margin-top: 30px;
+    font-weight: bold;
+}
 #info{
     font-size:12px;
-    margin-top: 50px;
+    margin-top: 20px;
     font-weight: bold;
 }
 #info_1{
@@ -151,6 +156,7 @@ Turno: <?php echo $dia; ?> <?php echo e(date('d', strtotime($fecha))); ?> de <?p
     </ul>
 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 <hr style = "margin-top:20px;">
+<!--<p id = "pagina">RETIRE SUS RESULTADOS DESDE NUESTRA PÁGINA WEB WWW.LABORATORIOCENTRAL.COM/MIS-RESULTADOS</p>-->
 <p id = "info">SI TIENE FIEBRE Y/O SÍNTOMAS RELACIONADOS CON COVID-19 REPROGRAME SU TURNO AL
 WHATSAPP 3795-393798 | 3795-403798</p>
 <p id = "info_1">PARA MINIMIZAR EL TIEMPO DE ESPERA, POR FAVOR RESPETE EL HORARIO ASIGNADO</p>

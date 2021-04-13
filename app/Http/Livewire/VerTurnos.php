@@ -95,7 +95,7 @@ class VerTurnos extends Component
         ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
         ->where($condicion_den)
         ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
-        'users.name', 'pacientes.domicilio', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio', 'pacientes_turnos.created_at')
+        'users.name', 'pacientes.domicilio', 'pacientes.telefono', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio', 'pacientes_turnos.created_at')
         ->orderBy('horarios.horario')
         ->get();
     }
@@ -109,7 +109,7 @@ class VerTurnos extends Component
         ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
         ->where($condicion_exu)
         ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
-        'users.name', 'pacientes.domicilio', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio', 'pacientes_turnos.created_at')
+        'users.name', 'pacientes.domicilio', 'pacientes.telefono', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio', 'pacientes_turnos.created_at')
         ->orderBy('horarios.horario')
         ->get();
     }
@@ -123,7 +123,7 @@ class VerTurnos extends Component
         ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
         ->where($condicion_esp)
         ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
-        'users.name', 'pacientes.domicilio', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio', 'pacientes_turnos.created_at')
+        'users.name', 'pacientes.domicilio', 'pacientes.telefono', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio', 'pacientes_turnos.created_at')
         ->orderBy('horarios.horario')
         ->get();
     }
@@ -137,7 +137,7 @@ class VerTurnos extends Component
         ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
         ->where($condicion_gen)
         ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
-        'users.name', 'pacientes.domicilio', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio',
+        'users.name', 'pacientes.domicilio', 'pacientes.telefono', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio',
         'pacientes_turnos.created_at')->orderBy('horarios.horario')->get();
     }
 
@@ -150,7 +150,7 @@ class VerTurnos extends Component
         ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
         ->where($condicion_gen)
         ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
-        'users.name', 'pacientes.domicilio', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 
+        'users.name', 'pacientes.domicilio', 'pacientes.telefono', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 
         'pacientes_turnos.asistio', 'pacientes_turnos.created_at')->orderBy('horarios.horario')
         ->get(); 
     }
@@ -164,7 +164,7 @@ class VerTurnos extends Component
         ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
         ->where($condicion_p75)
         ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
-        'users.name', 'pacientes.domicilio', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio', 'pacientes_turnos.created_at')
+        'users.name', 'pacientes.domicilio', 'pacientes.telefono', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio', 'pacientes_turnos.created_at')
         ->orderBy('horarios.horario')
         ->get();
     }
@@ -178,7 +178,7 @@ class VerTurnos extends Component
         ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
         ->where($condicion_cit)
         ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
-        'users.name', 'pacientes.domicilio', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio', 'pacientes_turnos.created_at')
+        'users.name', 'pacientes.domicilio', 'pacientes.telefono', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio', 'pacientes_turnos.created_at')
         ->orderBy('horarios.horario')
         ->get();
     }
