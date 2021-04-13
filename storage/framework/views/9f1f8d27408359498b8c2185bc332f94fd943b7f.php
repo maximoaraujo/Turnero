@@ -1,4 +1,4 @@
-<?php if((date('l', strtotime($fecha)) == 'Tuesday') || (date('l', strtotime($fecha)) == 'Wednesday') || (date('l', strtotime($fecha)) == 'Thursday') || (date('l', strtotime($fecha)) == 'Friday')): ?>
+<?php if((date('l', strtotime($fecha_nuevo_turno)) == 'Tuesday') || (date('l', strtotime($fecha_nuevo_turno)) == 'Wednesday') || (date('l', strtotime($fecha_nuevo_turno)) == 'Thursday') || (date('l', strtotime($fecha_nuevo_turno)) == 'Friday')): ?>
 <div class = "row" style = "margin-top:20px;">
 <?php $__currentLoopData = $horarios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $horario): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 <div class="col-md-3 col-sm-4 col-12">
