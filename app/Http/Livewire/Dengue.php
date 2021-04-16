@@ -455,6 +455,7 @@ class Dengue extends Component
                 'para' => $this->para,
                 'asistio' => 'no',
                 'comentarios' => $this->comentarios,
+                'desde_id' => $this->desde_id
             ]);
 
             if (($guardo_paciente)&&($guardo_turno)) {
@@ -483,6 +484,7 @@ class Dengue extends Component
                 'para' => $this->para,
                 'asistio' => 'no',
                 'comentarios' => $this->comentarios,
+                'desde_id' => $this->desde_id
             ]);
 
             if (($actualizo_paciente)&&($guardo_turno)) {

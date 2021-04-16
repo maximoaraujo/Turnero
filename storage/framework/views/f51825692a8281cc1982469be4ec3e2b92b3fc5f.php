@@ -38,6 +38,7 @@
         <th nowrap>Paciente</th>
         <th nowrap>Documento</th>
         <th nowrap>Obra social</th>
+        <th nowrap>Comentarios</th>
         <th></th>
     </tr>
     </thead>
@@ -53,6 +54,7 @@
                 <td class = "text-white" style = "background-color:#bb8fce;"><?php echo e($turno->paciente); ?></td>
                 <td class = "text-white" style = "background-color:#bb8fce;"><?php echo e($turno->documento); ?></td>
                 <td class = "text-white" style = "background-color:#bb8fce;"><?php echo e($turno->obra_social); ?></td>
+                <td class = "text-white" style = "background-color:#bb8fce;"><?php echo e($turno->comentarios); ?></td>
                 <?php if($turno->orden == ''): ?>
                 <td style = "width:10px;"><button wire:click='ordeno("<?php echo e($turno->letra); ?>", "<?php echo e($turno->id); ?>", "<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "border:none;background-color:transparent;outline:none;"><i class="fas fa-sort-numeric-down"></i></button></td>
                 <?php elseif(($turno->asistio == 'no')&&($turno->orden != '')): ?>
@@ -67,6 +69,7 @@
                 <td class = "text-white" style = "background-color:#5dade2 ;"><?php echo e($turno->paciente); ?></td>
                 <td class = "text-white" style = "background-color:#5dade2 ;"><?php echo e($turno->documento); ?></td>
                 <td class = "text-white" style = "background-color:#5dade2 ;"><?php echo e($turno->obra_social); ?></td>
+                <td class = "text-white" style = "background-color:#5dade2 ;"><?php echo e($turno->comentarios); ?></td>
                 <?php if($turno->orden == ''): ?>
                 <td style = "width:10px;"><button wire:click='ordeno("<?php echo e($turno->letra); ?>", "<?php echo e($turno->id); ?>", "<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "border:none;background-color:transparent;outline:none;"><i class="fas fa-sort-numeric-down"></i></button></td>
                 <?php elseif(($turno->asistio == 'no')&&($turno->orden != '')): ?>
@@ -84,6 +87,7 @@
                 <td><?php echo e($turno->paciente); ?></td>
                 <td><?php echo e($turno->documento); ?></td>
                 <td><?php echo e($turno->obra_social); ?></td>
+                <td><?php echo e($turno->comentarios); ?></td>
                 <?php if($turno->orden == ''): ?>
                 <td style = "width:10px;"><button wire:click='ordeno("<?php echo e($turno->letra); ?>", "<?php echo e($turno->id); ?>", "<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "border:none;background-color:transparent;outline:none;"><i class="fas fa-sort-numeric-down"></i></button></td>
                 <?php elseif(($turno->asistio == 'no')&&($turno->orden != '')): ?>

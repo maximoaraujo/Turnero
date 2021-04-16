@@ -59,7 +59,7 @@ class VistaTurnos extends Component
         $this->turnos = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
         ->join('pacientes', 'pacientes.documento', 'pacientes_turnos.documento')
         ->select('pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.letra', 'pacientes_turnos.id', 
-        'pacientes.paciente', 'pacientes.documento', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.situacion', 'pacientes_turnos.orden', 'pacientes_turnos.asistio')
+        'pacientes.paciente', 'pacientes.documento', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.comentarios', 'pacientes_turnos.situacion', 'pacientes_turnos.orden', 'pacientes_turnos.asistio')
         ->where('pacientes_turnos.fecha', $this->fecha)->where(function ($query) {
             $query->where('pacientes_turnos.para', '=', 'general')
             ->orWhere('pacientes_turnos.para', '=', 'P75')

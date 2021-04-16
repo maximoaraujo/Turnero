@@ -32,6 +32,7 @@
         <td nowrap><?php echo e($turno_espermograma->telefono); ?></td>
         <td nowrap><?php echo e($turno_espermograma->obra_social); ?></td>
         <td><button wire:click='editar_datos("<?php echo e($turno_espermograma->documento); ?>")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
+        <td><button wire:click='editar_turno("<?php echo e($turno_espermograma->id_turno); ?>", "<?php echo e($fecha); ?>", "<?php echo e($turno_espermograma->horario); ?>", "<?php echo e($turno_espermograma->id_horario); ?>", "espermograma")' style = "border:none;background-color:transparent;"><i class="far fa-calendar-alt"></i></button></td>
         <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
         <td><button wire:click='eliminar_turno("<?php echo e($turno_espermograma->documento); ?>", "<?php echo e($turno_espermograma->id_horario); ?>", "<?php echo e($fecha); ?>")' style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>
         <?php endif; ?>    

@@ -32,6 +32,7 @@
         <td nowrap>{{$turno_espermograma->telefono}}</td>
         <td nowrap>{{$turno_espermograma->obra_social}}</td>
         <td><button wire:click='editar_datos("{{$turno_espermograma->documento}}")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
+        <td><button wire:click='editar_turno("{{$turno_espermograma->id_turno}}", "{{$fecha}}", "{{$turno_espermograma->horario}}", "{{$turno_espermograma->id_horario}}", "espermograma")' style = "border:none;background-color:transparent;"><i class="far fa-calendar-alt"></i></button></td>
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
         <td><button wire:click='eliminar_turno("{{$turno_espermograma->documento}}", "{{$turno_espermograma->id_horario}}", "{{$fecha}}")' style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>
         @endif    

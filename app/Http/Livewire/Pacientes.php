@@ -290,7 +290,8 @@ class Pacientes extends Component
             'fecha_hora' => $fecha_hora,
             'para' => $para,
             'asistio' => 'no',
-            'comentarios' => ''
+            'comentarios' => '',
+            'desde_id' => 1
         ]);
  
         if ($guardo_turno) {

@@ -34,6 +34,7 @@
         <td style = 'text-align: center;'><button wire:click='asistencia("{{$turno_p75->id_horario}}", "{{$fecha}}", "{{$turno_p75->documento}}", "P75")' style = "outline:none;background-color:transparent;border:none;"><i class="far fa-square"></i></button></td>
         @endif
         <td><button wire:click='editar_datos("{{$turno_p75->documento}}")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
+        <td><button wire:click='editar_turno("{{$turno_p75->id_turno}}", "{{$fecha}}", "{{$turno_p75->horario}}", "{{$turno_p75->id_horario}}", "p75")' style = "border:none;background-color:transparent;"><i class="far fa-calendar-alt"></i></button></td>
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
         <td><button wire:click='eliminar_turno("{{$turno_p75->documento}}", "{{$turno_p75->id_horario}}", "{{$fecha}}")' style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>
         @endif    

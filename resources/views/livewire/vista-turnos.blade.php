@@ -38,6 +38,7 @@
         <th nowrap>Paciente</th>
         <th nowrap>Documento</th>
         <th nowrap>Obra social</th>
+        <th nowrap>Comentarios</th>
         <th></th>
     </tr>
     </thead>
@@ -52,6 +53,7 @@
                 <td class = "text-white" style = "background-color:#bb8fce;">{{$turno->paciente}}</td>
                 <td class = "text-white" style = "background-color:#bb8fce;">{{$turno->documento}}</td>
                 <td class = "text-white" style = "background-color:#bb8fce;">{{$turno->obra_social}}</td>
+                <td class = "text-white" style = "background-color:#bb8fce;">{{$turno->comentarios}}</td>
                 @if($turno->orden == '')
                 <td style = "width:10px;"><button wire:click='ordeno("{{$turno->letra}}", "{{$turno->id}}", "{{$turno->id_horario}}", "{{$turno->documento}}")' style = "border:none;background-color:transparent;outline:none;"><i class="fas fa-sort-numeric-down"></i></button></td>
                 @elseif(($turno->asistio == 'no')&&($turno->orden != ''))
@@ -66,6 +68,7 @@
                 <td class = "text-white" style = "background-color:#5dade2 ;">{{$turno->paciente}}</td>
                 <td class = "text-white" style = "background-color:#5dade2 ;">{{$turno->documento}}</td>
                 <td class = "text-white" style = "background-color:#5dade2 ;">{{$turno->obra_social}}</td>
+                <td class = "text-white" style = "background-color:#5dade2 ;">{{$turno->comentarios}}</td>
                 @if($turno->orden == '')
                 <td style = "width:10px;"><button wire:click='ordeno("{{$turno->letra}}", "{{$turno->id}}", "{{$turno->id_horario}}", "{{$turno->documento}}")' style = "border:none;background-color:transparent;outline:none;"><i class="fas fa-sort-numeric-down"></i></button></td>
                 @elseif(($turno->asistio == 'no')&&($turno->orden != ''))
@@ -83,6 +86,7 @@
                 <td>{{$turno->paciente}}</td>
                 <td>{{$turno->documento}}</td>
                 <td>{{$turno->obra_social}}</td>
+                <td>{{$turno->comentarios}}</td>
                 @if($turno->orden == '')
                 <td style = "width:10px;"><button wire:click='ordeno("{{$turno->letra}}", "{{$turno->id}}", "{{$turno->id_horario}}", "{{$turno->documento}}")' style = "border:none;background-color:transparent;outline:none;"><i class="fas fa-sort-numeric-down"></i></button></td>
                 @elseif(($turno->asistio == 'no')&&($turno->orden != ''))

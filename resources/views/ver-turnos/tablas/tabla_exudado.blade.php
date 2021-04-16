@@ -32,6 +32,7 @@
         <td nowrap>{{$turno_exudado->telefono}}</td>
         <td nowrap>{{$turno_exudado->obra_social}}</td>
         <td><button wire:click='editar_datos("{{$turno_exudado->documento}}")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
+        <td><button wire:click='editar_turno("{{$turno_exudado->id_turno}}", "{{$fecha}}", "{{$turno_exudado->horario}}", "{{$turno_exudado->id_horario}}", "exudado")' style = "border:none;background-color:transparent;"><i class="far fa-calendar-alt"></i></button></td>
         @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
         <td><button wire:click='eliminar_turno("{{$turno_exudado->documento}}", "{{$turno_exudado->id_horario}}", "{{$fecha}}")' style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>
         @endif    

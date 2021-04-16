@@ -2,6 +2,9 @@
     @if($accion == "editar datos")
         @include('ver-turnos.editar_datos_paciente')
     @endif
+    @if($accion == "editar turno")
+        @include('pacientes.editar_turno')
+    @endif
     @if($accion == "ver")
     <div class = "row">
         <div class = "col-sm-2">  
