@@ -7,10 +7,10 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/rechazo">{{ __('Rechazo turno') }}</a>
+            <a class="nav-link" href="/rechazo" style = "font-weight: bold;font-size:18px;">{{ __('Rechazo turno') }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/consultas">{{ __('Consultas') }}</a>
+            <a class="nav-link" href="/consultas" style = "font-weight: bold;font-size:18px;">{{ __('Consultas') }}</a>
         </li>
         </ul> 
         <ul class="navbar-nav ml-auto">

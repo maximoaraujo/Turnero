@@ -2,6 +2,9 @@
     <?php if($accion == "editar datos"): ?>
         <?php echo $__env->make('ver-turnos.editar_datos_paciente', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <?php endif; ?>
+    <?php if($accion == "editar turno"): ?>
+        <?php echo $__env->make('pacientes.editar_turno', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php endif; ?>
     <?php if($accion == "ver"): ?>
     <div class = "row">
         <div class = "col-sm-2">  
