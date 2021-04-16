@@ -7,6 +7,7 @@
         <th scope="col" nowrap>Paciente</th>
         <th scope="col" nowrap>Documento</th>
         <th scope="col" nowrap>Domicilio</th>
+        <th scope="col" nowrap>Teléfono</th>
         <th scope="col" nowrap>O.S.</th>
         <th scope="col" nowrap>Asistió</th>
         <th scope="col"></th>
@@ -28,6 +29,7 @@
         <td nowrap><?php echo e($turno_dengue->paciente); ?></td>
         <td nowrap><?php echo e($turno_dengue->documento); ?></td>
         <td nowrap><?php echo e($turno_dengue->domicilio); ?></td>
+        <td nowrap><?php echo e($turno_dengue->Teléfono); ?></td>
         <td nowrap><?php echo e($turno_dengue->obra_social); ?></td>
         <?php if($turno_dengue->asistio == 'si'): ?>
         <td style = 'text-align: center;'><label><input type='checkbox' checked></label></td>

@@ -7,6 +7,7 @@
         <th scope="col" nowrap>Paciente</th>
         <th scope="col" nowrap>Documento</th>
         <th scope="col" nowrap>Domicilio</th>
+        <th scope="col" nowrap>Teléfono</th>
         <th scope="col" nowrap>O.S.</th>
         <th scope="col"></th>
         <th scope="col"></th>
@@ -28,6 +29,7 @@
         <td nowrap><?php echo e($turno_espermograma->paciente); ?></td>
         <td nowrap><?php echo e($turno_espermograma->documento); ?></td>
         <td nowrap><?php echo e($turno_espermograma->domicilio); ?></td>
+        <td nowrap><?php echo e($turno_espermograma->telefono); ?></td>
         <td nowrap><?php echo e($turno_espermograma->obra_social); ?></td>
         <td><button wire:click='editar_datos("<?php echo e($turno_espermograma->documento); ?>")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
         <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
