@@ -295,7 +295,7 @@ class Generales extends Component
 
         $this->practicas = practica::where("practica", 'LIKE', '%' .$this->practica. '%')
         ->where('nomenclador', $this->nomenclador)
-        ->take(3)
+        ->take(10)
         ->get();    
     }
     
