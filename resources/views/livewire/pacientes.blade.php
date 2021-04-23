@@ -98,7 +98,8 @@
             <h3 class="timeline-header">Turno otorgado por {{$movimiento->name}}</h3>
             <div class="timeline-body" style = "width:100%;">
             Horario asignado para turno: <span class = "text-danger">{{$movimiento->horario}}</span> | Turno: <span class = "text-danger">{{$movimiento->letra}}{{$movimiento->id}}</span> | Turno para: <span class = "text-danger">{{$movimiento->para}}</span> | Asistió: <span class = "text-danger">{{$movimiento->asistio}}</span><br>
-            Comentarios: {{$movimiento->comentarios}}
+            Comentarios: {{$movimiento->comentarios}}<br>
+            <input class = "form-control" wire:model.defer="comentarios_act" wire:keydown.enter="actualizarComentarios('{{$movimiento->id_turno}}')" type = "text">
             </div>
             <div class="timeline-footer">
                 <a class="btn btn-primary btn-sm" href = "/comprobante_turno/{{$movimiento->id_turno}}" target = "_blank">Re-imprimir</a>
