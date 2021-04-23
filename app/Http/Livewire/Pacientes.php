@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Pacientes extends Component
 {
-    public $idPaciente, $paciente, $documento, $domicilio, $telefono, $obra_social, $obra_social_id;
+    public $idPaciente, $paciente, $documento, $domicilio, $telefono, $obra_social, $obra_social_id, $comentarios_act;
     public $pacientes = [];
     public $picked, $picked_;
     public $movimientos_paciente = [];
@@ -132,6 +132,18 @@ class Pacientes extends Component
         ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'pacientes_turnos.fecha', 'pacientes_turnos.created_at', 'users.name', 'horarios.horario', 'pacientes_turnos.letra', 'pacientes_turnos.id', 
         'pacientes_turnos.para', 'pacientes_turnos.asistio', 'pacientes_turnos.comentarios')
         ->where('documento', $this->documento)->orderBy('fecha', 'DESC')->take(10)->get();
+    }
+
+    public function actualizarComentarios($id_turno)
+    {
+        $actualizo_comentarios = Pacientes_turno::where('id_turno', $id_turno)->update([
+            'comentarios' => $this->comentarios_act
+        ]);
+
+        if ($actualizo_comentarios) {
+            $this->movimientos_paciente();
+            $this->reset('comentarios_act');
+        }
     }
 
     public function editar_turno($id_turno, $fecha, $horario, $id_horario, $para)
