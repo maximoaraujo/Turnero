@@ -16,5 +16,6 @@ class turnos_eliminado extends Model
         'fecha',
         'id_horario',
         'documento',
+		'user_id'
     ];
 }

@@ -7,6 +7,7 @@
         <th scope="col" nowrap>Paciente</th>
         <th scope="col" nowrap>Documento</th>
         <th scope="col" nowrap>Domicilio</th>
+        <th scope="col" nowrap>Teléfono</th>
         <th scope="col" nowrap>O.S.</th>
         <th scope="col"></th>
         <th scope="col"></th>
@@ -28,8 +29,10 @@
         <td nowrap><?php echo e($turno_citogenetica->paciente); ?></td>
         <td nowrap><?php echo e($turno_citogenetica->documento); ?></td>
         <td nowrap><?php echo e($turno_citogenetica->domicilio); ?></td>
+        <td nowrap><?php echo e($turno_citogenetica->telefono); ?></td>
         <td nowrap><?php echo e($turno_citogenetica->obra_social); ?></td>
         <td><button wire:click='editar_datos("<?php echo e($turno_citogenetica->documento); ?>")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
+        <td><button wire:click='editar_turno("<?php echo e($turno_citogenetica->id_turno); ?>", "<?php echo e($fecha); ?>", "<?php echo e($turno_citogenetica->horario); ?>", "<?php echo e($turno_citogenetica->id_horario); ?>", "citogenetica")' style = "border:none;background-color:transparent;"><i class="far fa-calendar-alt"></i></button></td>
         <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
         <td><button wire:click='eliminar_turno("<?php echo e($turno_citogenetica->documento); ?>", "<?php echo e($turno_citogenetica->id_horario); ?>", "<?php echo e($fecha); ?>")' style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>
         <?php endif; ?>    

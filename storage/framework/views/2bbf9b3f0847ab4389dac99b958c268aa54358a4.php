@@ -34,6 +34,7 @@
         <td style = 'text-align: center;'><button wire:click='asistencia("<?php echo e($turno_p75->id_horario); ?>", "<?php echo e($fecha); ?>", "<?php echo e($turno_p75->documento); ?>", "P75")' style = "outline:none;background-color:transparent;border:none;"><i class="far fa-square"></i></button></td>
         <?php endif; ?>
         <td><button wire:click='editar_datos("<?php echo e($turno_p75->documento); ?>")' style = "border:none;background-color:transparent;"><i class="fas fa-user-edit"></i></button></td>
+        <td><button wire:click='editar_turno("<?php echo e($turno_p75->id_turno); ?>", "<?php echo e($fecha); ?>", "<?php echo e($turno_p75->horario); ?>", "<?php echo e($turno_p75->id_horario); ?>", "p75")' style = "border:none;background-color:transparent;"><i class="far fa-calendar-alt"></i></button></td>
         <?php if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
         <td><button wire:click='eliminar_turno("<?php echo e($turno_p75->documento); ?>", "<?php echo e($turno_p75->id_horario); ?>", "<?php echo e($fecha); ?>")' style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>
         <?php endif; ?>    
