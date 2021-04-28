@@ -20,6 +20,14 @@
                 <option>Citogenetíca</option>
             </select>
         </div> 
+        <div class = "col-sm-3" style = "margin-top:15px;">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" wire:model='ausentes'>
+                <label class="form-check-label">
+                    Ausentes
+                </label>
+            </div>
+        </div>
         @if (session()->has('mensaje'))
         <div class = "col-sm-4" style = "margin-top:10px;">
         <center>

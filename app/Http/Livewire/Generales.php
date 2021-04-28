@@ -46,7 +46,7 @@ class Generales extends Component
     public $cantidad_turnos, $cantidad_ioscor, $cantidad_resto, $cantidad_demanda;
     public $total_turnos;
     public $profe, $sin_cargo, $plan_sumar;
-    public $ioscor, $demanda, $resto;
+    public $ioscor, $demanda, $resto, $iosfa;
     //Orden
     public $orden, $url;
     public $ordenes = [];
@@ -147,6 +147,19 @@ class Generales extends Component
             })
         ->get()->count();
 
+        $this->iosfa = paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
+        ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
+        ->where('pacientes_turnos.fecha', $this->fecha)
+        ->where(function ($query) {
+            $query->where('pacientes_turnos.para', '=', 'general')
+            ->orWhere('pacientes_turnos.para', '=', 'P75');
+            })
+        ->where(function ($query) {
+            $query->where('obras_socials.obra_social', '=', 'IOSFA (FUERZAS ARMADAS)')
+            ->orWhere('obras_socials.obra_social', '=', 'IOSFA PRESUPUESTO (FUERZAS ARMADAS)');
+            })
+        ->get()->count();
+
         $this->resto = $this->profe + $this->plan_sumar + $this->sin_cargo;
 
         $this->total_turnos = pacientes_turno::where('fecha', $this->fecha)
@@ -180,6 +193,7 @@ class Generales extends Component
         ->orderBy('horarios.horario')
         ->get();
 
+       
         $this->cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
         $this->cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
         $this->cantidad_resto = config::get()->pluck('cant_turnos_resto')->first();

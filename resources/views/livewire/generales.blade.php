@@ -5,7 +5,7 @@
         <input type = "date" class = "form-control" wire:model='fecha'>
     </div>
     <div class = "col-sm-10 mt-3">IOSCOR: <span class = "text-danger">{{$ioscor}}</span> | 
-      PLAN SUMAR ({{$plan_sumar}}) - PROFE ({{$profe}}) - SIN CARGO ({{$sin_cargo}}): <span class = "text-danger">{{$resto}}</span> | Resto: <span class = "text-danger">{{$demanda}}</span></div>
+      PLAN SUMAR ({{$plan_sumar}}) - PROFE ({{$profe}}) - SIN CARGO ({{$sin_cargo}}): <span class = "text-danger">{{$resto}}</span> | Resto: <span class = "text-danger">{{$demanda}}</span> | IOSFA: <span class = "text-danger">{{$iosfa}}</span></div>
     </div>
     @if($cantidad_ioscor <= $ioscor)
     <center>
