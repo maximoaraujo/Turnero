@@ -95,7 +95,11 @@
         <i class="fas fa-info bg-blue"></i>
         <div class="timeline-item">
             <span class="time"><i class="far fa-calendar"></i> {{date('d-m-Y H:m:s', strtotime($movimiento->created_at))}}</span>
+            @if($movimiento->reprogramado == 1)
+            <h3 class="timeline-header">Turno <strong>REPROGRAMADO</strong> por {{$movimiento->name}}</h3>
+            @else
             <h3 class="timeline-header">Turno otorgado por {{$movimiento->name}}</h3>
+            @endif
             <div class="timeline-body" style = "width:100%;">
             Horario asignado para turno: <span class = "text-danger">{{$movimiento->horario}}</span> | Turno: <span class = "text-danger">{{$movimiento->letra}}{{$movimiento->id}}</span> | Turno para: <span class = "text-danger">{{$movimiento->para}}</span> | Asistió: <span class = "text-danger">{{$movimiento->asistio}}</span><br>
             Comentarios: {{$movimiento->comentarios}}<br>

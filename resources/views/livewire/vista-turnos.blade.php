@@ -37,13 +37,12 @@
         <th nowrap>Turno</th>
         <th nowrap>Paciente</th>
         <th nowrap>Documento</th>
-        <th nowrap>Obra social</th>
         <th nowrap>Comentarios</th>
+        <th nowrap>Usuario</th>
         <th></th>
     </tr>
     </thead>
     <tbody>
-    {{$asistio}}
     @foreach($turnos as $turno)
         <tr>
             @if($turno->situacion == 'garage')
@@ -52,12 +51,13 @@
                 <td class = "text-white" style = "background-color:#bb8fce;">{{$turno->letra}}{{$turno->id}}</td>
                 <td class = "text-white" style = "background-color:#bb8fce;">{{$turno->paciente}}</td>
                 <td class = "text-white" style = "background-color:#bb8fce;">{{$turno->documento}}</td>
-                <td class = "text-white" style = "background-color:#bb8fce;">{{$turno->obra_social}}</td>
                 <td class = "text-white" style = "background-color:#bb8fce;">{{$turno->comentarios}}</td>
+                <td class = "text-white" style = "background-color:#bb8fce;">{{$turno->name}}</td>
                 @if($turno->orden == '')
                 <td style = "width:10px;"><button wire:click='ordeno("{{$turno->letra}}", "{{$turno->id}}", "{{$turno->id_horario}}", "{{$turno->documento}}")' style = "border:none;background-color:transparent;outline:none;"><i class="fas fa-sort-numeric-down"></i></button></td>
                 @elseif(($turno->asistio == 'no')&&($turno->orden != ''))
                 <td style = 'text-align: center;'><button wire:click='asistencia("{{$turno->id_horario}}", "{{$turno->documento}}")' style = "outline:none;background-color:transparent;border:none;"><i class="far fa-square"></i></button></td>   
+                <td style = "width:5px;"><button wire:click='cancelar("{{$turno->id_horario}}", "{{$turno->documento}}")' style = "outline:none;text-align:center;background-color:transparent;border:none;"><img src = "iconos/cerrar.png" /></button></td>
                 @elseif(($turno->asistio == 'si')&&($turno->orden != ''))
                 <td style = 'text-align: center;'><input type='checkbox' wire:click='asistencia("{{$turno->id_horario}}", "{{$turno->documento}}")' checked></td>
                 @endif
@@ -67,12 +67,13 @@
                 <td class = "text-white" style = "background-color:#5dade2 ;">{{$turno->letra}}{{$turno->id}}</td>
                 <td class = "text-white" style = "background-color:#5dade2 ;">{{$turno->paciente}}</td>
                 <td class = "text-white" style = "background-color:#5dade2 ;">{{$turno->documento}}</td>
-                <td class = "text-white" style = "background-color:#5dade2 ;">{{$turno->obra_social}}</td>
                 <td class = "text-white" style = "background-color:#5dade2 ;">{{$turno->comentarios}}</td>
+                <td class = "text-white" style = "background-color:#5dade2 ;">{{$turno->name}}</td>
                 @if($turno->orden == '')
                 <td style = "width:10px;"><button wire:click='ordeno("{{$turno->letra}}", "{{$turno->id}}", "{{$turno->id_horario}}", "{{$turno->documento}}")' style = "border:none;background-color:transparent;outline:none;"><i class="fas fa-sort-numeric-down"></i></button></td>
                 @elseif(($turno->asistio == 'no')&&($turno->orden != ''))
                 <td style = 'text-align: center;'><button wire:click='asistencia("{{$turno->id_horario}}", "{{$turno->documento}}")' style = "outline:none;background-color:transparent;border:none;"><i class="far fa-square"></i></button></td>   
+                <td style = "width:5px;"><button wire:click='cancelar("{{$turno->id_horario}}", "{{$turno->documento}}")' style = "outline:none;text-align:center;background-color:transparent;border:none;"><img src = "iconos/cerrar.png" /></button></td>
                 @elseif(($turno->asistio == 'si')&&($turno->orden != ''))
                 <td style = 'text-align: center;'><input type='checkbox' wire:click='asistencia("{{$turno->id_horario}}", "{{$turno->documento}}")' checked></td>
                 @endif
@@ -85,8 +86,8 @@
                 <td>{{$turno->letra}}{{$turno->id}}</td>
                 <td>{{$turno->paciente}}</td>
                 <td>{{$turno->documento}}</td>
-                <td>{{$turno->obra_social}}</td>
                 <td>{{$turno->comentarios}}</td>
+                <td>{{$turno->name}}</td>
                 @if($turno->orden == '')
                 <td style = "width:10px;"><button wire:click='ordeno("{{$turno->letra}}", "{{$turno->id}}", "{{$turno->id_horario}}", "{{$turno->documento}}")' style = "border:none;background-color:transparent;outline:none;"><i class="fas fa-sort-numeric-down"></i></button></td>
                 @elseif(($turno->asistio == 'no')&&($turno->orden != ''))

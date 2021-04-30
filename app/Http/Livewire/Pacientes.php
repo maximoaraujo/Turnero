@@ -130,7 +130,7 @@ class Pacientes extends Component
         $this->movimientos_paciente = Pacientes_turno::join('horarios', 'horarios.id_horario', 'pacientes_turnos.id_horario')
         ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
         ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'pacientes_turnos.fecha', 'pacientes_turnos.created_at', 'users.name', 'horarios.horario', 'pacientes_turnos.letra', 'pacientes_turnos.id', 
-        'pacientes_turnos.para', 'pacientes_turnos.asistio', 'pacientes_turnos.comentarios')
+        'pacientes_turnos.para', 'pacientes_turnos.asistio', 'pacientes_turnos.comentarios', 'pacientes_turnos.reprogramado')
         ->where('documento', $this->documento)->orderBy('fecha', 'DESC')->take(10)->get();
     }
 
@@ -303,7 +303,8 @@ class Pacientes extends Component
             'para' => $para,
             'asistio' => 'no',
             'comentarios' => '',
-            'desde_id' => 1
+            'desde_id' => 1,
+            'reprogramado' => 1
         ]);
  
         if ($guardo_turno) {

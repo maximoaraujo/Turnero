@@ -97,7 +97,11 @@
         <i class="fas fa-info bg-blue"></i>
         <div class="timeline-item">
             <span class="time"><i class="far fa-calendar"></i> <?php echo e(date('d-m-Y H:m:s', strtotime($movimiento->created_at))); ?></span>
+            <?php if($movimiento->reprogramado == 1): ?>
+            <h3 class="timeline-header">Turno <strong>REPROGRAMADO</strong> por <?php echo e($movimiento->name); ?></h3>
+            <?php else: ?>
             <h3 class="timeline-header">Turno otorgado por <?php echo e($movimiento->name); ?></h3>
+            <?php endif; ?>
             <div class="timeline-body" style = "width:100%;">
             Horario asignado para turno: <span class = "text-danger"><?php echo e($movimiento->horario); ?></span> | Turno: <span class = "text-danger"><?php echo e($movimiento->letra); ?><?php echo e($movimiento->id); ?></span> | Turno para: <span class = "text-danger"><?php echo e($movimiento->para); ?></span> | Asistió: <span class = "text-danger"><?php echo e($movimiento->asistio); ?></span><br>
             Comentarios: <?php echo e($movimiento->comentarios); ?><br>
