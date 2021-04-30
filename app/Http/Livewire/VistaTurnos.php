@@ -58,8 +58,9 @@ class VistaTurnos extends Component
     {
         $this->turnos = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
         ->join('pacientes', 'pacientes.documento', 'pacientes_turnos.documento')
+        ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
         ->select('pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.letra', 'pacientes_turnos.id', 
-        'pacientes.paciente', 'pacientes.documento', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.comentarios', 'pacientes_turnos.situacion', 'pacientes_turnos.orden', 'pacientes_turnos.asistio')
+        'pacientes.paciente', 'pacientes.documento', 'pacientes_turnos.comentarios', 'users.name', 'pacientes_turnos.situacion', 'pacientes_turnos.orden', 'pacientes_turnos.asistio')
         ->where('pacientes_turnos.fecha', $this->fecha)->where(function ($query) {
             $query->where('pacientes_turnos.para', '=', 'general')
             ->orWhere('pacientes_turnos.para', '=', 'P75')
@@ -74,7 +75,7 @@ class VistaTurnos extends Component
         $this->turnos = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
         ->join('pacientes', 'pacientes.documento', 'pacientes_turnos.documento')
         ->select('pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.letra', 'pacientes_turnos.id', 
-        'pacientes.paciente', 'pacientes.documento', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.situacion', 'pacientes_turnos.orden', 'pacientes_turnos.asistio')
+        'pacientes.paciente', 'pacientes.documento', 'pacientes_turnos.situacion', 'pacientes_turnos.orden', 'pacientes_turnos.asistio')
         ->where('pacientes_turnos.fecha', $this->fecha)->where(function ($query) {
             $query->where('pacientes_turnos.para', '=', 'exudado');
         })
@@ -158,6 +159,20 @@ class VistaTurnos extends Component
         ]);
 
         if ($garage) {
+            $this->horarios();
+            $this->cargo_turnos();
+        }
+    }
+
+    public function cancelar($id_horario, $documento)
+    {
+        $cancelar = pacientes_turno::where('fecha', $this->fecha)->where('id_horario', $id_horario)
+        ->where('documento', $documento)->update([
+            'orden' => null,
+            'situacion' => null           
+        ]); 
+
+        if ($cancelar) {
             $this->horarios();
             $this->cargo_turnos();
         }

@@ -1,55 +1,61 @@
 <div>
     <!--Fecha-->
     <div class = "row">
-    <div class = "col-sm-2 mt-2">
-        <input type = "date" class = "form-control" wire:model='fecha'>
-    </div>
-    <div class = "col-sm-10 mt-3">IOSCOR: <span class = "text-danger">{{$ioscor}}</span> | 
-      PLAN SUMAR ({{$plan_sumar}}) - PROFE ({{$profe}}) - SIN CARGO ({{$sin_cargo}}): <span class = "text-danger">{{$resto}}</span> | Resto: <span class = "text-danger">{{$demanda}}</span> | IOSFA: <span class = "text-danger">{{$iosfa}}</span></div>
-    </div>
-    @if($cantidad_ioscor <= $ioscor)
-    <center>
-    <div class = "col-sm-6">
-    <div class="alert alert-danger alert-dismissible">
-      <button type="button" class="close">×</button>
-        <h5><i class="icon fas fa-ban"></i> Atención!</h5>
-        ¡No asignar más turnos a pacientes con IOSCOR!
-    </div>
-    </div>
-    </center>
-    @endif
-    @if($cantidad_resto <= $resto)
-    <center>
-    <div class = "col-sm-6">
-      <div class = "alert alert-danger alert-dismissible">
-        <h5><i class = "icon fas fa-ban"></i>Atención!</h5>
-        ¡No asignar más turnos a pacientes con PLAN SUMAR, PROFE Y/O SIN CARGO!
+      <div class = "col-sm-2 mt-2">
+          <input type = "date" class = "form-control" wire:model='fecha'>
       </div>
-    </div>
-    </center>
-    @endif  
-    <!--Mensaje por día no laborable-->
-    @if($no_laboral > 0)
-    <center>
-    <div class = "col-sm-6">
-    <div class="alert alert-warning alert-dismissible">
-        <h5><i class="icon fas fa-exclamation-triangle"></i> Atención!</h5>
-        ¡El laboratorio permanecerá cerrado!
-    </div>
-    </div>
-    </center>
-    @endif
-    <!--Una vez que se genera el turno abrimos el comprobante en otra ventana y le pasamos el ID-->
-    @if (session()->has('message'))
-    <input type = "text" value = "{{ session('message') }}" id = "id_turno" hidden>
-       <script>
-          var id_turno = $("#id_turno").val();
-          $(document).ready(function(){
-              window.open('/comprobante_turno/'+id_turno, '_blank');
-          }); 
-       </script>
-    @endif
-    @if($vista == 'turnos')
+      <div class = "col-sm-10 mt-3">IOSCOR: <span class = "text-danger">{{$ioscor}}</span> | 
+      PLAN SUMAR ({{$plan_sumar}}) - PROFE ({{$profe}}) - SIN CARGO ({{$sin_cargo}}): <span class = "text-danger">{{$resto}}</span> | Resto: <span class = "text-danger">{{$demanda}}</span> | IOSFA: <span class = "text-danger">{{$iosfa}}</span></div>
+      </div>
+      <div class = "row mt-2">
+        @if($cantidad_ioscor <= $ioscor)
+        <div class = "col-sm-6">
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close">×</button>
+              <h5><i class="icon fas fa-ban"></i> Atención!</h5>
+              ¡No asignar más turnos a pacientes con IOSCOR!
+          </div>
+        </div>
+        @endif
+        @if($cantidad_resto <= $resto)
+        <div class = "col-sm-6">
+          <div class = "alert alert-danger alert-dismissible">
+            <h5><i class = "icon fas fa-ban"></i>Atención!</h5>
+            ¡No asignar más turnos a pacientes con PLAN SUMAR, PROFE Y/O SIN CARGO!
+          </div>
+        </div>
+        @endif  
+        <!--Mensaje por día no laborable-->
+        @if($no_laboral > 0)
+        <div class = "col-sm-6">
+          <div class="alert alert-warning alert-dismissible">
+              <h5><i class="icon fas fa-exclamation-triangle"></i> Atención!</h5>
+              ¡El laboratorio permanecerá cerrado!
+          </div>
+        </div>
+        @endif  
+        <div class = "col-sm-6">
+          <div class="alert alert-dismissible" style = "background-color:orange;">
+              <h5><i class="icon fas fa-exclamation-triangle"></i> Novedades!</h5>
+              -Calcio iónico = <strong>Lunes, Martes y Miércoles</strong><br>
+              -Proteinograma electrof. = <strong>Jueves y Viernes</strong><br>
+              -HPV = <strong>Miércoles</strong><br>
+              -Cariotipo Bandeo GTG | Cariotipo alta resolución (suspendida) = <strong>Lunes y Martes</strong><br>
+              -Hepatitis B CARGA VIRAL | Hepatitis C CARGA VIRAL | Citogenetica m. ósea = <strong>Lunes a Jueves</strong>                
+          </div>
+        </div>
+      </div>  
+      <!--Una vez que se genera el turno abrimos el comprobante en otra ventana y le pasamos el ID-->
+      @if (session()->has('message'))
+      <input type = "text" value = "{{ session('message') }}" id = "id_turno" hidden>
+        <script>
+            var id_turno = $("#id_turno").val();
+            $(document).ready(function(){
+                window.open('/comprobante_turno/'+id_turno, '_blank');
+            }); 
+        </script>
+      @endif
+      @if($vista == 'turnos')
       <!--Horarios-->
       <div class="row">
         @foreach($horarios as $horario)

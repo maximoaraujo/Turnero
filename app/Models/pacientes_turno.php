@@ -21,6 +21,7 @@ class pacientes_turno extends Model
         'asistio',
         'comentarios',
         'situacion',
+        'reprogramado',
         'orden_url',
         'desde_id',
         'entry_at'
