@@ -5,7 +5,7 @@
         <input type = "date" class = "form-control" wire:model='fecha'>
     </div>
     <div class = "col-sm-10 mt-3">IOSCOR: <span class = "text-danger"><?php echo e($ioscor); ?></span> | 
-      PLAN SUMAR (<?php echo e($plan_sumar); ?>) - PROFE (<?php echo e($profe); ?>) - SIN CARGO (<?php echo e($sin_cargo); ?>): <span class = "text-danger"><?php echo e($resto); ?></span> | Resto: <span class = "text-danger"><?php echo e($demanda); ?></span></div>
+      PLAN SUMAR (<?php echo e($plan_sumar); ?>) - PROFE (<?php echo e($profe); ?>) - SIN CARGO (<?php echo e($sin_cargo); ?>): <span class = "text-danger"><?php echo e($resto); ?></span> | Resto: <span class = "text-danger"><?php echo e($demanda); ?></span> | IOSFA: <span class = "text-danger"><?php echo e($iosfa); ?></span></div>
     </div>
     <?php if($cantidad_ioscor <= $ioscor): ?>
     <center>
