@@ -36,6 +36,11 @@ class HomeController extends Controller
         return view('usuarios.mi-perfil');
     }
 
+    public function turnos_asignados()
+    {
+        return view('usuarios.turnos-asignados');
+    }
+
     public function planilla()
     {
         return view('impresiones.planilla');

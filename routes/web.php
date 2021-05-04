@@ -26,6 +26,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //Usuarios
 Route::get('/mi-perfil', [HomeController::class, 'mi_perfil']);
+Route::get('/turnos-asignados', [HomeController::class, 'turnos_asignados']);
 
 //Turnos
 Route::get('/dengue', [ControladorTurnos::class, 'dengue']);
