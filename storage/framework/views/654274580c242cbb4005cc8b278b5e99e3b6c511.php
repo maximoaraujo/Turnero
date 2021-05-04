@@ -37,7 +37,7 @@
         <div class = "col-sm-6">
           <div class="alert alert-dismissible" style = "background-color:orange;">
               <h5><i class="icon fas fa-exclamation-triangle"></i> Novedades!</h5>
-              -Calcio iónico = <strong>Lunes, Martes y Miércoles</strong><br>
+              -Calcio iónico = <strong>Lunes Miércoles y Viernes</strong><br>
               -Proteinograma electrof. = <strong>Jueves y Viernes</strong><br>
               -HPV = <strong>Miércoles</strong><br>
               -Cariotipo Bandeo GTG | Cariotipo alta resolución (suspendida) = <strong>Lunes y Martes</strong><br>

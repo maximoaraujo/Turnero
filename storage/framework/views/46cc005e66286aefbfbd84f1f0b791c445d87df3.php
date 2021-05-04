@@ -33,6 +33,9 @@
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/mi-perfil">Mi perfil</a>
+            <?php if((Auth::user()->id == 9) || (Auth::user()->id == 10) || (Auth::user()->id == 1)): ?>
+            <a class="dropdown-item" href="/turnos-asignados">Turnos asignados</a>
+            <?php endif; ?>
             <a class="dropdown-item" href="<?php echo e(route('logout')); ?>"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
