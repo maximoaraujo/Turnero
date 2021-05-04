@@ -37,14 +37,12 @@
         <th nowrap>Turno</th>
         <th nowrap>Paciente</th>
         <th nowrap>Documento</th>
-        <th nowrap>Obra social</th>
         <th nowrap>Comentarios</th>
+        <th nowrap>Usuario</th>
         <th></th>
     </tr>
     </thead>
     <tbody>
-    <?php echo e($asistio); ?>
-
     <?php $__currentLoopData = $turnos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $turno): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <tr>
             <?php if($turno->situacion == 'garage'): ?>
@@ -53,12 +51,13 @@
                 <td class = "text-white" style = "background-color:#bb8fce;"><?php echo e($turno->letra); ?><?php echo e($turno->id); ?></td>
                 <td class = "text-white" style = "background-color:#bb8fce;"><?php echo e($turno->paciente); ?></td>
                 <td class = "text-white" style = "background-color:#bb8fce;"><?php echo e($turno->documento); ?></td>
-                <td class = "text-white" style = "background-color:#bb8fce;"><?php echo e($turno->obra_social); ?></td>
                 <td class = "text-white" style = "background-color:#bb8fce;"><?php echo e($turno->comentarios); ?></td>
+                <td class = "text-white" style = "background-color:#bb8fce;"><?php echo e($turno->name); ?></td>
                 <?php if($turno->orden == ''): ?>
                 <td style = "width:10px;"><button wire:click='ordeno("<?php echo e($turno->letra); ?>", "<?php echo e($turno->id); ?>", "<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "border:none;background-color:transparent;outline:none;"><i class="fas fa-sort-numeric-down"></i></button></td>
                 <?php elseif(($turno->asistio == 'no')&&($turno->orden != '')): ?>
                 <td style = 'text-align: center;'><button wire:click='asistencia("<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "outline:none;background-color:transparent;border:none;"><i class="far fa-square"></i></button></td>   
+                <td style = "width:5px;"><button wire:click='cancelar("<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "outline:none;text-align:center;background-color:transparent;border:none;"><img src = "iconos/cerrar.png" /></button></td>
                 <?php elseif(($turno->asistio == 'si')&&($turno->orden != '')): ?>
                 <td style = 'text-align: center;'><input type='checkbox' wire:click='asistencia("<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' checked></td>
                 <?php endif; ?>
@@ -68,12 +67,13 @@
                 <td class = "text-white" style = "background-color:#5dade2 ;"><?php echo e($turno->letra); ?><?php echo e($turno->id); ?></td>
                 <td class = "text-white" style = "background-color:#5dade2 ;"><?php echo e($turno->paciente); ?></td>
                 <td class = "text-white" style = "background-color:#5dade2 ;"><?php echo e($turno->documento); ?></td>
-                <td class = "text-white" style = "background-color:#5dade2 ;"><?php echo e($turno->obra_social); ?></td>
                 <td class = "text-white" style = "background-color:#5dade2 ;"><?php echo e($turno->comentarios); ?></td>
+                <td class = "text-white" style = "background-color:#5dade2 ;"><?php echo e($turno->name); ?></td>
                 <?php if($turno->orden == ''): ?>
                 <td style = "width:10px;"><button wire:click='ordeno("<?php echo e($turno->letra); ?>", "<?php echo e($turno->id); ?>", "<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "border:none;background-color:transparent;outline:none;"><i class="fas fa-sort-numeric-down"></i></button></td>
                 <?php elseif(($turno->asistio == 'no')&&($turno->orden != '')): ?>
                 <td style = 'text-align: center;'><button wire:click='asistencia("<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "outline:none;background-color:transparent;border:none;"><i class="far fa-square"></i></button></td>   
+                <td style = "width:5px;"><button wire:click='cancelar("<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "outline:none;text-align:center;background-color:transparent;border:none;"><img src = "iconos/cerrar.png" /></button></td>
                 <?php elseif(($turno->asistio == 'si')&&($turno->orden != '')): ?>
                 <td style = 'text-align: center;'><input type='checkbox' wire:click='asistencia("<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' checked></td>
                 <?php endif; ?>
@@ -86,8 +86,8 @@
                 <td><?php echo e($turno->letra); ?><?php echo e($turno->id); ?></td>
                 <td><?php echo e($turno->paciente); ?></td>
                 <td><?php echo e($turno->documento); ?></td>
-                <td><?php echo e($turno->obra_social); ?></td>
                 <td><?php echo e($turno->comentarios); ?></td>
+                <td><?php echo e($turno->name); ?></td>
                 <?php if($turno->orden == ''): ?>
                 <td style = "width:10px;"><button wire:click='ordeno("<?php echo e($turno->letra); ?>", "<?php echo e($turno->id); ?>", "<?php echo e($turno->id_horario); ?>", "<?php echo e($turno->documento); ?>")' style = "border:none;background-color:transparent;outline:none;"><i class="fas fa-sort-numeric-down"></i></button></td>
                 <?php elseif(($turno->asistio == 'no')&&($turno->orden != '')): ?>
