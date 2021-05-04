@@ -31,7 +31,7 @@ class TurnosAsignados extends Component
         ->join('horarios', 'horarios.id_horario', 'pacientes_turnos.id_horario')
         ->select('pacientes_turnos.fecha', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'horarios.horario', 'pacientes.paciente', 'pacientes_turnos.created_at')
         ->where('pacientes_turnos.id_usuario', $this->id_usuario)
-        ->whereBetween('pacientes_turnos.created_at', [$this->desde, $this->hasta])
+        ->whereBetween('pacientes_turnos.created_at', [$this->desde, $this->hasta_1])
         ->orderBy('pacientes_turnos.created_at')->get()->count();
 
         return view('livewire.turnos-asignados', compact('movimientos'));
