@@ -41,7 +41,7 @@ class Perfil extends Component
     public function cuento_turnos()
     {
         $this->cantidad_x_periodo = pacientes_turno::where('id_usuario', Auth::user()->id)
-        ->whereBetween('fecha', [$this->fecha_desde, $this->fecha_hasta])->get()->count();
+        ->whereBetween('created_at', [$this->fecha_desde, $this->fecha_hasta])->get()->count();
     }
 
     public function updated($fecha_hasta)
