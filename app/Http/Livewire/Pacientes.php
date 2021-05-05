@@ -11,6 +11,8 @@ use App\Models\Pacientes_turno;
 use App\Models\practica;
 use App\Models\turnos_practica;
 use App\Models\valores_turno;
+use App\Models\turnos_eliminado;
+use App\Models\ordenes_turno;
 use Illuminate\Support\Facades\Auth;
 
 class Pacientes extends Component
@@ -129,7 +131,7 @@ class Pacientes extends Component
     {
         $this->movimientos_paciente = Pacientes_turno::join('horarios', 'horarios.id_horario', 'pacientes_turnos.id_horario')
         ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
-        ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'pacientes_turnos.fecha', 'pacientes_turnos.created_at', 'users.name', 'horarios.horario', 'pacientes_turnos.letra', 'pacientes_turnos.id', 
+        ->select('pacientes_turnos.id_turno', 'pacientes_turnos.documento', 'pacientes_turnos.id_horario', 'pacientes_turnos.fecha', 'pacientes_turnos.created_at', 'users.name', 'horarios.horario', 'pacientes_turnos.letra', 'pacientes_turnos.id', 
         'pacientes_turnos.para', 'pacientes_turnos.asistio', 'pacientes_turnos.comentarios', 'pacientes_turnos.reprogramado')
         ->where('documento', $this->documento)->orderBy('fecha', 'DESC')->take(10)->get();
     }
@@ -154,6 +156,8 @@ class Pacientes extends Component
         $this->horario_turno = $horario;
         $this->id_horario_viejo = $id_horario;
         $this->fecha_nuevo_turno = date('Y-m-d');
+        $this->nomenclador = obras_socials::where('id', $this->obra_social_id)->get()->pluck('nomenclador')->first();
+        $this->practicas_paciente();
 
         $this->para = $para;
         if ($this->para == 'general') {
@@ -168,6 +172,41 @@ class Pacientes extends Component
             $this->horarios_espermograma();
         } elseif ($this->para == 'citogenetica'){
             $this->horarios_citogenetica();
+        }
+    }
+
+    public function practicas_paciente()
+    {
+        $this->practicas_asociadas = turnos_practica::join('practicas', 'practicas.id_practica', 'turnos_practicas.id_practica')
+        ->select('turnos_practicas.id', 'practicas.codigo', 'practicas.practica')
+        ->where('turnos_practicas.id_turno', $this->id_turno_viejo)
+        ->where('practicas.nomenclador', $this->nomenclador)->orderBy('practicas.codigo')
+        ->get();
+    }
+    //Eliminamos el turno seleccionado
+    public function eliminar_turno($id_turno, $documento)
+    {
+        $num = pacientes_turno::where('id_turno', $id_turno)->get()->pluck('id')->first();
+        $letra = pacientes_turno::where('id_turno', $id_turno)->get()->pluck('letra')->first();
+        $fecha = pacientes_turno::where('id_turno', $id_turno)->get()->pluck('fecha')->first();
+        $id_horario = pacientes_turno::where('id_turno', $id_turno)->get()->pluck('id_horario')->first();
+        $documento = pacientes_turno::where('id_turno', $id_turno)->get()->pluck('documento')->first();
+
+        $inserto_eliminado = turnos_eliminado::create([
+            'id_turno' => $id_turno,
+            'num' => $num,
+            'letra' => $letra,
+            'fecha' => $fecha,
+            'id_horario' => $id_horario,
+            'documento' => $documento,
+            'user_id' => Auth::user()->id
+        ]);
+
+        if ($inserto_eliminado) {
+            $elimino_practicas = turnos_practica::where('id_turno', $id_turno)->delete();
+            $elimino_ordenes = ordenes_turno::where('id_turno', $id_turno)->delete();
+            $elimino_turno = pacientes_turno::where('id_turno', $id_turno)->delete();
+            $this->movimientos_paciente();
         }
     }
 
