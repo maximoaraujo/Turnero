@@ -68,12 +68,17 @@
                 <?php
                   $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id_horario]])->get()->count();
                 ?>
+                @if(($horario->id_horario == 6)||($horario->id_horario == 1)||($horario->id_horario == 2)||($horario->id_horario == 3)||($horario->id_horario == 4)||($horario->id_horario == 5))
+                <h3><?php echo $cantidad; ?>/{{$cantidad_turnos_esp}}</h3>
+                @else
                 <h3><?php echo $cantidad; ?>/{{$cantidad_turnos}}</h3>
+                @endif
+                
               </div>
               <div class="icon">
                 <i class="fas fa-calendar-alt"></i>
               </div>
-              @if(($cantidad < $cantidad_turnos)||(Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
+              @if(($cantidad < $cantidad_turnos)||($cantidad < $cantidad_turnos_esp)||(Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
               <a href="#" class="small-box-footer" wire:click='Asignarturno({{$horario->id_horario}})'>
               Asignar turno <i class="far fa-calendar-plus fa-sm"></i>
               </a>

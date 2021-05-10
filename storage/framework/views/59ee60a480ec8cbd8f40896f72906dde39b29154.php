@@ -37,7 +37,7 @@
         <div class = "col-sm-6">
           <div class="alert alert-dismissible" style = "background-color:orange;">
               <h5><i class="icon fas fa-exclamation-triangle"></i> Novedades!</h5>
-              -Calcio iónico = <strong>Lunes, Martes y Miércoles</strong><br>
+              -Calcio iónico = <strong>Lunes Miércoles y Viernes</strong><br>
               -Proteinograma electrof. = <strong>Jueves y Viernes</strong><br>
               -HPV = <strong>Miércoles</strong><br>
               -Cariotipo Bandeo GTG | Cariotipo alta resolución (suspendida) = <strong>Lunes y Martes</strong><br>
@@ -68,12 +68,17 @@
                 <?php
                   $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id_horario]])->get()->count();
                 ?>
+                <?php if(($horario->id_horario == 6)||($horario->id_horario == 1)||($horario->id_horario == 2)||($horario->id_horario == 3)||($horario->id_horario == 4)||($horario->id_horario == 5)): ?>
+                <h3><?php echo $cantidad; ?>/<?php echo e($cantidad_turnos_esp); ?></h3>
+                <?php else: ?>
                 <h3><?php echo $cantidad; ?>/<?php echo e($cantidad_turnos); ?></h3>
+                <?php endif; ?>
+                
               </div>
               <div class="icon">
                 <i class="fas fa-calendar-alt"></i>
               </div>
-              <?php if(($cantidad < $cantidad_turnos)||(Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
+              <?php if(($cantidad < $cantidad_turnos)||($cantidad < $cantidad_turnos_esp)||(Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')): ?>
               <a href="#" class="small-box-footer" wire:click='Asignarturno(<?php echo e($horario->id_horario); ?>)'>
               Asignar turno <i class="far fa-calendar-plus fa-sm"></i>
               </a>

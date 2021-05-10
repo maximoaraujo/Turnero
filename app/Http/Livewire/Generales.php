@@ -43,7 +43,7 @@ class Generales extends Component
     public $turnos_desde = [];
     //Buscadores
     public $obrasocial, $practica;
-    public $cantidad_turnos, $cantidad_ioscor, $cantidad_resto, $cantidad_demanda;
+    public $cantidad_turnos, $cantidad_turnos_esp, $cantidad_ioscor, $cantidad_resto, $cantidad_demanda;
     public $total_turnos;
     public $profe, $sin_cargo, $plan_sumar;
     public $ioscor, $demanda, $resto, $iosfa;
@@ -195,6 +195,7 @@ class Generales extends Component
 
        
         $this->cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
+        $this->cantidad_turnos_esp = config::get()->pluck('cant_turnos_gen_esp')->first();
         $this->cantidad_ioscor = config::get()->pluck('cant_turnos_ioscor')->first();
         $this->cantidad_resto = config::get()->pluck('cant_turnos_resto')->first();
         $this->cantidad_demanda = config::get()->pluck('cant_turnos_demanda')->first();
