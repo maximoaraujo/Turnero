@@ -62,12 +62,12 @@
               window.open('/comprobante_turno/'+id_turno, '_blank');
           }); 
        </script>
-    <?php endif; ?>
+    <?php endif; ?>    
     <?php if($vista == 'turnos'): ?>
     <div class = "row">
     <!--Horarios-->
     <?php $__currentLoopData = $horarios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $horario): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-    <div class="col-lg-3 col-6 mt-2">
+    <div class="col-lg-3 col-6 mt-2 ml-2">
       <!---->
       <div class="small-box bg-info">
         <div class="inner">
@@ -95,23 +95,25 @@
     <?php if($vista == 'asignar'): ?>
     <div class = "row">
       <!--Paciente-->
-      <div class = "col-sm-5 mt-4 ml-2">
+      <div class = "col-sm-5 mt-2 ml-2">
       <h5><span class="text-bold" style = "color:blue;">Horario: <?php echo e($horario); ?></span></h5>
       <div class="card card">
         <div class="card-header">
           <h3 class="card-title">Paciente</h3>
         </div>
         <div class="card-body">
-          <?php if(date('l', strtotime($fecha)) == 'Tuesday'): ?>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" wire:model='ley' id = "ley">
-                <label class="custom-control-label" for = "ley">Ley 26743</label>
+          <?php if($horario == '06:30'): ?>
+            <?php if((date('l', strtotime($fecha)) == 'Wednesday') || (date('l', strtotime($fecha)) == 'Friday')): ?>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" wire:model='p75' id = 'p75'>   
+                <label class="custom-control-label" for="p75">P75</label> 
               </div>
+            <?php endif; ?>
           <?php endif; ?>
- 
+        
           <div class="row">
             <div class = "col-sm-4">
-                <input type = "number" class = "form-control" wire:model.defer='documento' wire:keydown.enter='buscoPaciente' placeholder="Documento">
+                <input type = "number" class = "form-control" wire:model='documento' wire:keydown.enter='buscoPaciente' placeholder="Documento">
 				        <?php $__errorArgs = ['documento'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -130,8 +132,8 @@ unset($__errorArgs, $__bag); ?>
                     <span class="sr-only">Buscando paciente...</span>
                   </div>
               </div> 
-            </div>  
-			      <div class = "col-sm-12 ml-1"><p class = "small" style = "font-size:12px;color:red;">Para buscar presione el botón o ENTER</p></div>
+            </div> 
+			      <div class = "col-sm-12 ml-1"><p class = "small" style = "font-size:12px;color:red;">Para buscar presione el botón o ENTER</p></div>			
             <?php if($encontrado == 'No'): ?>
             <div class = "col-sm-12">
               <p style = "color:red;">No hay paciente registrado con el documento <?php echo e($documento); ?></p>
@@ -140,7 +142,7 @@ unset($__errorArgs, $__bag); ?>
           </div>
           <div class = "row">
             <div class = "col-sm-12">
-                <input type = "text" class = "form-control" wire:model.defer='paciente' placeholder="Paciente">
+                <input type = "text" class = "form-control" wire:model='paciente' placeholder="Paciente">
 				        <?php $__errorArgs = ['paciente'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -153,21 +155,21 @@ unset($__errorArgs, $__bag); ?>
         </div>
         <div class = "row mt-2">
             <div class = "col-sm-12">
-                <input type = "text" class = "form-control" wire:model.defer='domicilio' placeholder="Domicilio">
+                <input type = "text" class = "form-control" wire:model='domicilio' placeholder="Domicilio">
             </div>
         </div>
         <div class = "row mt-2">
             <div class = "col-sm-6">
-                <input type = "text" class = "form-control" wire:model.defer='telefono' placeholder="Teléfono">
+                <input type = "text" class = "form-control" wire:model='telefono' placeholder="Teléfono">
             </div>
             <div class = "col-sm-6">
-                <input type = "date" class = "form-control" wire:model.defer='fecha_nacimiento' placeholder="Fecha">
+                <input type = "date" class = "form-control" wire:model='fecha_nacimiento' placeholder="Fecha">
             </div>
         </div>
         <div class = "row mt-2">
-            <div class = "col-sm-12">
-                <input type = "text" class = "form-control" wire:model.defer='comentarios' placeholder="Comentarios">
-            </div>
+          <div class = "col-sm-12">
+              <input type = "text" class = "form-control" wire:model='comentarios' placeholder="Comentarios">
+          </div>
         </div>
         <div class = "row mt-2">
           <div class = "col-sm-12">
@@ -189,12 +191,12 @@ unset($__errorArgs, $__bag); ?>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </div>
         </div>
-        
+
         </div>
       </div>
       </div>
       <!--Prácticas-->
-      <div class = "col-sm-6 mt-2 ml-2">
+      <div class = "col-sm-6 mt-4 ml-2">
       <div class="card card">
         <div class="card-header">
           <h3 class="card-title">Asignar prácticas</h3>
@@ -203,7 +205,7 @@ unset($__errorArgs, $__bag); ?>
           <div class = "row">
             <div class = "col-sm-12">
             <input wire:model.debounce.500ms="obrasocial" 
-            wire:keydown="buscarObrasocial" type="text" class="form-control" placeholder="Obra social" autocomplete="off"> 
+            wire:keydown="buscarObrasocial" type="text" class="form-control" placeholder="Obra social" autocomplete="off">
 			      <?php $__errorArgs = ['obrasocial'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -211,11 +213,10 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> <span class ="badge badge-danger"><?php echo e($message); ?></span> <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>
+unset($__errorArgs, $__bag); ?>			
               <?php if(count($obras_sociales)>0): ?>
                 <?php if(!$picked): ?>
                   <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
-                  <a href = "#" wire:click='cierroBusqueda' style = "float:right;"><i class="fas fa-times-circle"></i></a>
                       <?php $__currentLoopData = $obras_sociales; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $obra_social): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                       <div style="cursor: pointer;color:black;">
                           <a wire:click="asignarObrasocial('<?php echo e($obra_social->obra_social); ?>')">
@@ -240,6 +241,7 @@ unset($__errorArgs, $__bag); ?>
               <?php if(count($practicas)>0): ?>
                 <?php if(!$picked_): ?>
                   <div class="shadow rounded px-3 pt-3 pb-0 orange lighten-5">
+                  <a href = "#" wire:click='cierroBusqueda' style = "float:right;"><i class="fas fa-times-circle"></i></a>
                       <?php $__currentLoopData = $practicas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $practica): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                       <div style="cursor: pointer;color:black;">
                           <a wire:click="asignarPractica('<?php echo e($practica->practica); ?>')">
@@ -310,4 +312,4 @@ unset($__errorArgs, $__bag); ?>
 
 
 
-<?php /**PATH D:\Proyectos\Turnero\resources\views/livewire/dengue.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\Proyectos\Turnero\resources\views/livewire/citogenetica.blade.php ENDPATH**/ ?>

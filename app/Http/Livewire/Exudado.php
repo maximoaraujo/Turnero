@@ -45,7 +45,7 @@ class Exudado extends Component
     public $obrasocial, $practica;
     public $cantidad_turnos, $cantidad_ioscor;
     public $total_turnos;
-    public $profe, $sin_cargo, $plan_sumar;
+    public $profe, $sin_cargo, $plan_sumar, $iosfa;
     public $ioscor, $demanda, $resto;
     //Orden
     public $orden, $url;
@@ -132,6 +132,19 @@ class Exudado extends Component
         ->where('pacientes_turnos.para', 'exudado')
         ->where(function ($query) {
             $query->where('obras_socials.obra_social', '=', 'SIN CARGO');
+            })
+        ->get()->count();
+
+        $this->iosfa = paciente::join('pacientes_turnos', 'pacientes_turnos.documento', 'pacientes.documento')
+        ->join('obras_socials', 'obras_socials.id', 'pacientes.obra_social_id')
+        ->where('pacientes_turnos.fecha', $this->fecha)
+        ->where(function ($query) {
+            $query->where('pacientes_turnos.para', '=', 'general')
+            ->orWhere('pacientes_turnos.para', '=', 'P75');
+            })
+        ->where(function ($query) {
+            $query->where('obras_socials.obra_social', '=', 'IOSFA (FUERZAS ARMADAS)')
+            ->orWhere('obras_socials.obra_social', '=', 'IOSFA PRESUPUESTO (FUERZAS ARMADAS)');
             })
         ->get()->count();
 
