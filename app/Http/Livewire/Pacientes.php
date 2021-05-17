@@ -27,7 +27,7 @@ class Pacientes extends Component
     public $id_turno, $id_turno_viejo;
     public $fecha_turno, $horario_turno, $fecha_nuevo_turno, $id_nuevo_horario, $id_horario_viejo;
     public $horarios = [];
-    public $cantidad_turnos;
+    public $cantidad_turnos, $cantidad_turnos_esp;
     public $para;
     //Para editar/eliminar las prácticas asociadas
     public $practicas_asociadas = [];
@@ -216,6 +216,7 @@ class Pacientes extends Component
         ->where('horarios_estudios.estudio', 'generales')
         ->orderBy('horarios.horario')->get();
         $this->cantidad_turnos = config::get()->pluck('cant_turnos_gen')->first();
+        $this->cantidad_turnos_esp = config::get()->pluck('cant_turnos_gen_esp')->first();
     }
 
     public function horarios_p75()

@@ -9,12 +9,16 @@
         <?php
             $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha_nuevo_turno],['id_horario', $horario->id]])->get()->count();
         ?>
+        @if(($horario->id_horario == 6)||($horario->id_horario == 2)||($horario->id_horario == 4)||($horario->id_horario == 7))
+        <span class="info-box-number"><?php echo $cantidad; ?> | {{$cantidad_turnos_esp}}</span>
+        @else
         <span class="info-box-number"><?php echo $cantidad; ?> | {{$cantidad_turnos}}</span>
-
+        @endif
+        
         <div class="progress">
             <div class="progress-bar" style="width: <?php echo ($cantidad * 10); ?>%"></div>
         </div>
-        @if(($cantidad < $cantidad_turnos)||(Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
+        @if(($cantidad < $cantidad_turnos)||($cantidad < $cantidad_turnos_esp)||(Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
         <span class="progress-description">
             <button type="button" class="btn btn-block btn-default btn-sm" wire:click='nuevo_turno("{{$horario->id_horario}}", "{{Auth::user()->id}}", "general")'>Asignar</button>
         </span>

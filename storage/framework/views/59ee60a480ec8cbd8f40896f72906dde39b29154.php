@@ -68,7 +68,7 @@
                 <?php
                   $cantidad = App\Models\pacientes_turno::where([['fecha', $fecha],['id_horario', $horario->id_horario]])->get()->count();
                 ?>
-                <?php if(($horario->id_horario == 6)||($horario->id_horario == 1)||($horario->id_horario == 2)||($horario->id_horario == 3)||($horario->id_horario == 4)||($horario->id_horario == 5)): ?>
+                <?php if(($horario->id_horario == 6)||($horario->id_horario == 2)||($horario->id_horario == 4)||($horario->id_horario == 7)): ?>
                 <h3><?php echo $cantidad; ?>/<?php echo e($cantidad_turnos_esp); ?></h3>
                 <?php else: ?>
                 <h3><?php echo $cantidad; ?>/<?php echo e($cantidad_turnos); ?></h3>
