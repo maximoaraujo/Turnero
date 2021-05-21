@@ -5,7 +5,7 @@
         <input type = "date" class = "form-control" wire:model='fecha'>
     </div>
     <div class = "col-sm-10 mt-3">IOSCOR: <span class = "text-danger"><?php echo e($ioscor); ?></span> | 
-      PLAN SUMAR (<?php echo e($plan_sumar); ?>) - PROFE (<?php echo e($profe); ?>) - SIN CARGO (<?php echo e($sin_cargo); ?>): <span class = "text-danger"><?php echo e($resto); ?></span> | Resto: <span class = "text-danger"><?php echo e($demanda); ?></span></div>
+      PLAN SUMAR (<?php echo e($plan_sumar); ?>) - PROFE (<?php echo e($profe); ?>) - SIN CARGO (<?php echo e($sin_cargo); ?>): <span class = "text-danger"><?php echo e($resto); ?></span> | Resto: <span class = "text-danger"><?php echo e($demanda); ?></span> | IOSFA: <span class = "text-danger"><?php echo e($iosfa); ?></span> </div>
     </div>
     <!--Verificamos cuantos turnos para IOSCOR hay asignados-->
     <?php
@@ -43,6 +43,16 @@
     </div>
     </center>
     <?php endif; ?>
+    <div class = "col-sm-6 mt-2">
+      <div class="alert alert-dismissible" style = "background-color:orange;">
+          <h5><i class="icon fas fa-exclamation-triangle"></i> Novedades!</h5>
+          -Calcio iónico = <strong>Lunes Miércoles y Viernes</strong><br>
+          -Proteinograma electrof. = <strong>Jueves y Viernes</strong><br>
+          -HPV = <strong>Miércoles</strong><br>
+          -Cariotipo Bandeo GTG | Cariotipo alta resolución (suspendida) = <strong>Lunes y Martes</strong><br>
+          -Hepatitis B CARGA VIRAL | Hepatitis C CARGA VIRAL | Citogenetica m. ósea = <strong>Lunes a Jueves</strong>                
+      </div>
+    </div>
     <!--Una vez que se genera el turno abrimos el comprobante en otra ventana y le pasamos el ID-->
     <?php if(session()->has('message')): ?>
     <input type = "text" value = "<?php echo e(session('message')); ?>" id = "id_turno" hidden>
