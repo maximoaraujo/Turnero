@@ -137,10 +137,11 @@ class VerTurnos extends Component
             $this->turnos_generales = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
             ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
             ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
+            ->join('turnodesds', 'pacientes_turnos.desde_id', 'turnodesds.id')
             ->where($condicion_gen)
             ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
             'users.name', 'pacientes.domicilio', 'pacientes.telefono', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 'pacientes_turnos.asistio',
-            'pacientes_turnos.created_at')->orderBy('horarios.horario')->get();
+            'pacientes_turnos.created_at', 'turnodesds.desde')->orderBy('horarios.horario')->get();
         } else {
             $condicion_gen = ['pacientes_turnos.fecha' => $this->fecha, 'pacientes_turnos.para' => 'general'];
             $this->turnos_generales = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
@@ -162,20 +163,22 @@ class VerTurnos extends Component
             $this->turnos_generales = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
             ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
             ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
+            ->join('turnodesds', 'pacientes_turnos.desde_id', 'turnodesds.id')
             ->where($condicion_gen)
             ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
             'users.name', 'pacientes.domicilio', 'pacientes.telefono', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 
-            'pacientes_turnos.asistio', 'pacientes_turnos.created_at')->orderBy('horarios.horario')
+            'pacientes_turnos.asistio', 'pacientes_turnos.created_at', 'turnodesds.desde')->orderBy('horarios.horario')
             ->get(); 
         } else {
             $condicion_gen = ['pacientes_turnos.fecha' => $this->fecha, 'pacientes_turnos.para' => 'general', 'pacientes_turnos.id_horario' => $this->horario_sel];
             $this->turnos_generales = pacientes_turno::join('horarios', 'pacientes_turnos.id_horario', 'horarios.id_horario')
             ->join('pacientes', 'pacientes_turnos.documento', 'pacientes.documento')
             ->join('users', 'users.id', 'pacientes_turnos.id_usuario')
+            ->join('turnodesds', 'pacientes_turnos.desde_id', 'turnodesds.id')
             ->where($condicion_gen)
             ->select('pacientes_turnos.id_turno', 'pacientes_turnos.id_horario', 'horarios.horario', 'pacientes_turnos.id', 'pacientes_turnos.letra', 'pacientes.paciente', 'pacientes.documento', 
             'users.name', 'pacientes.domicilio', 'pacientes.telefono', DB::raw("(SELECT obra_social FROM obras_socials WHERE obras_socials.id = pacientes.obra_social_id) AS obra_social"), 
-            'pacientes_turnos.asistio', 'pacientes_turnos.created_at')->orderBy('horarios.horario')
+            'pacientes_turnos.asistio', 'pacientes_turnos.created_at', 'turnodesds.desde')->orderBy('horarios.horario')
             ->get(); 
         }   
     }
