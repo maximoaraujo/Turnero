@@ -23,7 +23,8 @@
         <th scope="col"></th>
         <th scope="col"></th>
         <th scope="col"></th>
-        @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
+        @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')||(Auth::user()->rol == 'admision'))
+        <th scope="col"></th>
         <th scope="col"></th>
         @endif
         <th></th>
@@ -50,8 +51,9 @@
         <td><button wire:click='editar_turno("{{$turno_general->id_turno}}", "{{$fecha}}", "{{$turno_general->horario}}", "{{$turno_general->id_horario}}", "general")' style = "border:none;background-color:transparent;"><i class="far fa-calendar-alt"></i></button></td>
         <td><button wire:click='eliminar_turno("{{$turno_general->id_turno}}", "{{$turno_general->documento}}")' style = "border:none;background-color:transparent;"><i class="far fa-trash-alt"></i></button></td>  
         <td><a href = "/comprobante_turno/{{$turno_general->id_turno}}" target='_blank'><button style = "border:none;background-color:transparent;"><i class="fas fa-file-import"></i></button></a></td>
-        @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador'))
+        @if((Auth::user()->rol == 'desarrollador')||(Auth::user()->rol == 'administrador')||(Auth::user()->rol == 'admision'))
         <td nowrap>{{$turno_general->name}}-{{ date('d-m-Y H:m:s', strtotime($turno_general->created_at)) }}</td>
+        <td nowrap>{{$turno_general->desde}}</td>
         <td><a href = "/orden_turno{{$turno_general->id_turno}}" target="_blank"><button style = "border:none;background-color:transparent;"><i class="fas fa-file-contract"></i></button></a></td>
         @endif
     </tr>
